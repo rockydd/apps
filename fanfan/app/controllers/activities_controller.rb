@@ -1,4 +1,5 @@
 class ActivitiesController < ApplicationController
+  before_filter :login_required
   def index
     @rows = (params[:rows]||10).to_i
     @page = (params[:page]||1).to_i
