@@ -1,5 +1,4 @@
 class Activity < ActiveRecord::Base
-  has_many :participations
   has_many :payers, :through => :payments, :source => :user
   has_many :payments
   validates_presence_of :subject
