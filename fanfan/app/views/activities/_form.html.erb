@@ -46,6 +46,10 @@ function debug()
   alert(test1.selectedIndex);
   test1.selectedIndex=2;
 }
+jQuery(function() {
+		$( "#activity_occur_at" ).datepicker();
+	});
+
 </script>
 
 <%= form_for @activity do |f| %>
@@ -64,6 +68,13 @@ function debug()
     <%= f.label :cost %><br />
     <%= f.number_field :cost %>
   </p>
+  <p>
+    <%= f.label :occur_at %><br />
+    <%= f.text_field :occur_at %>
+  </p>
+<div class="demo-description" style="display: none; ">
+<p>The datepicker is tied to a standard form input field.  Focus on the input (click, or use the tab key) to open an interactive calendar in a small overlay.  Choose a date, click elsewhere on the page (blur the input), or hit the Esc key to close. If a date is chosen, feedback is shown as the input's value.</p>
+</div>
   <p>
     <%= f.label :detail %><br />
     <%= f.text_field :detail %>
