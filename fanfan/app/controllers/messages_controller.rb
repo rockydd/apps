@@ -84,4 +84,9 @@ class MessagesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def reply
+    @message = Message.find(params[:id])
+    @message
+  end
 end
