@@ -1,7 +1,13 @@
+#sitetitle {
+font-size: 50px;
+color: red;
+}
+
 body {
   background-color: #4B7399;
-  font-family: Verdana, Helvetica, Arial;
+  font-family: "Times New Roman", Times, serif;
   font-size: 14px;
+  color: red;
 }
 
 a img {
@@ -80,11 +86,7 @@ background-repeat: no-repeat;
 
 
 }
-#sitetitle {
-font-size: 50px;
 
-color: #559D55;
-}
 #welcome {
 float: right;
 }
@@ -110,3 +112,8 @@ float:right;
 height:100px;
 margin-top:10px;
 }
+
+img {
+    border: 2px dotted red;
+}
+
