@@ -4,6 +4,15 @@
     }
 </style>
 
+<script lang="javascript">
+	function checkall() {
+		$("#message input[type=checkbox]").attr("checked", true);	
+	}
+	function checknone() {
+		$("#message input[type=checkbox]").attr("checked", false);	
+	}
+</script>
+
 
 <h1>Listing messages</h1>
 
@@ -38,8 +47,8 @@
 
  <div id="messages_header" class="message_header">
      <span class="select_all_nonei_label"> Select: 
-         <a href="#">All</a>,
-         <a href="#">None</a>,
+         <a href="#" onclick="checkall()">All</a>,
+         <a href="#" onclick="checknone()">None</a>,
          <a href="#">Read</a>,
          <a href="#">Unread</a>
          <input type="button" name="delete" value="Delete">
