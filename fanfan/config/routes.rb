@@ -9,7 +9,11 @@ Fanfan::Application.routes.draw do
 
   resources :sessions
 
-  resources :activities
+  resources :activities do
+    member do
+      post 'confirm_payment'
+    end
+  end
 
   resources :users
 

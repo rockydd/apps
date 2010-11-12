@@ -32,6 +32,7 @@
       <th>member</th>
       <th>payed</th>
       <th>debts</th>
+      <th>action</th>
     </tr>
     <% payers_count = @activity.payers.size %>
     <% average = @activity.cost / payers_count %>
@@ -40,10 +41,12 @@
          <td><%=payment.user.username%></td>
          <td><%=payment.amount%></td>
          <td><%=payment.amount - average%></td>
+	 <td><div id='<%= "confirm_span#{payment.id}" %>'><%= link_to_function 'Confirm', remote_function(:update => "confirm_span#{payment.id}", :url => { :action => :confirm_payment, :method => 'POST' }, :confirm => "Are you sure?") %> </div></td>
       </tr>
     <% end%>
 
   </table>
+  <div id="test">ddd</div>
 
 </div>
 

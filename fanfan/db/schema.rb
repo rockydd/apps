@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101106124715) do
+ActiveRecord::Schema.define(:version => 20101106133000) do
 
   create_table "activities", :force => true do |t|
     t.string   "subject"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20101106124715) do
     t.integer "user_id"
     t.decimal "amount"
     t.boolean "final"
+    t.boolean "confirmed"
   end
 
   create_table "users", :force => true do |t|

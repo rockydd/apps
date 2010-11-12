@@ -73,17 +73,21 @@ class ActivitiesController < ApplicationController
       render :action => 'edit'
     end
   end
-
+  
   def destroy
     @activity = Activity.find(params[:id])
     @activity.destroy
     flash[:notice] = "Successfully destroyed activity."
     redirect_to activities_url
   end
+ 
+  def confirm_payment
+    render :layout => false
+  end
 
   private
   def get_payments
-    payments = params[:activity][:payments].inject([]){|r,i| r[-1].is_a?(String) ?  r<<(Payment.new(:user_id => r.pop().to_i, :amount => i)) : r<<i}
+    payments = params[:activity][:payments].inject([]){|r,i| r[-1].is_a?(String) ?  r<<(Payment.new(:user_id => r.pop().to_i, :amount => i, :confirmed => false)) : r<<i}
     return payments if payments.size <= 1
     total = payments[0].amount
     average = payments[0].amount/payments.size
@@ -91,6 +95,7 @@ class ActivitiesController < ApplicationController
     #other payed
     other_total = payments[1..-1].inject(0){ |sum,i| sum += i.amount}
     payments[0].amount = total - other_total
+    
     payments
   end
 end
