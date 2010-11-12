@@ -1,3 +1,19 @@
+<style>
+    .message_filter {
+        float: right;
+    }
+</style>
+
+<script lang="javascript">
+	function checkall() {
+		$("#message input[type=checkbox]").attr("checked", true);	
+	}
+	function checknone() {
+		$("#message input[type=checkbox]").attr("checked", false);	
+	}
+</script>
+
+
 <h1>Listing messages</h1>
 
 <table>
@@ -27,6 +43,38 @@
 <% end %>
 </table>
 
+<%= link_to 'New Message', new_message_path %>
+
+ <div id="messages_header" class="message_header">
+     <span class="select_all_nonei_label"> Select: 
+         <a href="#" onclick="checkall()">All</a>,
+         <a href="#" onclick="checknone()">None</a>,
+         <a href="#">Read</a>,
+         <a href="#">Unread</a>
+         <input type="button" name="delete" value="Delete">
+     </span>
+     <div id="message_filter" class="message_filter">
+         <span class="filter_label">Show </span>
+         <a> All </a>
+         <a> Unread </a>
+     </div>
+ </div>
+
+ <div id="message_list">
+     <% @messages.each do |message| %>
+      <div id="message">
+          <table border="0">
+              <tr class="<%= message.status%>" >
+                  <td class="checkbox"><input type="checkbox" name="some_name" value="" unchecked></td>
+                  <td class="authors"> <%= message.receiver_id %> </td>
+                  <td class="body">  <%= message.body %></td>
+                  <td><%= link_to 'Reply', message, :method => :reply %></td>
+                  <td><%= link_to 'Delete', message, :confirm => 'Are you sure?', :method => :delete %></td>
+              </tr>
+
+          </table>
+      </div>
+     <% end %>
+ </div>
 <br />
 
-<%= link_to 'New Message', new_message_path %>
