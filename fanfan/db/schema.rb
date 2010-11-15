@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20101115145420) do
     t.integer "user_id"
     t.decimal "amount"
     t.boolean "final"
+    t.boolean "confirmed"
   end
 
   create_table "user_thread", :id => false, :force => true do |t|
