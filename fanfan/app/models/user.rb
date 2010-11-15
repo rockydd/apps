@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   # new columns need to be added here to be writable through mass assignment
   has_many :messages, :foreign_key => 'receiver_id'
+  has_and_belongs_to_many :message_threads, :join_table => "user_thread", :foreign_key => "threads_id"
+
   attr_accessible :username, :email, :password, :password_confirmation
 
   attr_accessor :password

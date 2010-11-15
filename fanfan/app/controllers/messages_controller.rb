@@ -46,14 +46,28 @@ class MessagesController < ApplicationController
     @message.status = 'new'
     @message.sent_date = Time.new
     @message.sender = current_user
-    respond_to do |format|
-      if @message.save
+
+    @thread = MessageThread.new() 
+    @thread.title = @message.subject
+
+    @thread.users << current_user; 
+    current_user.message_threads << @thread
+
+    begin
+      MessageThread.transaction do
+        @thread.save!
+        @message.save!
+	current_user.save!
+      end
+      respond_to do |format|
         format.html { redirect_to(@message, :notice => 'Message was successfully created.') }
         format.xml  { render :xml => @message, :status => :created, :location => @message }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @message.errors, :status => :unprocessable_entity }
-      end
+      end 
+    rescue ActiveRecord::RecordInvalid => invalid
+	respond_to do |format|
+	    format.html { render :action => "new" }
+	    format.xml  { render :xml => @message.errors, :status => :unprocessable_entity }
+	end
     end
   end
 

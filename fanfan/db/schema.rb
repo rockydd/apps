@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101109144541) do
+ActiveRecord::Schema.define(:version => 20101115145420) do
 
   create_table "activities", :force => true do |t|
     t.string   "subject"
@@ -22,10 +22,8 @@ ActiveRecord::Schema.define(:version => 20101109144541) do
     t.datetime "occur_at"
   end
 
-  create_table "message_items", :force => true do |t|
-    t.datetime "sent_date"
-    t.text     "content"
-    t.integer  "message_id"
+  create_table "message_threads", :force => true do |t|
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -39,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20101109144541) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "thread_id"
   end
 
   create_table "payments", :force => true do |t|
@@ -46,6 +45,11 @@ ActiveRecord::Schema.define(:version => 20101109144541) do
     t.integer "user_id"
     t.decimal "amount"
     t.boolean "final"
+  end
+
+  create_table "user_thread", :id => false, :force => true do |t|
+    t.integer "users_id"
+    t.integer "threads_id"
   end
 
   create_table "users", :force => true do |t|
