@@ -3,11 +3,11 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def index
-    @messages = current_user.messages
+    @threads = current_user.inbox_threads
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @messages }
+      format.xml  { render :xml => @threads }
     end
   end
 
@@ -43,15 +43,16 @@ class MessagesController < ApplicationController
   # POST /messages.xml
   def create
     @message = Message.new(params[:message])
-    @message.status = 'new'
     @message.sent_date = Time.new
     @message.sender = current_user
 
     @thread = MessageThread.new() 
     @thread.title = @message.subject
-
+    @thread.status = "new"
+    
     @thread.users << current_user; 
-    current_user.message_threads << @thread
+    @thread.users << @message.receiver; 
+    current_user.inbox_threads << @thread
 
     begin
       MessageThread.transaction do
