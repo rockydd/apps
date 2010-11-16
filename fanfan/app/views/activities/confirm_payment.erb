@@ -1,1 +1,7 @@
-<span>Confirmed</span>
+<span>
+<% if @confirmed %>
+Confirmed
+<% else %>
+<%= @error_message %>
+<% end%>
+</span>

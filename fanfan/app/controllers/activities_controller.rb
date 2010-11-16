@@ -82,6 +82,28 @@ class ActivitiesController < ApplicationController
   end
  
   def confirm_payment
+    activity = Activity.find(params[:id])
+    if activity.nil?
+      @confirmed = false
+      @error_message = "activity not found"
+      render :layout => false 
+      return
+    end
+
+    user = current_user
+    if ! activity.payers.include?(user)
+      @confirmed = false
+      @error_message = "you didn't attend this activity"
+      render :layout => false
+      return 
+    end
+
+    payment = activity.payments.find(:first, :conditions => "user_id = #{user.id}")
+    payment.confirmed = true
+    payment.save
+    @confirmed = true
+      
+      
     render :layout => false
   end
 
