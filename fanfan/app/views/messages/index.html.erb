@@ -39,7 +39,7 @@
           <table border="0">
               <tr class="<%= thread.status %>" >
                   <td class="checkbox"><input type="checkbox" name="some_name" value="" unchecked></td>
-                  <td class="title"> <%= thread.title %> </td>
+                  <td class="title"> <%= link_to thread.title, :action => "show", :controller => "thread", :id => thread %> </td>
               </tr>
 
           </table>

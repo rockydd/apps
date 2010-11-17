@@ -39,6 +39,15 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:id])
   end
 
+  def reply
+    @message = Meessage.new(params[:new_message])
+    @message.sent_date = Time.new
+    @message.sender = current_user 
+    #@message.thread = MessageThread.find(params[:thread_id]) 
+    @message.save
+    redirect_to :controller => "thread", :action => "show", :id => @message.thread
+  end 
+  
   # POST /messages
   # POST /messages.xml
   def create
@@ -50,9 +59,12 @@ class MessagesController < ApplicationController
     @thread.title = @message.subject
     @thread.status = "new"
     
+    @message.thread = @thread
+    
     @thread.users << current_user; 
     @thread.users << @message.receiver; 
     current_user.inbox_threads << @thread
+    @message.receiver.inbox_threads << @thread
 
     begin
       MessageThread.transaction do

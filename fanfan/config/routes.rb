@@ -1,4 +1,7 @@
 Fanfan::Application.routes.draw do
+  get "thread/show"
+  match "thread/:id" => 'thread#reply', :via => [:POST], :as => "reply"
+
   resources :messages
 
   match 'signup' => 'users#new', :as => :signup
