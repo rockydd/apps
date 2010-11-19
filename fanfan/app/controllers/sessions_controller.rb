@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+
   def new
   end
 
@@ -14,9 +15,19 @@ class SessionsController < ApplicationController
     end
   end
 
+
   def destroy
     session[:user_id] = nil
     flash[:notice] = "You have been logged out."
     redirect_to "/"
+  end
+
+  def change_theme
+    ## should load from some where else. e.g db
+    if session[:theme].nil? || session[:theme] == "red"
+      session[:theme] = "base"
+    else
+      session[:theme] = "red"
+    end
   end
 end

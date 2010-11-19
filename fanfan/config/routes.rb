@@ -10,6 +10,8 @@ Fanfan::Application.routes.draw do
 
   match 'login' => 'sessions#new', :as => :login
 
+  match 'change_theme' => 'sessions#change_theme'
+
   resources :sessions
 
   resources :activities do
