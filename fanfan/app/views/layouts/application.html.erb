@@ -21,10 +21,6 @@
         <%= image_tag "logo.png"%>
         <span id='sitetitle'> FanFan</span>
         <div id="welcome">
-          <%= link_to "换件衣服?", change_theme_path %>
-          <%= @theme %>
-        </div>
-        <div id="welcome">
           <% if logged_in? %>
           Welcome <%= current_user.username %>! Not you?
           <%= link_to "Log out", logout_path %>
@@ -52,6 +48,9 @@
         </div>
       </div>
       <div id="footer">
+        <div style="float:right">
+          <%= link_to "换件衣服?", change_theme_path %>
+        </div>
       </div>
 
     </div>
