@@ -16,33 +16,6 @@
 
 <h1>Listing messages</h1>
 
-<table>
-  <tr>
-    <th>Subject</th>
-    <th>Sent date</th>
-    <th>Sender</th>
-    <th>Receiver</th>
-    <th>Status</th>
-    <th>Body</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @messages.each do |message| %>
-  <tr>
-    <td><%= message.subject %></td>
-    <td><%= message.sent_date %></td>
-    <td><%= message.sender_id %></td>
-    <td><%= message.receiver_id %></td>
-    <td><%= message.status %></td>
-    <td><%= message.body %></td>
-    <td><%= link_to 'Show', message %></td>
-    <td><%= link_to 'Delete', message, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
 <%= link_to 'New Message', new_message_path %>
 
  <div id="messages_header" class="message_header">
@@ -61,15 +34,12 @@
  </div>
 
  <div id="message_list">
-     <% @messages.each do |message| %>
+     <% @threads.each do |thread| %>
       <div id="message">
           <table border="0">
-              <tr class="<%= message.status%>" >
+              <tr class="<%= thread.status %>" >
                   <td class="checkbox"><input type="checkbox" name="some_name" value="" unchecked></td>
-                  <td class="authors"> <%= message.receiver_id %> </td>
-                  <td class="body">  <%= message.body %></td>
-                  <td><%= link_to 'Reply', message, :method => :reply %></td>
-                  <td><%= link_to 'Delete', message, :confirm => 'Are you sure?', :method => :delete %></td>
+                  <td class="title"> <%= link_to thread.title, :action => "show", :controller => "thread", :id => thread %> </td>
               </tr>
 
           </table>

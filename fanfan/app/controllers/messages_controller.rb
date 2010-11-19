@@ -3,11 +3,11 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def index
-    @messages = current_user.messages
+    @threads = current_user.inbox_threads
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @messages }
+      format.xml  { render :xml => @threads }
     end
   end
 
@@ -39,21 +39,48 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:id])
   end
 
+  def reply
+    @message = Meessage.new(params[:new_message])
+    @message.sent_date = Time.new
+    @message.sender = current_user 
+    #@message.thread = MessageThread.find(params[:thread_id]) 
+    @message.save
+    redirect_to :controller => "thread", :action => "show", :id => @message.thread
+  end 
+  
   # POST /messages
   # POST /messages.xml
   def create
     @message = Message.new(params[:message])
-    @message.status = 'new'
     @message.sent_date = Time.new
     @message.sender = current_user
-    respond_to do |format|
-      if @message.save
+
+    @thread = MessageThread.new() 
+    @thread.title = @message.subject
+    @thread.status = "new"
+    
+    @message.thread = @thread
+    
+    @thread.users << current_user; 
+    @thread.users << @message.receiver; 
+    current_user.inbox_threads << @thread
+    @message.receiver.inbox_threads << @thread
+
+    begin
+      MessageThread.transaction do
+        @thread.save!
+        @message.save!
+	current_user.save!
+      end
+      respond_to do |format|
         format.html { redirect_to(@message, :notice => 'Message was successfully created.') }
         format.xml  { render :xml => @message, :status => :created, :location => @message }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @message.errors, :status => :unprocessable_entity }
-      end
+      end 
+    rescue ActiveRecord::RecordInvalid => invalid
+	respond_to do |format|
+	    format.html { render :action => "new" }
+	    format.xml  { render :xml => @message.errors, :status => :unprocessable_entity }
+	end
     end
   end
 

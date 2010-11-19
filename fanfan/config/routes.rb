@@ -1,4 +1,7 @@
 Fanfan::Application.routes.draw do
+  get "thread/show"
+  match "thread/:id" => 'thread#reply', :via => [:POST], :as => "reply"
+
   resources :messages
 
   match 'signup' => 'users#new', :as => :signup
@@ -6,6 +9,8 @@ Fanfan::Application.routes.draw do
   match 'logout' => 'sessions#destroy', :as => :logout
 
   match 'login' => 'sessions#new', :as => :login
+
+  match 'change_theme' => 'sessions#change_theme'
 
   resources :sessions
 
