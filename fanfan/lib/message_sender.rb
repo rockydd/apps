@@ -4,7 +4,7 @@ module MessageSender
     thread.title = title
     thread.status = "new"
     thread.users << sender
-    
+
     receivers.each do |receiver|
       thread.users << receiver 
     end 
@@ -15,6 +15,7 @@ module MessageSender
     end 
 
     message = Message.new
+    message.subject = title
     message.body = content 
     message.sent_date = Time.new
     message.sender = sender

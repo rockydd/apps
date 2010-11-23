@@ -1,5 +1,7 @@
+require 'message_sender'
 class ActivitiesController < ApplicationController
   before_filter :login_required
+  include MessageSender
   def index
     @rows = (params[:rows]||10).to_i
     @page = (params[:page]||1).to_i
@@ -46,10 +48,12 @@ class ActivitiesController < ApplicationController
     params[:activity][:payments] = get_payments
 
     @activity = Activity.new(params[:activity])
+    @activity.creator = current_user
 
     @activity.status='new'
     if @activity.save
       flash[:notice] = "Successfully created activity."
+      send_confirmation_message(@activity)
       redirect_to @activity
     else
       @users=User.find(:all)
@@ -120,4 +124,10 @@ class ActivitiesController < ApplicationController
     
     payments
   end
+
+  CONFIRMATION_MESSAGE="There is a new activity need your confirmation, please click following link to get there:\n\n http:///activities/"
+  def send_confirmation_message(activity)
+      send_message(activity.creator,@activity.payers, "New activity need your confirmation", CONFIRMATION_MESSAGE+activity.id.to_s)
+  end
+      
 end
