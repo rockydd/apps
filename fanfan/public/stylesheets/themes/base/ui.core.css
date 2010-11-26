@@ -130,6 +130,10 @@ float: right;
 margin: 20px;
 }
 
+label {
+font-weight: bold;
+}
+
 .label {
 font-weight: bold;
 width: 250px;
@@ -138,17 +142,17 @@ width: 250px;
 color: red;
 }
 
-.payment_detail {
+#payment_detail {
 width: 400px;
 }
-.payment_detail th {
+#payment_detail th {
 background: #999;
 }
 
-.payment_detail td.number{
+#payment_detail td.number{
 text-align: right;
 font-weight: bold;
 }
-.payment_detail td.negative-number{
+#payment_detail td.negative-number{
 color: red;
 }

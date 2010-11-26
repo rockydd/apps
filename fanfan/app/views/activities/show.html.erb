@@ -2,6 +2,7 @@
 <script type="text/javascript">
    jQuery(function(){
       jQuery("#activity_calendar").renderCalendar({month:<%= occur_at.month%>,date:<%= occur_at.day %>, year:<%= occur_at.year %>});
+      tableToGrid("#payment_detail_d",{autoWidth:true, caption:'Payment Details'});
    })
 </script>
 
@@ -27,13 +28,14 @@
 <hr/>
 <div>
   <strong>Payments Details:</strong>
-  <table class="payment_detail">
+  <table id="payment_detail">
     <tr>
       <th>Player</th>
       <th>Payed</th>
       <th>Balance</th>
       <th>Status</th>
     </tr>
+    <tbody>
     <% payers_count = @activity.payers.size %>
     <% average = @activity.cost / payers_count %>
     <% for payment in @activity.payments %>
@@ -51,15 +53,14 @@
          Not confirmed
              <% end %>
 
-</td>
+      </td>
       </tr>
     <% end%>
-
+    </tbody>
   </table>
 
 </div>
 
   <%= link_to "Edit", edit_activity_path(@activity) %> |
-  <%= link_to "Destroy", @activity, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", activities_path %>
+  <%= link_to "Activity List", activities_path %>
 
