@@ -2,7 +2,7 @@
 
   <% payments = @activity.payments %>
   <p>
-    <span id='final_payer_span'> 
+    <span id='final_payer_span'>
        <%= label :payers, "Final Payer:" %>
           <%= select_tag "activity_dummy", options_from_collection_for_select(@users,"id","username",{:selected=>@users[0].id}), :class=>'payername',:id=>'final_payer'%>
     </span>
@@ -17,6 +17,7 @@
           <%= label :payers, "Payer:"%>
           <%= select_tag "activity[payments][]", options_from_collection_for_select(@users,"id","username",{:selected=>payment.user_id}), :class=>'payername',:id=>'payername1'%>
           <%= label :payers, "Amount:"%>  <%= number_field_tag :amount, payment.amount || 0, {:min => 1,:step=>1,:class=>"payamount",:name=>"activity[payments][]",:id=>"payamount1", :readonly=>readonly}%>
+          <a href="javascript:void(0)" class='remove_payer'>Remove</a>
        </div>
     <% readonly = false %>
 <% end %>

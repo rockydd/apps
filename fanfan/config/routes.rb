@@ -1,4 +1,6 @@
 Fanfan::Application.routes.draw do
+  resources :balances
+
   get "thread/show"
   match "thread/:id" => 'thread#reply', :via => [:POST], :as => "reply"
 

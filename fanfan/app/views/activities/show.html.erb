@@ -1,7 +1,7 @@
 <% occur_at = @activity.occur_at || @activity.created_at %>
 <script type="text/javascript">
    jQuery(function(){
-      jQuery("#activity_calendar").renderCalendar({month:<%= occur_at.month%>,date:<%= occur_at.day %>, year:<%= occur_at.year %>});
+      jQuery("#activity_calendar").renderCalendar({month:<%= occur_at.month-1%>,date:<%= occur_at.day %>, year:<%= occur_at.year %>});
       tableToGrid("#payment_detail_d",{autoWidth:true, caption:'Payment Details'});
    })
 </script>

@@ -138,21 +138,3 @@ font-weight: bold;
 font-weight: bold;
 width: 250px;
 }
-.money {
-color: red;
-}
-
-#payment_detail {
-width: 400px;
-}
-#payment_detail th {
-background: #999;
-}
-
-#payment_detail td.number{
-text-align: right;
-font-weight: bold;
-}
-#payment_detail td.negative-number{
-color: red;
-}

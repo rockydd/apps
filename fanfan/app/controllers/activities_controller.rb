@@ -49,7 +49,7 @@ class ActivitiesController < ApplicationController
 
     @activity = Activity.new(params[:activity])
     @activity.creator = current_user
-
+debugger
     @activity.status='new'
     if @activity.save
       flash[:notice] = "Successfully created activity."
@@ -77,20 +77,20 @@ class ActivitiesController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @activity = Activity.find(params[:id])
     @activity.destroy
     flash[:notice] = "Successfully destroyed activity."
     redirect_to activities_url
   end
- 
+
   def confirm_payment
     activity = Activity.find(params[:id])
     if activity.nil?
       @confirmed = false
       @error_message = "activity not found"
-      render :layout => false 
+      render :layout => false
       return
     end
 
@@ -99,15 +99,15 @@ class ActivitiesController < ApplicationController
       @confirmed = false
       @error_message = "you didn't attend this activity"
       render :layout => false
-      return 
+      return
     end
 
     payment = activity.payments.find(:first, :conditions => "user_id = #{user.id}")
     payment.confirmed = true
     payment.save
     @confirmed = true
-      
-      
+
+
     render :layout => false
   end
 
@@ -121,7 +121,7 @@ class ActivitiesController < ApplicationController
     #other payed
     other_total = payments[1..-1].inject(0){ |sum,i| sum += i.amount}
     payments[0].amount = total - other_total
-    
+
     payments
   end
 
@@ -129,5 +129,5 @@ class ActivitiesController < ApplicationController
   def send_confirmation_message(activity)
       send_message(activity.creator,@activity.payers, "New activity need your confirmation", CONFIRMATION_MESSAGE+activity.id.to_s)
   end
-      
+
 end

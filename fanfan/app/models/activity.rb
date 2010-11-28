@@ -5,7 +5,7 @@ class Activity < ActiveRecord::Base
   validates_presence_of :subject
   validates_presence_of :status
   validates_presence_of :cost
-  attr_accessible :subject, :status, :detail, :cost, :payers, :payments, :creator
+  attr_accessible :subject, :status, :detail, :cost, :payers, :payments, :creator, :occur_at
 
 
   def payer_names

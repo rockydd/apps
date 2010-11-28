@@ -1,1 +1,74 @@
 @import "ui.core.css";
+.money {
+color: red;
+}
+
+#payment_detail {
+width: 400px;
+}
+#payment_detail th {
+background: #999;
+}
+
+#payment_detail td.number{
+text-align: right;
+font-weight: bold;
+}
+#payment_detail td.negative-number{
+color: red;
+}
+a.remove_payer:link, a.remove_payer:visited,
+a.remove_payer:hover, a.remove_payer:active{
+background: transparent url(images/cancel_16.png) no-repeat 0px 0px;
+color: black;
+}
+.remove_payer{
+display: inline-block;
+padding-left: 20px;
+}
+.action_link{
+text-align: right;
+margin-right: 10px;
+}
+a.add_activity:link, a.add_activity:visited,
+a.add_activity:hover, a.add_activity:active{
+background: transparent url(images/add_16.png) no-repeat 0px 0px;
+color: black;
+}
+.add_activity{
+display: inline-block;
+padding-left: 20px;
+}
+.activity_list_icon{
+list-style-image: url(images/food_small.png);
+float: left;
+margin-left: 30px;
+clear: left;
+
+}
+.activity_list_item{
+list-style: none;
+min-height: 60px;
+margin-left: 40px;
+margin-right: 20px;
+border-bottom: 1px solid #EEE;
+}
+.activity_list_item a{
+font-size: 16px;
+text-decoration: none;
+text-weight: bold;
+color: #369;
+}
+.activity_list_item .user_name{
+font-weight: bold;
+}
+.activity_list_item .activity_time{
+}
+
+.activity_list_item div{
+margin-top: 10px;
+}
+
+.activity_list_item *{
+vertical-align: top;
+}

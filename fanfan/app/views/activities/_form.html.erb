@@ -12,12 +12,14 @@ function addNewPayer()
   var newpayer=$('#payer1').clone();
   $('#payers').append(newpayer);
 
-  newpayer.attr('id','payer'+(++payercount));
+  var newdivid='payer'+(++payercount);
+  newpayer.attr('id',newdivid);
   newpayer.find('.payername').attr('id','payername'+(payercount));
+  newpayer.find('.remove_payer').click(function(){newpayer.remove();});
   newpayer.css('display', '');
   newpayer.children().eq(3).attr('readonly','');
   var tmp=2;
-  var payers=$('.payername:not(#payername2)')
+  var payers=$('.payername:not(#payername'+payercount+')')
 
   payers.each(function(index){
     newpayer.find('option[value='+this.value+']').remove();
@@ -47,8 +49,8 @@ function debug()
   test1.selectedIndex=2;
 }
 jQuery(function() {
-		$( "#activity_occur_at" ).datepicker();
-	});
+        $( "#activity_occur_at" ).datepicker({dateFormat: 'yy-mm-dd'});
+    });
 
 </script>
 
