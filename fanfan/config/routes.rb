@@ -22,6 +22,8 @@ Fanfan::Application.routes.draw do
 
   resources :users
 
+  resources :balances
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
