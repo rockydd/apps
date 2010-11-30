@@ -49,7 +49,7 @@ class ActivitiesController < ApplicationController
 
     @activity = Activity.new(params[:activity])
     @activity.creator = current_user
-debugger
+
     @activity.status='new'
     if @activity.save
       flash[:notice] = "Successfully created activity."

@@ -4,9 +4,18 @@ color: #559D55;
 }
 
 body {
-  background-color: #4B7399;
+    /*  background-image: url(http://www.sustainablesonoma.org/pix/dot.gif);
+  background-image: url(http://t2.gstatic.com/images?q=tbn:ANd9GcTd7TK6tfwGOPAreYphuyC6-Sr4lHfW9fAXzzKVby77fPO0-lqbog);
+  background-image: url(http://t3.gstatic.com/images?q=tbn:ANd9GcQew5y7A9zCyRO-SOMJp6uliJh3JWfxtCjLF0-Lj1xCMZ4woxOF);*/
+  background-image: url(http://t3.gstatic.com/images?q=tbn:ANd9GcSjr1FYgiIApI4b8E-qW2tPZYeDJkK6-apXZIpy0wtIcz1hdP2u);
+
+/*  background-image: url(http://t3.gstatic.com/images?q=tbn:ANd9GcSgN4vWXvWYlrSQNsl0MlbxnXXebPDTnGEQ_ppURjiu-TrU_Ltt);*/
+
+
+/*  background-color: #4B7399;*/
   font-family: Verdana, Helvetica, Arial;
   font-size: 14px;
+
 }
 
 a img {
