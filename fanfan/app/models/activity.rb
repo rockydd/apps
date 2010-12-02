@@ -13,4 +13,15 @@ class Activity < ActiveRecord::Base
     return "" if payers.empty?
     return payers.map{|u| u.username}.join(",")
   end
+
+  def balance_of_user(user)
+    payment = payments.reject{ |p| p.user == user}[0]
+    return 0 if payment.nil?
+    average = cost/payments.size
+    payment.amount - average
+  end
+
+  def confirmed_by_all?
+    payments.reject{ |p| p.confirmed }.length.zero?
+  end
 end

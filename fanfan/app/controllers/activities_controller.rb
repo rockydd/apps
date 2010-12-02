@@ -1,7 +1,10 @@
 require 'message_sender'
+require 'balance'
 class ActivitiesController < ApplicationController
   before_filter :login_required
   include MessageSender
+  include BalanceLib
+
   def index
     @rows = (params[:rows]||10).to_i
     @page = (params[:page]||1).to_i
@@ -107,6 +110,9 @@ class ActivitiesController < ApplicationController
     payment.save
     @confirmed = true
 
+    if activity.confirmed_by_all?
+      calculate_balance(activity)
+    end
 
     render :layout => false
   end
