@@ -62,9 +62,11 @@ class MessagesController < ApplicationController
     @message.thread = @thread
     
     @thread.users << current_user; 
-    @thread.users << @message.receiver; 
     current_user.inbox_threads << @thread
-    @message.receiver.inbox_threads << @thread
+    if current_user != @message.receiver
+      @thread.users << @message.receiver; 
+      @message.receiver.inbox_threads << @thread
+    end
 
     begin
       MessageThread.transaction do
