@@ -34,7 +34,16 @@
         </div>
       </div>
       <div id="wrapper">
+
         <div id="navigation">
+        <div id="tiny_dashboard">
+          <ul>
+            <% if current_user %>
+            <li>Balance: <%= current_user.balance ? current_user.balance.amount : "0" %>$ </li>
+            <% end %>
+          </ul>
+        </div>
+
           <ul>
             <li><%= link_to "Activities",:controller => 'activities'%></li>
             <li><%= link_to "Inbox",:controller => 'messages'%></li>
