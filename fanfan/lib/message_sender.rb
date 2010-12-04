@@ -5,8 +5,10 @@ module MessageSender
     thread.status = "new"
     thread.users << sender
 
-    receivers.each do |receiver|
-      thread.users << receiver 
+    receivers.delete(sender)
+
+    receivers.each do |receiver|    
+        thread.users << receiver 
     end 
     
     sender.inbox_threads << thread

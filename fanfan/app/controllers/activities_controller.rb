@@ -17,11 +17,13 @@ class ActivitiesController < ApplicationController
       oper  = { "eq" => "=","lt" => "<"}[params[:searchOper]]||'like'
       conditions = "#{field} #{oper} '#{value}'"
     end
+    @activities = current_user.activities
     @total = Activity.count
     if conditions
-      @activities = Activity.find(:all,:limit => @rows,:offset => @rows*(@page.to_i-1),:order => "#{@sidx} #{@sort}", conditions.nil? ? nil:conditions => [conditions] )
+      @activities = @activities.find(:all,:limit => @rows,:offset => @rows*(@page.to_i-1),:order => "#{@sidx} #{@sort}", conditions.nil? ? nil:conditions => [conditions] )
     else
-      @activities = Activity.find(:all,:limit => @rows,:offset => @rows*(@page.to_i-1),:order => "#{@sidx} #{@sort}" )
+      #fixme, is this necessary?
+      @activities = @activities.find(:all,:limit => @rows,:offset => @rows*(@page.to_i-1),:order => "#{@sidx} #{@sort}" )
     end
 
     respond_to do |format|
