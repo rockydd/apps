@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # new columns need to be added here to be writable through mass assignment
   has_many :messages, :foreign_key => 'receiver_id'
-  has_and_belongs_to_many :inbox_threads, :join_table => "inbox_threads", :foreign_key => "user_id", :association_foreign_key => "thread_id", :class_name => "MessageThread"
+  has_and_belongs_to_many :inbox_threads, :join_table => "inbox_threads", :foreign_key => "user_id", :association_foreign_key => "thread_id", :class_name => "MessageThread", :order => "updated_at DESC"
   has_one :balance
 
   attr_accessible :username, :email, :password, :password_confirmation
