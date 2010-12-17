@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :activities, :through => :payments, :source => :activity
   has_many :payments
   has_many :messages, :foreign_key => 'receiver_id'
-  has_and_belongs_to_many :inbox_threads, :join_table => "inbox_threads", :foreign_key => "user_id", :association_foreign_key => "thread_id", :class_name => "MessageThread"
+  has_and_belongs_to_many :inbox_threads, :join_table => "inbox_threads", :foreign_key => "user_id", :association_foreign_key => "thread_id", :class_name => "MessageThread", :order => "updated_at DESC"
   has_one :balance
 
   attr_accessible :username, :email, :password, :password_confirmation

@@ -1,6 +1,12 @@
 <h1>Messages</h1>
-
-
+ 
+  <script type="text/javascript" charset="utf-8">
+  	$(document).ready(function() {
+			$("#message_list table tr td#body").each(function(i){ 
+				$(this).html($(this).html().replace(/(http:\/\/[^\s]+)/i, '<a href="$1">$1</a>')); 
+			})	
+	});
+  </script>
 
  <div id="message_list">
           <table border="0">
@@ -9,7 +15,7 @@
               <tr>
                   <td class="author"> <%= link_to message.sender.username %> </td>
                   <td class="date">   <%= message.sent_date %> </td>
-                  <td class="body">   <%= message.body %> </td>
+                  <td class="body" id="body">   <%= message.body %> </td>
               </tr>
      <% end %>
           </table>

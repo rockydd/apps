@@ -75,7 +75,7 @@ class MessagesController < ApplicationController
 	current_user.save!
       end
       respond_to do |format|
-        format.html { redirect_to(@message, :notice => 'Message was successfully created.') }
+        format.html { redirect_to(:action => "index") }
         format.xml  { render :xml => @message, :status => :created, :location => @message }
       end 
     rescue ActiveRecord::RecordInvalid => invalid
