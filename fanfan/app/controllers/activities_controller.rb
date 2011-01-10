@@ -133,9 +133,9 @@ class ActivitiesController < ApplicationController
     payments
   end
 
-  CONFIRMATION_MESSAGE="There is a new activity need your confirmation, please click following link to get there:\n\n http:///activities/"
+  CONFIRMATION_MESSAGE="There is a new activity need your confirmation, please click following link to get there:\n\n <a href='/activities/'"
   def send_confirmation_message(activity)
-      send_message(activity.creator,@activity.payers, "New activity need your confirmation", CONFIRMATION_MESSAGE+activity.id.to_s)
+      send_message(activity.creator,@activity.payers, "Need your confirmation for #{activity.subject}", CONFIRMATION_MESSAGE+activity.id.to_s)
   end
 
 end

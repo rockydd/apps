@@ -1,5 +1,7 @@
-module MessageSender 
+module MessageSender
   def send_message(sender, receivers, title, content)
+
+    receivers = receivers.to_a
     thread = MessageThread.new
     thread.title = title
     thread.status = "new"
@@ -7,31 +9,31 @@ module MessageSender
 
     receivers.delete(sender)
 
-    receivers.each do |receiver|    
-        thread.users << receiver 
-    end 
-    
+    receivers.each do |receiver|
+        thread.users << receiver
+    end
+
     sender.inbox_threads << thread
     receivers.each do |receiver|
-      receiver.inbox_threads << thread 
-    end 
+      receiver.inbox_threads << thread
+    end
 
     message = Message.new
     message.subject = title
-    message.body = content 
+    message.body = content
     message.sent_date = Time.new
     message.sender = sender
-    
-    message.thread = thread 
+
+    message.thread = thread
 
     begin
-      MessageThread.transaction do 
+      MessageThread.transaction do
         thread.save!
         message.save!
       end
     rescue ActiveRecord::RecordInvalid => invalid
       return false
-    end 
+    end
     return true
   end
-end 
+end
