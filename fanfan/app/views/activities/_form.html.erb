@@ -2,7 +2,7 @@
 $(function (){
   /*$('label').css('color','red');*/
   /*$('#add_payer').click(function(){$('#payers').append($('.templ_payer:eq(0)').clone().css('display','')); })*/
-  $('#activity_cost').change(function(){$('#payamount1').attr('value',$('#activity_cost').val())});
+  //$('#activity_cost').change(function(){$('#payamount1').attr('value',$('#activity_cost').val())});
 });
 
 var payercount=1;
@@ -18,7 +18,7 @@ function addNewPayer()
   newpayer.find('.remove_payer').click(function(){newpayer.remove();});
   newpayer.css('display', '');
   newpayer.children().eq(3).attr('readonly','');
-  var tmp=2;
+
   var payers=$('.payername:not(#payername'+payercount+')')
 
   payers.each(function(index){
@@ -72,8 +72,8 @@ jQuery(function() {
   </p>
   <p>
     <%= f.label :occur_at %><br />
-    <%= f.text_field :occur_at %>
-    <%= select_tag "activity[occur_at_time]", options_from_collection_for_select((1..24).to_a.map{|i| "%02d:00" % i},'to_s','to_s')%>
+    <%= f.text_field :occur_at, :value => DateTime.now.rfc3339[0..9] %>
+    <%= select_tag "activity[occur_at_time]", options_from_collection_for_select((1..24).to_a.map{|i| "%02d:00" % i},'to_s','to_s','12:00')%>
 
   </p>
 <div class="demo-description" style="display: none; ">

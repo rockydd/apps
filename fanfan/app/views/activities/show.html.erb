@@ -15,7 +15,7 @@
    </p>
    <p>
    <div><span class='label'>Total cost:</span><span class='money'> <%= @activity.cost %></span>
-   <span class='label'>Average Cost:</span><span class='money'> <%= @activity.cost/@activity.payers.size unless @activity.payers.empty? %></span></div>
+   <span class='label'>Average Cost:</span><span class='money'> <%= (@activity.cost/@activity.payers.size).round(2) unless @activity.payers.empty? %></span></div>
    </p>
    <p>
    <div><span class='label'>Status: </span><%= @activity.status %></div>
@@ -38,11 +38,11 @@
     <% payers_count = @activity.payers.size %>
     <% average = @activity.cost / payers_count %>
     <% for payment in @activity.payments %>
-    <% balance = payment.amount - average %>
+    <% balance = (payment.amount - average).round(2) %>
       <tr>
          <td><%=payment.user.username%></td>
          <td class="number"><%=payment.amount%></td>
-         <td class="number <%='negative-number' if balance <0 %>"><%=balance%></td>
+         <td class="number <%='negative-number' if balance <0 %>"><%=balance %></td>
      <td>
          <% if payment.confirmed %>
               Confirmed
