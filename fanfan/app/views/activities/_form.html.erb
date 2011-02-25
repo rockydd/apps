@@ -1,31 +1,30 @@
-<script>
-$(function (){
-  /*$('label').css('color','red');*/
-  /*$('#add_payer').click(function(){$('#payers').append($('.templ_payer:eq(0)').clone().css('display','')); })*/
-  //$('#activity_cost').change(function(){$('#payamount1').attr('value',$('#activity_cost').val())});
-});
+<script type="text/javascript" language="javascript">
 
 var payercount=1;
 function addNewPayer()
 {
 
-  var newpayer=$('#payer1').clone();
+  var newpayer=$('#payer0').clone();
   $('#payers').append(newpayer);
 
   var newdivid='payer'+(++payercount);
   newpayer.attr('id',newdivid);
   newpayer.find('.payername').attr('id','payername'+(payercount));
-  newpayer.find('.remove_payer').click(function(){newpayer.remove();});
+  newpayer.find('.remove_payer').click(function(){newpayer.remove();updateFinalRemaining()});
   newpayer.css('display', '');
   newpayer.children().eq(3).attr('readonly','');
+
 
   var payers=$('.payername:not(#payername'+payercount+')')
 
   payers.each(function(index){
     newpayer.find('option[value='+this.value+']').remove();
     });
+  newpayer.click(updateFinalRemaining);
+  updateFinalRemaining();
   return;
 }
+
 
 function validate_activity()
 {
@@ -48,10 +47,35 @@ function debug()
   alert(test1.selectedIndex);
   test1.selectedIndex=2;
 }
-jQuery(function() {
-        $( "#activity_occur_at" ).datepicker({dateFormat: 'yy-mm-dd'});
-    });
 
+
+
+  function getRemainingAmount()
+  {
+    var amount=0;
+    jQuery(".payamount").each(function(index){
+       if(index != 0)
+         amount+=parseFloat(this.value);
+    })
+    var total=parseFloat(jQuery("#activity_cost").val());
+    return total - amount;
+  }
+  function updateFinalRemaining()
+  {
+    jQuery("#final_payer_amount").text(getRemainingAmount());
+  }
+
+jQuery(function (){
+  /*$('label').css('color','red');*/
+  /*$('#add_payer').click(function(){$('#payers').append($('.templ_payer:eq(0)').clone().css('display','')); })*/
+  //$('#activity_cost').change(function(){$('#payamount1').attr('value',$('#activity_cost').val())});
+
+
+  updateFinalRemaining();
+  jQuery(".payamount").click(updateFinalRemaining);
+
+  $( "#activity_occur_at" ).datepicker({dateFormat: 'yy-mm-dd'});
+})
 </script>
 
 <%= form_for @activity do |f| %>
@@ -60,12 +84,6 @@ jQuery(function() {
     <%= f.label :subject %><br />
     <%= f.text_field :subject %>
   </p>
-  <% if @activity.id %>
-    <p>
-      <%= f.label :status %><br />
-      <%= f.text_field :status %>
-    </p>
-  <% end %>
   <p>
     <%= f.label :cost %><br />
     <%= f.number_field :cost %>
@@ -90,5 +108,5 @@ jQuery(function() {
 
 
   <p><%= f.submit "Create", :onclick => "return validate_activity()"%></p>
-<input onclick="debug();" type="button" value="debug">
+
 <% end %>
