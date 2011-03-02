@@ -4,13 +4,18 @@ var payercount=1;
 function addNewPayer()
 {
 
-  var newpayer=$('#payer0').clone();
+  var newpayer=$('#payer1').clone();
   $('#payers').append(newpayer);
 
   var newdivid='payer'+(++payercount);
   newpayer.attr('id',newdivid);
   newpayer.find('.payername').attr('id','payername'+(payercount));
+  newpayer.find('.payamount').attr('id','payeramount'+(payercount));
+  newpayer.find('.payamount').attr('value',0);
   newpayer.find('.remove_payer').click(function(){newpayer.remove();updateFinalRemaining()});
+  newpayer.find('.payamount').change(updateFinalRemaining);
+  newpayer.find('.payamount').keyup(updateFinalRemaining);
+
   newpayer.css('display', '');
   newpayer.children().eq(3).attr('readonly','');
 
@@ -63,6 +68,8 @@ function debug()
   function updateFinalRemaining()
   {
     jQuery("#final_payer_amount").text(getRemainingAmount());
+    jQuery("#payamount1").attr('value',getRemainingAmount());
+
   }
 
 jQuery(function (){
@@ -73,6 +80,7 @@ jQuery(function (){
 
   updateFinalRemaining();
   jQuery(".payamount").click(updateFinalRemaining);
+  //jQuery("#final_payer").change(function(){$('#payername').attr('value',$('#final_payer').val())});
 
   $( "#activity_occur_at" ).datepicker({dateFormat: 'yy-mm-dd'});
 })

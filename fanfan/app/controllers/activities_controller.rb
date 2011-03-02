@@ -121,6 +121,19 @@ class ActivitiesController < ApplicationController
 
   private
   def get_payments
+    payments = []
+    begin
+      pay_hash = Hash[*params[:activity][:payments]]
+
+      pay_hash.keys.each do |user_id|
+        payment = Payment.new(:user_id => user_id.to_i, :amount => pay_hash[user_id])
+        payments << payment
+      end
+      return payments
+    rescue Exception => e
+      return nil
+    end
+
     payments = params[:activity][:payments].inject([]){|r,i| r[-1].is_a?(String) ?  r<<(Payment.new(:user_id => r.pop().to_i, :amount => i, :confirmed => false)) : r<<i}
     return payments if payments.size <= 1
     total = payments[0].amount

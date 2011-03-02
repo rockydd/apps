@@ -15,11 +15,11 @@
     <% payments[0].amount = @activity.cost %>
     <% readonly = true %>
     <% payments.each_with_index do |payment,i|  %>
-
-       <div  class='newPayer' id='payer<%= i.to_s %>' <%= "style='display: none'" if i == 0 %> >
+       <% id = i+1 %>
+       <div  class='newPayer' id='payer<%= id.to_s %>' <%= "style='display: none'" if i == 0 %> >
           <%= label :payers, "Payer:"%>
-          <%= select_tag "activity[payments][]", options_from_collection_for_select(@users,"id","username",{:selected=>payment.user_id}), :class=>'payername',:id=>'payername1'%>
-          <%= label :payers, "Amount:"%>  <%= number_field_tag :amount, payment.amount || 0, {:min => 1,:step=>1,:class=>"payamount",:name=>"activity[payments][]",:id=>"payamount1", :readonly=>readonly}%>
+          <%= select_tag "activity[payments][]", options_from_collection_for_select(@users,"id","username",{:selected=>payment.user_id}), :class=>'payername',:id=>"payername#{id}"%>
+          <%= label :payers, "Amount:"%>  <%= number_field_tag :amount, payment.amount || 0, {:min => 1,:step=>1,:class=>"payamount",:name=>"activity[payments][]",:id=>"payamount#{id}", :readonly=>readonly}%>
           <a href="javascript:void(0)" class='remove_payer'>Remove</a>
        </div>
        <% readonly = false %>
