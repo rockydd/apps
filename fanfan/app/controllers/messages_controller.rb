@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def index
-    @threads = current_user.inbox_threads
+    @threads = MessageThread.by_user(current_user.id, params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -61,18 +61,15 @@ class MessagesController < ApplicationController
     
     @message.thread = @thread
     
-    @thread.users << current_user; 
-    current_user.inbox_threads << @thread
+    current_user.threads << @thread
     if current_user != @message.receiver
-      @thread.users << @message.receiver; 
-      @message.receiver.inbox_threads << @thread
+      @message.receiver.threads << @thread
     end
 
     begin
       MessageThread.transaction do
         @thread.save!
         @message.save!
-	current_user.save!
       end
       respond_to do |format|
         format.html { redirect_to(:action => "index") }

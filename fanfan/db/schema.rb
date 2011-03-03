@@ -33,14 +33,6 @@ ActiveRecord::Schema.define(:version => 20101126062748) do
     t.integer "thread_id"
   end
 
-  create_table "message_items", :force => true do |t|
-    t.datetime "sent_date"
-    t.text     "content"
-    t.integer  "message_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "message_threads", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
