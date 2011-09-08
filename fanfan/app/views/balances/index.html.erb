@@ -5,3 +5,24 @@
 <% else %>
 <p>Your balance: <font color="red"><%= @bal %></font></p>
 <% end %>
+<p>
+  All Balances
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <td>User</td>
+      <td>Balance</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @balances.each do |balance|%>
+    <tr>
+      <td><%= balance.user.username%></td>
+      <td><%= raw (format_money balance.amount) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
