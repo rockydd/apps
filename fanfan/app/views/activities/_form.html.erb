@@ -83,7 +83,13 @@ jQuery(function (){
   //jQuery("#final_payer").change(function(){$('#payername').attr('value',$('#final_payer').val())});
 
   $( "#activity_occur_at" ).datepicker({dateFormat: 'yy-mm-dd'});
-})
+
+  //user moved to paticipants list when click them
+  jQuery("#user_candidate .user_thumb").css("color","blue").css("cursor","pointer")
+    .click(function(){moveAnimate(jQuery(this), jQuery("#user_attended"));
+                      jQuery(this).unbind('click');
+    /*jQuery("#user_attended").append(this)*/});
+});
 </script>
 
 <%= form_for @activity do |f| %>

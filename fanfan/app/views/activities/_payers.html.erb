@@ -1,6 +1,16 @@
 <div id='payers'>
 
   <% payments = @activity.payments %>
+  <label>People in this activity:</label>
+  <p id='user_attended'>
+
+  </p>
+  <label>People not in this activity:</label>
+  <p id='user_candidate'>
+    <% @users.each do |user| %>
+      <span class='user_thumb'><%= user.username %> </span>
+    <% end%>
+  </p>
   <p>
     <span id='final_payer_span'>
        <%= label :payers, "Final Payer:" %>
@@ -10,6 +20,8 @@
     </span>
     <div style='background-color:#eeeeee;'>The final payer is the one who collected the cash and gave it to the waiter or the one paid by credit card.</div>
   </p>
+
+
   <% payments << Payment.new() if payments.empty? %>
 
     <% payments[0].amount = @activity.cost %>
