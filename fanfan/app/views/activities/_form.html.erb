@@ -17,12 +17,11 @@ function validate_activity()
     return false;
   }
   $('.payername').each(function(index){
-      if(isNaN(parseInt(this.value)) )
-      {
-        alert("Invalid participant");
-        validate = false;
-      }
-    });
+    if (users_names.indexOf(this.value) == -1) {
+      alert("Invalid participant");
+      validate = false;
+    }
+  });
 
   return validate;
 }

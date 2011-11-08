@@ -1,4 +1,16 @@
 <script type="text/javascript" language="javascript">
+  var users_names = [];
+  <% @users.each do |u| -%>
+    users_names.push('<%= u.username %>')
+  <% end -%>
+
+  jQuery(function() {
+    jQuery( ".payername" ).autocomplete({
+      source: users_names,
+      minLength: 2
+    })
+  });
+
 
   var payercount=1;
   function addNewPayer()
@@ -9,28 +21,34 @@
 
     var newdivid='payer'+(++payercount);
     newpayer.attr('id',newdivid);
-    newpayer.find('input').addClass('payamount');
+    newpayer.find('.payername').attr('value', '');
     newpayer.find('td').eq(1).find('span').nextAll().remove();
     newpayer.find('td').eq(1).append($('<input type="number" class="payamount" name="activity[payments][]"></input>'));
     newpayer.find('td').eq(2).append($('<a href="javascript:void(0)" class="remove_payer">Remove</a>'));
     newpayer.find('.payername').attr('id','payername'+(payercount));
     newpayer.find('.payamount').attr('id','payeramount'+(payercount));
     newpayer.find('.payamount').attr('value',0);
+    newpayer.find('.payamount').attr('readonly','');
     newpayer.find('.remove_payer').click(function(){newpayer.remove();updateFinalRemaining()});
     newpayer.find('.payamount').change(updateFinalRemaining);
     newpayer.find('.payamount').keyup(updateFinalRemaining);
-    newpayer.find('.payamount').attr('readonly','');
 
     newpayer.css('display', '');
-    //newpayer.children().eq(3).attr('readonly','');
+  
+    newpayer.find('.payername').autocomplete({
+      source: users_names,
+      minLength: 2
+    });
 
     var payers=$('.payername:not(#payername'+payercount+')')
 
     payers.each(function(index){
       newpayer.find('option[value='+this.value+']').remove();
       });
+  
     newpayer.click(updateFinalRemaining);
     updateFinalRemaining();
+
     return;
   }
 </script>
@@ -56,8 +74,8 @@
       <% payments.each_with_index do |payment,i|  %>
         <% id = i+1 %>
         <tr  class='newPayer' id='payer<%= id.to_s %>' <%= "style='display: none'" if i == -1 %> >
-          <td>  
-              <%= select_tag "activity[payments][]", options_from_collection_for_select(@users,"id","username",{:selected=>payment.user_id}), :class=>'payername',:id=>"payername#{id}"%>
+          <td> 
+	    <input id="test" class="payername" name="activity[payments][]" value="<%= payment.user.username %>"/>
           </td>
           <td style="text-align: right">
             <span style="font-family: Arial">&yen;</span>

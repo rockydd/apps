@@ -32,7 +32,6 @@ class ActivitiesController < ApplicationController
     #usernames = params[:activity].delete(:user_names).split(",")
     #users = usernames.map{|n| User.find_by_name(n)}
     #params[:activity][:users] = users
-
     params[:activity][:payments] = get_payments
 
     @activity = Activity.new(params[:activity])
@@ -109,9 +108,9 @@ class ActivitiesController < ApplicationController
     payments = []
     begin
       pay_hash = Hash[*params[:activity][:payments]]
-
-      pay_hash.keys.each do |user_id|
-        payment = Payment.new(:user_id => user_id.to_i, :amount => pay_hash[user_id])
+      pay_hash.keys.each do |username|
+        user = User.find_by_username(username)
+        payment = Payment.new(:user_id => user.id.to_i, :amount => pay_hash[username])
         payments << payment
       end
       return payments
