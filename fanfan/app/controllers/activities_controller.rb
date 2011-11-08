@@ -1,5 +1,5 @@
 require 'message_sender'
-require 'balance'
+require 'balance_lib'
 class ActivitiesController < ApplicationController
   before_filter :login_required
   include MessageSender
