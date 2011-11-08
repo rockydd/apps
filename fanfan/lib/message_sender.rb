@@ -13,9 +13,9 @@ module MessageSender
         thread.users << receiver
     end
 
-    sender.inbox_threads << thread
+    sender.threads << thread
     receivers.each do |receiver|
-      receiver.inbox_threads << thread
+      receiver.threads << thread
     end
 
     message = Message.new

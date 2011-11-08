@@ -1,0 +1,39 @@
+table {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  width: 70%;
+  border-collapse: collapse;
+}
+
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+  text-align: center;
+}
+
+th {
+  font-size: 1.4em;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 4px;
+  background-color: #A7C942;
+  color: white;
+}
+
+td, th {
+  font-size: 1.2em;
+  border: 1px solid #98BF21;
+  padding: 3px 7px 2px 7px;
+  border-image: initial;
+}
+
+tr.alt td {
+  color: black;
+  background-color: #EAF2D3;
+}

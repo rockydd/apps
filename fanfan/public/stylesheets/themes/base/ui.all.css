@@ -10,7 +10,6 @@ color: red;
 #tiny_dashboard{
 margin-left: 20px;
 margin-right: 20px;
-background: #559D55;
 
 }
 #tiny_dashboard ul{
@@ -28,21 +27,49 @@ width: 400px;
 background: #999;
 }
 
+#payers {
+  width: 80%;
+  max-width: 630px;
+}
+.payername {
+  width: 100px;
+}
+
 #payment_detail td.number{
 text-align: right;
 font-weight: bold;
 }
-#payment_detail td.negative-number{
+.payamount {
+  width: 60px;
+}
+.total-cost {
+  width: 90px;
+}
+.negative-number{
 color: red;
+}
+.positive-number{
+color: green;
 }
 a.remove_payer:link, a.remove_payer:visited,
 a.remove_payer:hover, a.remove_payer:active{
-background: transparent url(images/cancel_16.png) no-repeat 0px 0px;
-color: black;
+  background: transparent url(images/cancel_16.png) no-repeat 0px 0px;
+  color: black;
 }
 .remove_payer{
 display: inline-block;
 padding-left: 20px;
+font-size: 14px;
+}
+a.add_payer:link, a.add_payer:visited, a.add_payer:hover, a.add_payer:active{
+  background: transparent url(images/add_16.png) no-repeat 0px 0px;
+  color: black;
+}
+.add_payer {
+  color: #A7C942;
+  display: inline-block;
+  padding-left: 20px;
+  margin-top: 10px;
 }
 .action_link{
 text-align: right;
@@ -89,4 +116,68 @@ margin-top: 10px;
 
 .activity_list_item *{
 vertical-align: top;
+}
+
+/*icons*/
+.icon {
+  width: 16px;
+  height: 16px;
+  margin: 8px;
+  float: left;
+}
+.icon_coin {
+  background: transparent url(images/coins.png) no-repeat 0px 0px;
+}
+.icon_date {
+  background: transparent url(images/date.png) no-repeat 0px 0px;
+}
+.icon_people {
+  background: transparent url(images/people.png) no-repeat 0px 0px;
+}
+.icon_detail{
+  background: transparent url(images/detail.png) no-repeat 0px 0px;
+}
+.create_button{
+  background: transparent url(images/save.gif) no-repeat 5px 5px;
+  width: 120px;
+  height: 38px;
+  font-size: 14px;
+  margin-right: 0px;
+  
+}
+  
+#activity_calendar {
+float: right;
+margin: 20px;
+}
+
+.pagination{
+  text-align: right;
+}
+.subject{
+  border-bottom: 1px;
+  border-style: solid;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  font-size: 16px;
+  color: #A7C942;
+  font-weight: bold;
+}
+
+.navigation-link {
+  margin-top: 10px;
+}
+
+.div-action-button{
+  width: 80%;
+  max-width: 630px;
+  height: 30px;
+
+}
+
+
+/* inbox */
+#message_list td.title{
+  text-align: left;
 }

@@ -2,29 +2,12 @@ require 'message_sender'
 require 'balance_lib'
 class ActivitiesController < ApplicationController
   before_filter :login_required
+  before_filter :merge_occur_time, :only => [:create, :update]
   include MessageSender
   include BalanceLib
 
   def index
-    @rows = (params[:rows]||10).to_i
-    @page = (params[:page]||1).to_i
-    @sort = params[:sord]||'desc'
-    @sidx = params[:sidx]||'id'
-
-    if params[:_search] == 'true'
-      field = params[:searchField]
-      value = params[:searchString]
-      oper  = { "eq" => "=","lt" => "<"}[params[:searchOper]]||'like'
-      conditions = "#{field} #{oper} '#{value}'"
-    end
-    @activities = current_user.activities
-    @total = Activity.count
-    if conditions
-      @activities = @activities.find(:all,:limit => @rows,:offset => @rows*(@page.to_i-1),:order => "#{@sidx} #{@sort}", conditions.nil? ? nil:conditions => [conditions] )
-    else
-      #fixme, is this necessary?
-      @activities = @activities.find(:all,:limit => @rows,:offset => @rows*(@page.to_i-1),:order => "#{@sidx} #{@sort}" )
-    end
+    @activities = Activity.paginate_by_user(current_user.id, params[:page])
 
     respond_to do |format|
       format.html
@@ -114,6 +97,8 @@ class ActivitiesController < ApplicationController
 
     if activity.confirmed_by_all?
       calculate_balance(activity)
+      activity.status = "confirmed"
+      activity.save!
     end
 
     render :layout => false
@@ -151,6 +136,10 @@ class ActivitiesController < ApplicationController
     body = CONFIRMATION_MESSAGE.sub('__ID__', activity.id.to_s)
     body.sub!('ACTIVITY_NAME',activity.subject)
     send_message(activity.creator,@activity.payers, "Need your confirmation for #{activity.subject}", body)
+  end
+
+  def merge_occur_time
+    params[:activity][:occur_at] = params[:activity][:occur_at] + " " + params[:activity][:occur_at_time]
   end
 
 end

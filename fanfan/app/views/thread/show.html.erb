@@ -9,8 +9,8 @@
   </script>
 
  <div id="message_list">
-          <table border="0">
-          <tr><th>From</th><th>Sent at</th><th>Message body</th> </tr>
+          <table border="0" style="width: 100%">
+          <tr><th>From</th><th width="120px">Sent at</th><th>Message body</th> </tr>
      <% @messages.each do |message| %>
               <tr>
                   <td class="author"> <%= link_to message.sender.username %> </td>
@@ -22,8 +22,9 @@
      <div id="reply">
        <%= form_for @new_message, :as => :message, :url => {:action => :reply, :id => @thread }  do |f| %>
       <div class="field">
-        <%= f.label :body %><br />
-        <%= f.text_area :body %>
+        <br/>
+        <%= f.label :body, "Reply"%><br />
+        <%= f.text_area :body, :cols => 70, :rows => 10%>
       </div>
       <div class="actions">
         <%= f.submit "Reply"%>

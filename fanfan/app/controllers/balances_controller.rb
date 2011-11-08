@@ -2,7 +2,7 @@ class BalancesController < ApplicationController
   before_filter :login_required
   def index
     @bal = current_user.balance.nil? ? 0 : current_user.balance.amount
-
+    @balances = Balance.find :all
     respond_to do |format|
       format.html
       format.xml { render :xml => @bal }

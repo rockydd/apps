@@ -1,6 +1,6 @@
 require 'authentication'
 class ApplicationController < ActionController::Base
   include Authentication
-  protect_from_forgery
+  #protect_from_forgery
 
 end

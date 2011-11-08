@@ -1,7 +1,25 @@
 <% title "Balance" %>
 
-<% if @bal >= 0 %>
-<p>Your balance: <font color="green"><%= @bal %></font></p>
-<% else %>
-<p>Your balance: <font color="red"><%= @bal %></font></p>
-<% end %>
+<p>Your balance: <%= raw format_money @bal %>
+
+<p>
+  All Balances
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</td>
+      <th>Balance</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @balances.each do |balance|%>
+    <tr>
+      <td><%= balance.user.username%></td>
+      <td><%= raw (format_money balance.amount) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+

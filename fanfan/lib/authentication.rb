@@ -20,7 +20,13 @@ module Authentication
   end
   
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    begin
+      @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    rescue Exception => e
+      session.delete(:user_id)
+      session.delete(:session_id)
+      return nil
+    end
   end
   
   def logged_in?
@@ -43,6 +49,6 @@ module Authentication
   private
   
   def store_target_location
-    session[:return_to] = request.request_uri
+    session[:return_to] = request.url
   end
 end

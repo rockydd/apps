@@ -11,6 +11,15 @@ module ApplicationHelper
     end
     function << "})"
     return function.html_safe
-      
+
+  end
+
+  def format_money(money)
+    str="<span class='number"
+    str += " negative-number" if money < 0
+    str += " positive-number" if money > 0
+    str += "'>"
+    str += "$ " + "%.2f" % money
+    str += "</span>"
   end
 end

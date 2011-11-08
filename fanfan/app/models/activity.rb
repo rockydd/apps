@@ -7,7 +7,8 @@ class Activity < ActiveRecord::Base
   validates_presence_of :cost
   validates_presence_of :occur_at
   attr_accessible :subject, :status, :detail, :cost, :payers, :payments, :creator, :occur_at
-
+  cattr_reader :per_page
+  @@per_page = 10
 
   def payer_names
     return "" if payers.empty?
@@ -23,5 +24,12 @@ class Activity < ActiveRecord::Base
 
   def confirmed_by_all?
     payments.reject{ |p| p.confirmed }.length.zero?
+  end
+
+  def self.paginate_by_user(user_id, page)
+    paginate :conditions => ['payments.user_id = ?', user_id],
+              :joins     => 'INNER JOIN payments ON payments.activity_id = activities.id',
+              :order     => 'created_at DESC',
+              :page      => page
   end
 end
