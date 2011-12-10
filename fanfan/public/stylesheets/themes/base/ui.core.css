@@ -128,11 +128,12 @@ margin-top:10px;
 #activity_subject {
 padding-top: 5px;
 padding-left: 5px;
-height: 30px;
+height: 20px;
 border-bottom: #559d55 1px solid;
-background-color: #ccc;
-font-size: 20px;
+border-color: #5AF;
+font-size: 16px;
 font-weight: bold;
+color: #5AF;
 }
 #activity_calendar {
 float: right;
