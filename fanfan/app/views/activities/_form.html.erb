@@ -15,9 +15,10 @@ function addNewPayer()
   newpayer.find('.remove_payer').click(function(){newpayer.remove();updateFinalRemaining()});
   newpayer.find('.payamount').change(updateFinalRemaining);
   newpayer.find('.payamount').keyup(updateFinalRemaining);
+  newpayer.find('.payamount').attr('readonly','');
 
   newpayer.css('display', '');
-  newpayer.children().eq(3).attr('readonly','');
+  //newpayer.children().eq(3).attr('readonly','');
 
 
   var payers=$('.payername:not(#payername'+payercount+')')
@@ -80,6 +81,8 @@ jQuery(function (){
 
   updateFinalRemaining();
   jQuery(".payamount").click(updateFinalRemaining);
+  jQuery("#activity_cost").change(updateFinalRemaining);
+  jQuery("#activity_cost").keyup(updateFinalRemaining);
   //jQuery("#final_payer").change(function(){$('#payername').attr('value',$('#final_payer').val())});
 
   $( "#activity_occur_at" ).datepicker({dateFormat: 'yy-mm-dd'});
