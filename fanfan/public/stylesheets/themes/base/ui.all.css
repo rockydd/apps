@@ -42,6 +42,9 @@ font-weight: bold;
 .negative-number{
 color: red;
 }
+.positive-number{
+color: green;
+}
 a.remove_payer:link, a.remove_payer:visited,
 a.remove_payer:hover, a.remove_payer:active{
   background: transparent url(images/cancel_16.png) no-repeat 0px 0px;
@@ -141,4 +144,8 @@ vertical-align: top;
 #activity_calendar {
 float: right;
 margin: 20px;
+}
+
+.pagination{
+  text-align: right;
 }

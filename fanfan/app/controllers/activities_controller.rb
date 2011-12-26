@@ -7,25 +7,7 @@ class ActivitiesController < ApplicationController
   include BalanceLib
 
   def index
-    @rows = (params[:rows]||10).to_i
-    @page = (params[:page]||1).to_i
-    @sort = params[:sord]||'desc'
-    @sidx = params[:sidx]||'id'
-
-    if params[:_search] == 'true'
-      field = params[:searchField]
-      value = params[:searchString]
-      oper  = { "eq" => "=","lt" => "<"}[params[:searchOper]]||'like'
-      conditions = "#{field} #{oper} '#{value}'"
-    end
-    @activities = current_user.activities
-    @total = Activity.count
-    if conditions
-      @activities = @activities.find(:all,:limit => @rows,:offset => @rows*(@page.to_i-1),:order => "#{@sidx} #{@sort}", conditions.nil? ? nil:conditions => [conditions] )
-    else
-      #fixme, is this necessary?
-      @activities = @activities.find(:all,:limit => @rows,:offset => @rows*(@page.to_i-1),:order => "#{@sidx} #{@sort}" )
-    end
+    @activities = Activity.paginate_by_user(current_user.id, params[:page])
 
     respond_to do |format|
       format.html
