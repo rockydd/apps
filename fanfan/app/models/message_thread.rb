@@ -1,5 +1,5 @@
 class MessageThread < ActiveRecord::Base
-  has_and_belongs_to_many :users, :join_table => "inbox_threads", :foreign_key => "threads_id", :association_foreign_key => "user_id", :class_name => "User"
+  has_and_belongs_to_many :users, :join_table => "inbox_threads", :foreign_key => "thread_id", :association_foreign_key => "user_id", :class_name => "User"
   has_many :messages, :foreign_key => "thread_id"
 
   cattr_reader :per_page

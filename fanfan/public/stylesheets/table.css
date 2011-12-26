@@ -14,11 +14,12 @@ tr {
   display: table-row;
   vertical-align: inherit;
   border-color: inherit;
+  text-align: center;
 }
 
 th {
   font-size: 1.4em;
-  text-align: left;
+  text-align: center;
   padding-top: 5px;
   padding-bottom: 4px;
   background-color: #A7C942;

@@ -105,7 +105,7 @@ float: right;
 
 #content {
 
-width:85%;
+width:80%;
 min-height:500px; /* for modern browsers */
 height:auto !important; /* for modern browsers */
 height:500px; /* for IE5.x and IE6 */
@@ -125,14 +125,6 @@ height:100px;
 margin-top:10px;
 }
 
-.activity_header {
-/*  background: transparent url(images/party.png) no-repeat 0px 0px;
-  padding-left: 20px;*/
-}
-#activity_calendar {
-float: right;
-margin: 20px;
-}
 
 label {
 font-weight: bold;

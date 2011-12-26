@@ -1,42 +1,9 @@
 <script type="text/javascript" language="javascript">
 
-var payercount=1;
-function addNewPayer()
-{
-
-  var newpayer=$('#payer1').clone();
-  $('#payer_list').append(newpayer);
-
-  var newdivid='payer'+(++payercount);
-  newpayer.attr('id',newdivid);
-  newpayer.find('.payername').attr('id','payername'+(payercount));
-  newpayer.find('.payamount').attr('id','payeramount'+(payercount));
-  newpayer.find('.payamount').attr('value',0);
-  newpayer.find('.remove_payer').click(function(){newpayer.remove();updateFinalRemaining()});
-  newpayer.find('.payamount').change(updateFinalRemaining);
-  newpayer.find('.payamount').keyup(updateFinalRemaining);
-  newpayer.find('.payamount').attr('readonly','');
-
-  newpayer.css('display', '');
-  //newpayer.children().eq(3).attr('readonly','');
-
-
-  var payers=$('.payername:not(#payername'+payercount+')')
-
-  payers.each(function(index){
-    newpayer.find('option[value='+this.value+']').remove();
-    });
-  newpayer.click(updateFinalRemaining);
-  updateFinalRemaining();
-  return;
-}
-
 
 function validate_activity()
 {
-
-
-if($('#payamount1').val()==null || $('#payamount1').val() == "")
+  if($('#payamount1').val()==null || $('#payamount1').val() == "")
   {
     $('#payer1').addClass('field_with_errors');
     alert("Need one payment at least!");
@@ -112,14 +79,15 @@ jQuery(function (){
   </p>
   <p>
     <s class="icon icon_date"></s>
-    <%= f.label :occur_at %>
+    <span style="display:inline-block; width:100px"><%= f.label :occur_at %></span>
     <%= f.text_field :occur_at, :value => DateTime.now.rfc3339[0..9], :size => 10 %>
     <%= select_tag "activity[occur_at_time]", options_from_collection_for_select((1..24).to_a.map{|i| "%02d:00" % i},'to_s','to_s','12:00')%>
   </p>
   <p>
     <s class="icon icon_coin"></s>
-    <%= f.label :cost %>
-    <%= f.number_field :cost, :size => 15 %>
+    <span style="display:inline-block; width:100px"><%= f.label :cost%></span>
+    <span style="font-family: Arial">&yen;</span>
+    <%= f.number_field :cost, :class => "payamount",:min => 1%>
   </p>
 <div class="demo-description" style="display: none; ">
 <p>The datepicker is tied to a standard form input field.  Focus on the input (click, or use the tab key) to open an interactive calendar in a small overlay.  Choose a date, click elsewhere on the page (blur the input), or hit the Esc key to close. If a date is chosen, feedback is shown as the input's value.</p>
@@ -130,12 +98,12 @@ jQuery(function (){
   </p>
     <%= render 'payers' %>
 
-  <p>
-    <s class="icon icon_detail"></s>
-    <%= f.label :detail %><br />
-    <%= f.text_area :detail, :cols => "70", :rows => "8" %>
-  </p>
 
-  <p><%= f.submit "Create", :onclick => "return validate_activity()", :class => "create_button"%></p>
+  <div style="width: 620px; height: 30px; ">
+    <div style="float: left; width: 100%"></div>
+    <div style="float: right">
+      <%= f.submit "Save", :onclick => "return validate_activity()", :class => "create_button"%>
+    </div>
+  </div>
 
 <% end %>

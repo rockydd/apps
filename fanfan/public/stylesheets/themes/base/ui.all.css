@@ -28,9 +28,16 @@ width: 400px;
 background: #999;
 }
 
+.payername {
+  width: 100px;
+}
+
 #payment_detail td.number{
 text-align: right;
 font-weight: bold;
+}
+.payamount {
+  width: 60px;
 }
 .negative-number{
 color: red;
@@ -123,12 +130,15 @@ vertical-align: top;
   background: transparent url(images/detail.png) no-repeat 0px 0px;
 }
 .create_button{
-  background: transparent url(images/create.png) no-repeat 5px 5px;
+  background: transparent url(images/save.gif) no-repeat 5px 5px;
   width: 120px;
   height: 38px;
-  float: right;
   font-size: 14px;
-  margin-right: 15px;
+  margin-right: 0px;
   
 }
   
+#activity_calendar {
+float: right;
+margin: 20px;
+}

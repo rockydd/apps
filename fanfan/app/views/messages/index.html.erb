@@ -34,8 +34,8 @@
  </div>
 
  <div id="message_list">
-     <table border="0">
-	 <tr><th><input type="checkbox" unchecked/></th><th>Title</th><th>Updated at</th></tr>
+     <table border="0" style="width: 100%">
+	 <tr><th><input type="checkbox" unchecked/></th><th>Title</th><th>Date</th></tr>
     	 <% @threads.each do |thread| %>
              <tr class="<%= thread.status %>" >
                  <td class="checkbox"><input type="checkbox" name="some_name" value="" unchecked></td>

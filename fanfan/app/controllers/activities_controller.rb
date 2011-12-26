@@ -2,6 +2,7 @@ require 'message_sender'
 require 'balance'
 class ActivitiesController < ApplicationController
   before_filter :login_required
+  before_filter :merge_occur_time, :only => [:create, :update]
   include MessageSender
   include BalanceLib
 
@@ -91,8 +92,6 @@ class ActivitiesController < ApplicationController
   end
 
   def confirm_payment
-    puts "######################################"
-    debugger
     activity = Activity.find(params[:id])
     if activity.nil?
       @confirmed = false
@@ -116,6 +115,8 @@ class ActivitiesController < ApplicationController
 
     if activity.confirmed_by_all?
       calculate_balance(activity)
+      activity.status = "confirmed"
+      activity.save!
     end
 
     render :layout => false
@@ -153,6 +154,10 @@ class ActivitiesController < ApplicationController
     body = CONFIRMATION_MESSAGE.sub('__ID__', activity.id.to_s)
     body.sub!('ACTIVITY_NAME',activity.subject)
     send_message(activity.creator,@activity.payers, "Need your confirmation for #{activity.subject}", body)
+  end
+
+  def merge_occur_time
+    params[:activity][:occur_at] = params[:activity][:occur_at] + " " + params[:activity][:occur_at_time]
   end
 
 end
