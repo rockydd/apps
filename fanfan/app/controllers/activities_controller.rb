@@ -91,6 +91,8 @@ class ActivitiesController < ApplicationController
   end
 
   def confirm_payment
+    puts "######################################"
+    debugger
     activity = Activity.find(params[:id])
     if activity.nil?
       @confirmed = false

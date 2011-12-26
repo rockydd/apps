@@ -12,32 +12,49 @@
     <% end%>
   </p>
   -->
-
-  <p>
-    <span id='final_payer_span'>
-       <%= label :payers, "" %>
-          <%= select_tag "activity_dummy", options_from_collection_for_select(@users,"id","username",{:selected=>@users[0].id}), :class=>'payername',:id=>'final_payer'%>
-          paid <span style="font-family: Arial">&yen;</span>
+  <table>
+    <tbody id="payer_list">
+      <tr>
+        <th width="200px">Member</th>
+        <th>Payed</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>
+          <span id='final_payer_span'>
+             <%= label :payers, "" %>
+             <%= select_tag "activity_dummy", options_from_collection_for_select(@users,"id","username",{:selected=>@users[0].id}), :class=>'payername',:id=>'final_payer'%>
+          </span>
+        </td>
+        <td>
+          <span style="font-family: Arial">&yen;</span>
           <span id='final_payer_amount'><span/>
-    </span>
-    <div style='background-color:#eeeeee;'>The final payer is the one who collected the cash and gave it to the waiter or the one paid by credit card.</div>
-  </p>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <% payments << Payment.new() if payments.empty? %>
 
-
-  <% payments << Payment.new() if payments.empty? %>
-
-    <% payments[0].amount = @activity.cost %>
-    <% readonly = true %>
-    <% payments.each_with_index do |payment,i|  %>
-       <% id = i+1 %>
-       <div  class='newPayer' id='payer<%= id.to_s %>' <%= "style='display: none'" if i == 0 %> >
-          <%= select_tag "activity[payments][]", options_from_collection_for_select(@users,"id","username",{:selected=>payment.user_id}), :class=>'payername',:id=>"payername#{id}"%>
-          <%= label :payers, "payed "%>  
-          <%= number_field_tag :amount, payment.amount || 0,
-              {:min => 1,:step=>1,:class=>"payamount",:name=>"activity[payments][]",:id=>"payamount#{id}", :readonly=>readonly}%>
-          <a href="javascript:void(0)" class='remove_payer'>Remove</a>
-       </div>
-       <% readonly = false %>
-    <% end %>
+      <% payments[0].amount = @activity.cost %>
+      <% readonly = true %>
+      <% payments.each_with_index do |payment,i|  %>
+        <% id = i+1 %>
+        <tr  class='newPayer' id='payer<%= id.to_s %>' <%= "style='display: none'" if i == 0 %> >
+          <td>  
+              <%= select_tag "activity[payments][]", options_from_collection_for_select(@users,"id","username",{:selected=>payment.user_id}), :class=>'payername',:id=>"payername#{id}"%>
+          </td>
+          <td>
+            <span style="font-family: Arial">&yen;</span>
+            <%= number_field_tag :amount, payment.amount || 0,
+                {:min => 1,:step=>1,:class=>"payamount",:name=>"activity[payments][]",:id=>"payamount#{id}", :readonly=>readonly}%>
+          </td>
+          <td>
+            <a href="javascript:void(0)" class='remove_payer'>Remove</a>
+          </td>
+        </tr>
+        <% readonly = false %>
+      <% end %>
+    </tbody>
+  </table>
 </div>
-<span id="add_payer"><%= button_to_function "add payer", "addNewPayer()"%></span>
+<span id="add_payer" ><%= link_to_function "add payer", "addNewPayer()", :class => "add_payer"%></span>

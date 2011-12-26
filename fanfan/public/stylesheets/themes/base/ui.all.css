@@ -37,12 +37,24 @@ color: red;
 }
 a.remove_payer:link, a.remove_payer:visited,
 a.remove_payer:hover, a.remove_payer:active{
-background: transparent url(images/cancel_16.png) no-repeat 0px 0px;
-color: black;
+  background: transparent url(images/cancel_16.png) no-repeat 0px 0px;
+  color: black;
 }
 .remove_payer{
 display: inline-block;
 padding-left: 20px;
+font-size: 14px;
+}
+a.add_payer:link, a.add_payer:visited, a.add_payer:hover, a.add_payer:active{
+  background: transparent url(images/add_16.png) no-repeat 0px 0px;
+  color: black;
+}
+.add_payer {
+  color: #A7C942;
+  display: inline-block;
+  padding-left: 20px;
+  margin-left: 30px;
+  margin-top: 10px;
 }
 .action_link{
 text-align: right;
@@ -90,3 +102,33 @@ margin-top: 10px;
 .activity_list_item *{
 vertical-align: top;
 }
+
+/*icons*/
+.icon {
+  width: 16px;
+  height: 16px;
+  margin: 8px;
+  float: left;
+}
+.icon_coin {
+  background: transparent url(images/coins.png) no-repeat 0px 0px;
+}
+.icon_date {
+  background: transparent url(images/date.png) no-repeat 0px 0px;
+}
+.icon_people {
+  background: transparent url(images/people.png) no-repeat 0px 0px;
+}
+.icon_detail{
+  background: transparent url(images/detail.png) no-repeat 0px 0px;
+}
+.create_button{
+  background: transparent url(images/create.png) no-repeat 5px 5px;
+  width: 120px;
+  height: 38px;
+  float: right;
+  font-size: 14px;
+  margin-right: 15px;
+  
+}
+  

@@ -1,0 +1,14 @@
+.meta-inner {
+  margin-left: 0px;
+  padding-right: 21px;
+  position: relative;
+  padding-left: 0px;
+}
+.meta-default-text {
+  color: #AAA;
+  position: absolute;
+}
+.meta-input {
+  border: none;
+  font-size: 14pt;
+}
