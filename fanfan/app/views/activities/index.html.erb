@@ -1,8 +1,8 @@
-<% title "Activities" %>
-<p class='action_link'><%= link_to "New Activity", new_activity_path, :class=>'add_activity' %></p>
 
+<% title "My Activities" %>
+<div style="float:right" class='action_link'><%= link_to "New Activity", new_activity_path, :class=>'add_activity' %></div>
 
-<hr>
+<div style="margin-top: 40px">
   <ul>
   <% for activity in @activities %>
       <li class='activity_list_icon'>
@@ -19,7 +19,7 @@
   <% end %>
   </ul>
      <%= will_paginate @activities%>
-
+</div>
 <script type="text/javascript">
 $(function(){
   return;

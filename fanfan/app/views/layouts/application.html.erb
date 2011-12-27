@@ -43,15 +43,15 @@
         <div id="tiny_dashboard">
           <ul>
             <% if current_user %>
-            <li>Balance: <%= raw current_user.balance ? format_money(current_user.balance.amount) : ""  %> </li>
+            <li><%= link_to current_user.username.capitalize, balances_path %>: <%= raw current_user.balance ? format_money(current_user.balance.amount) : ""  %> </li>
             <% end %>
           </ul>
         </div>
 
-          <ul>
-            <li><%= link_to "Activities",:controller => 'activities'%></li>
-            <li><%= link_to "Inbox",:controller => 'messages'%></li>
-            <li><%= link_to "Balance",:controller => 'balances'%></li>
+          <ul id="navigation_menu">
+            <li><%= link_to "My Activities",activities_path %></li>
+            <li><%= link_to "Messages", messages_path %></li>
+            <li><%= link_to "Balance Sheet", balances_path%></li>
           </ul>
         </div>
         <div id="content">

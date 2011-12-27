@@ -18,6 +18,10 @@ body {
 
 }
 
+h1 {
+  color: #98BF21;
+}
+
 a img {
   border: none;
 }
@@ -92,6 +96,12 @@ a {
 /*background-color: #333;*/
 background-repeat: no-repeat;
 margin-bottom: 20px;
+border-bottom: 1px;
+border-top: 0px;
+border-left: 0px;
+border-right: 0px;
+border-style: solid;
+border-color: #98BF21;
 
 
 }
@@ -110,7 +120,7 @@ width:80%;
 min-height:500px; /* for modern browsers */
 height:auto !important; /* for modern browsers */
 height:500px; /* for IE5.x and IE6 */
-margin-top:10px;
+margin-top:30px;
 /*margin-left: 220px;*/
 }
 #navigation {
@@ -122,6 +132,9 @@ height:500px; /* for IE5.x and IE6 */
 float:right;
 }
 
+#navigation_menu li {
+  font-size: 14px;
+}
 #footer {
 height:100px;
 margin-top:10px;
