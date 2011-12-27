@@ -66,7 +66,7 @@
               <input type='hidden' name="activity[payments][]", id="payamount1"></input>
             <% else%>
               <%= number_field_tag :amount, payment.amount || 0,
-                  {:step=>1,:class => "payamount",:name=>"activity[payments][]",:id=>"payamount#{id}", :readonly=>readonly}%>
+                  {:step=>1, :max => 1000000,:class => "payamount",:name=>"activity[payments][]",:id=>"payamount#{id}", :readonly=>readonly}%>
             <% end %>
           </td>
           <td>

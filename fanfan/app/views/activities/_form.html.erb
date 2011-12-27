@@ -59,6 +59,7 @@ jQuery(function (){
 
   updateFinalRemaining();
   jQuery(".payamount").click(updateFinalRemaining);
+  jQuery(".payamount").keyup(updateFinalRemaining);
   jQuery("#activity_cost").change(updateFinalRemaining);
   jQuery("#activity_cost").keyup(updateFinalRemaining);
 
@@ -94,7 +95,7 @@ jQuery(function (){
   <%= f.error_messages %>
   <p>
     <div class="meta-inner">
-      <div class="meta-default-text" style="display: block; ">Enter your activity summary...</div>
+      <div class="meta-default-text" style="display: <%= @activity.new_record? ? 'block' : 'none'; %> ">Enter your activity summary...</div>
       <%= f.text_field :subject, :class => "meta-input subject", :size=> 65, :maxlength => 200, :spellcheck => true %>
     </div>
   </p>
@@ -108,7 +109,7 @@ jQuery(function (){
     <s class="icon icon_coin"></s>
     <span style="display:inline-block; width:90px"><%= f.label :cost%></span>
     <span style="font-family: Arial">&yen;</span>
-    <%= f.number_field :cost, :class => "payamount total-cost",:min => 1%>
+    <%= f.number_field :cost, :class => "payamount total-cost",:min => 1, :max => 1000000%>
   </p>
 <div class="demo-description" style="display: none; ">
 <p>The datepicker is tied to a standard form input field.  Focus on the input (click, or use the tab key) to open an interactive calendar in a small overlay.  Choose a date, click elsewhere on the page (blur the input), or hit the Esc key to close. If a date is chosen, feedback is shown as the input's value.</p>
