@@ -3,6 +3,12 @@
 
 function validate_activity()
 {
+  var validate=true;
+  if($('#activity_subject').val() == "")
+  {
+    $('#activity_subject').css("border-color","red");
+    return false;
+  }
   if($('#payamount1').val()==null || $('#payamount1').val() == "")
   {
     $('#payer1').addClass('field_with_errors');
@@ -10,8 +16,15 @@ function validate_activity()
     $('#payamount1').focus();
     return false;
   }
+  $('.payername').each(function(index){
+      if(isNaN(parseInt(this.value)) )
+      {
+        alert("Invalid participant");
+        validate = false;
+      }
+    });
 
-  return true;
+  return validate;
 }
 function debug()
 {
@@ -44,7 +57,6 @@ function debug()
 
 jQuery(function (){
 
-
   updateFinalRemaining();
   jQuery(".payamount").click(updateFinalRemaining);
   jQuery("#activity_cost").change(updateFinalRemaining);
@@ -64,17 +76,26 @@ jQuery(function (){
                       if (jQuery(this).val().length == 0)
                       {
                         jQuery(this).prev().css("display","block");
-                      }});
+                      }
+                      else
+                      {
+                        $(this).css("border-color", "#A7C942");
+                      }
+                      });
+
+  $("#new_activity").submit(function(){
+        return (validate_activity());
+      });
   
 });
 </script>
-
+<!--  -->
 <%= form_for @activity do |f| %>
   <%= f.error_messages %>
   <p>
     <div class="meta-inner">
       <div class="meta-default-text" style="display: block; ">Enter your activity summary...</div>
-      <%= f.text_field :subject, :class => "meta-input", :size=> 70, :maxlength => 200, :spellcheck => true %>
+      <%= f.text_field :subject, :class => "meta-input subject", :size=> 65, :maxlength => 200, :spellcheck => true %>
     </div>
   </p>
   <p>
@@ -85,9 +106,9 @@ jQuery(function (){
   </p>
   <p>
     <s class="icon icon_coin"></s>
-    <span style="display:inline-block; width:100px"><%= f.label :cost%></span>
+    <span style="display:inline-block; width:90px"><%= f.label :cost%></span>
     <span style="font-family: Arial">&yen;</span>
-    <%= f.number_field :cost, :class => "payamount",:min => 1%>
+    <%= f.number_field :cost, :class => "payamount total-cost",:min => 1%>
   </p>
 <div class="demo-description" style="display: none; ">
 <p>The datepicker is tied to a standard form input field.  Focus on the input (click, or use the tab key) to open an interactive calendar in a small overlay.  Choose a date, click elsewhere on the page (blur the input), or hit the Esc key to close. If a date is chosen, feedback is shown as the input's value.</p>
@@ -99,10 +120,10 @@ jQuery(function (){
     <%= render 'payers' %>
 
 
-  <div style="width: 620px; height: 30px; ">
+  <div class="div-action-button" >
     <div style="float: left; width: 100%"></div>
     <div style="float: right">
-      <%= f.submit "Save", :onclick => "return validate_activity()", :class => "create_button"%>
+      <%= f.submit "Save", :class => "create_button"%>
     </div>
   </div>
 

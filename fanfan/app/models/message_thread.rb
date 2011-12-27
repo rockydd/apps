@@ -3,7 +3,7 @@ class MessageThread < ActiveRecord::Base
   has_many :messages, :foreign_key => "thread_id"
 
   cattr_reader :per_page
-  @@per_page = 10
+  @@per_page = 20
 
   def self.by_user(user_id, page) 
     paginate :conditions => ['inbox_threads.user_id =?', user_id],

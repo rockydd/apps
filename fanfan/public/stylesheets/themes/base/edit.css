@@ -7,8 +7,10 @@
 .meta-default-text {
   color: #AAA;
   position: absolute;
+  padding: 5px;
+  width: 100%;
 }
 .meta-input {
-  border: none;
+  border: solid 1px;
   font-size: 14pt;
 }

@@ -5,5 +5,5 @@ class Message < ActiveRecord::Base
   belongs_to :thread, :foreign_key => "thread_id", :class_name => "MessageThread"
 
   cattr_reader :per_page
-  @@per_page = 10
+  @@per_page = 20
 end
