@@ -1,9 +1,39 @@
 <% title "Balance" %>
 
-<p>Your balance: <%= raw format_money @bal %>
+<p>Your total payment: <%= raw format_money @total %>, unconfirmed: <%= raw format_money(@unconfirmed) %></p>
+<p>Your balance: <%= raw format_money @bal %></p>
 
+<% if @bal != 0 %>
+<hr/>
+  <p>
+  <% if @bal > 0 %>
+    Following people owe you money:
+  <% elsif @bal < 0%>
+    You owe these people money: 
+  <% end%>
+  </p>
+    <table>
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Money</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @due.each do |due| %>
+        <tr>
+          <td><%= due[:user].username %></td>
+          <td><%= raw format_money(due[:amount])%></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% end%>
+<br/>
+  
+<hr/>
 <p>
-  All Balances
+  All Balances:
 </p>
 
 <table>

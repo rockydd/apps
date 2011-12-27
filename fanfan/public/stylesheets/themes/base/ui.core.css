@@ -111,9 +111,10 @@ min-height:500px; /* for modern browsers */
 height:auto !important; /* for modern browsers */
 height:500px; /* for IE5.x and IE6 */
 margin-top:10px;
+/*margin-left: 220px;*/
 }
 #navigation {
- background-color: #F4F4F4;
+background-color: #F4F4F4;
 width:200px;
 min-height:500px; /* for modern browsers */
 height:auto !important; /* for modern browsers */
