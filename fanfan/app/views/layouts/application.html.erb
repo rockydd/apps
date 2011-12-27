@@ -8,7 +8,7 @@
     <%= stylesheet_link_tag "datePicker" %>
     <%= stylesheet_link_tag "table" %>
     <%= stylesheet_link_tag "themes/#{session[:theme].nil?? 'base' : session[:theme]}/ui.all" %>
-    <!--<%= javascript_include_tag :defaults %>-->
+
     <%= javascript_include_tag 'jquery/jquery-1.4.2.min' %>
     <%= javascript_include_tag 'jquery/ui/jquery-ui-1.8.5.custom.min' %>
     <%= javascript_include_tag 'jquery/jqgrid/grid.locale-en' %>
@@ -16,7 +16,7 @@
     <%= javascript_include_tag 'date' %>
     <%= javascript_include_tag 'datePicker'%>
     <%= javascript_include_tag 'application'%>
-    <%= javascript_include_tag 'rails' %>
+
 
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
