@@ -1,7 +1,11 @@
 <% title "Edit Activity" %>
-<%= render 'form' %>
+<% if @activity.status != "confirmed" %>
+  <%= render 'form' %>
+<% else %>
+  <span> You can not edit a confirmed activity </span>
+<% end %>
 
 <p>
   <%= link_to "Show", @activity %> |
-  <%= link_to "View All", activities_path %>
+  <%= link_to "Back to List", activities_path %>
 </p>

@@ -38,8 +38,8 @@
     <% balance = (payment.amount - average).round(2) %>
       <tr>
          <td><%=payment.user.username%></td>
-         <td class="number"><%=payment.amount%></td>
-         <td class="number <%='negative-number' if balance <0 %>"><%=balance %></td>
+         <td class="number"><%= raw format_money(payment.amount)%></td>
+         <td class="number" ><%= raw format_money(balance) %></td>
      <td>
          <% if payment.confirmed %>
               Confirmed
@@ -59,7 +59,9 @@
 
 </div>
 <div class="navigation-link" >
-  <%= link_to "Edit", edit_activity_path(@activity) %> |
-  <%= link_to "Activity List", activities_path %>
+  <% if @activity.status != "confirmed" %>
+    <%= link_to "Edit", edit_activity_path(@activity) %> |
+  <% end %>
+  <%= link_to "Back to List", activities_path %>
 </div>
 
