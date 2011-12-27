@@ -4,6 +4,7 @@
 function validate_activity()
 {
   var validate=true;
+  var submitted_users = [];
   if($('#activity_subject').val() == "")
   {
     $('#activity_subject').css("border-color","red");
@@ -16,11 +17,19 @@ function validate_activity()
     $('#payamount1').focus();
     return false;
   }
+
+
   $('.payername').each(function(index){
     if (users_names.indexOf(this.value) == -1) {
-      alert("Invalid participant");
-      validate = false;
+      alert("Invalid participant: " + this.value);
+      return false;
     }
+    
+    if (submitted_users.indexOf(this.value) != -1) {
+      alert("Duplicate user: " + this.value);
+      return false;
+    }
+    submitted_users.push(this.value);
   });
 
   return validate;
