@@ -25,6 +25,14 @@ class User < ActiveRecord::Base
     return user if user && user.matching_password?(pass)
   end
 
+  def self.find_by_username( name)
+    user = find(:first, :conditions => ["lower(username) = ?", name.downcase ])
+  end
+
+  def self.find_by_email( email)
+    user = find(:first, :conditions => ["lower(email) = ?", email.downcase ])
+  end
+
   def matching_password?(pass)
     self.password_hash == encrypt_password(pass)
   end

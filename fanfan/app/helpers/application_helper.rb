@@ -17,7 +17,7 @@ module ApplicationHelper
   def format_money(money)
     str="<span class='number"
     str += " negative-number" if money < 0
-    str += " positive-number" if money > 0
+    str += " positive-number" if money >= 0
     str += "'>"
     str += "$ " + "%.2f" % money
     str += "</span>"
