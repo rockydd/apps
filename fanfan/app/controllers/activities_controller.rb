@@ -136,6 +136,8 @@ class ActivitiesController < ApplicationController
     body = CONFIRMATION_MESSAGE.sub('__ID__', activity.id.to_s)
     body.sub!('ACTIVITY_NAME',activity.subject)
     send_message(activity.creator,@activity.payers, "Need your confirmation for #{activity.subject}", body)
+    #UserMailer.activity_email(user, @activity)
+    
   end
 
   def merge_occur_time
