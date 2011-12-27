@@ -7,7 +7,9 @@ body {
     /*  background-image: url(http://www.sustainablesonoma.org/pix/dot.gif);
   background-image: url(http://t2.gstatic.com/images?q=tbn:ANd9GcTd7TK6tfwGOPAreYphuyC6-Sr4lHfW9fAXzzKVby77fPO0-lqbog);
   background-image: url(http://t3.gstatic.com/images?q=tbn:ANd9GcQew5y7A9zCyRO-SOMJp6uliJh3JWfxtCjLF0-Lj1xCMZ4woxOF);*/
-  background-image: url(http://t3.gstatic.com/images?q=tbn:ANd9GcSjr1FYgiIApI4b8E-qW2tPZYeDJkK6-apXZIpy0wtIcz1hdP2u);
+  /*http://t3.gstatic.com/images?q=tbn:ANd9GcSjr1FYgiIApI4b8E-qW2tPZYeDJkK6-apXZIpy0wtIcz1hdP2u*/
+  background-image: url(images/winter.jpg);
+
 
 /*  background-image: url(http://t3.gstatic.com/images?q=tbn:ANd9GcSgN4vWXvWYlrSQNsl0MlbxnXXebPDTnGEQ_ppURjiu-TrU_Ltt);*/
 
@@ -95,12 +97,9 @@ a {
 #header {
 /*background-color: #333;*/
 background-repeat: no-repeat;
-margin-bottom: 20px;
-border-bottom: 1px;
-border-top: 0px;
-border-left: 0px;
-border-right: 0px;
-border-style: solid;
+padding-bottom: 10px;
+border-width: 1px;
+border-bottom-style: dashed;
 border-color: #98BF21;
 
 
@@ -116,28 +115,75 @@ float: right;
 
 #content {
 
-width:80%;
+float: left;
+width:auto;
+min-width: 750px;
 min-height:500px; /* for modern browsers */
 height:auto !important; /* for modern browsers */
 height:500px; /* for IE5.x and IE6 */
-margin-top:30px;
+margin-top:20px;
+margin-left:20px;
 /*margin-left: 220px;*/
 }
 #navigation {
 background-color: #F4F4F4;
-width:200px;
+width:250px;
 min-height:500px; /* for modern browsers */
 height:auto !important; /* for modern browsers */
-height:500px; /* for IE5.x and IE6 */
-float:right;
+float:left;
+margin-top: 20px;
+border-width: 1px;
+border-right-style: dashed;
+border-color: #98BF21;
+}
+#tiny_dashboard{
+margin-top: 10px;
+margin-left: 20px;
+margin-right: 20px;
+
+}
+#tiny_dashboard ul{
+padding-left: 5px;
+}
+#tiny_dashboard li{
+list-style: none;
+font-weight: bold;
 }
 
-#navigation_menu li {
+#navigation_menu {
+  list-style: none;
+  padding-left: 20px;
+}
+#navigation_menu li{
+  padding-left: 30px;
+  margin-top: 20px;
+}
+#navigation_menu li a{
+  vertical-align: middle;
   font-size: 14px;
 }
+li.activities {
+  background: url(images/bowl.png) no-repeat left center;
+}
+li.messages{
+  background: url(images/message.png) no-repeat left center;
+}
+li.balances{
+  background: url(images/balance.png) no-repeat left center;
+}
+
+#advertise
+{
+  margin-top: 30px;
+  text-align: center;
+}
 #footer {
-height:100px;
-margin-top:10px;
+  height:50px;
+  margin-top:10px;
+  clear: both;
+  border-top-style: dashed ;
+  border-width: 1px;
+  border-color: #DDD;
 }
 
 

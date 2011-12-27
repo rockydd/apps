@@ -1,11 +1,10 @@
 
 <% title "My Activities" %>
-<div style="float:right" class='action_link'><%= link_to "New Activity", new_activity_path, :class=>'add_activity' %></div>
+<div style="float:right; margin-top: -30px;" class='action_link'><%= link_to "New Activity", new_activity_path, :class=>'add_activity' %></div>
 
 <div style="margin-top: 40px">
-  <ul>
+  <ul id="activity_list">
   <% for activity in @activities %>
-      <li class='activity_list_icon'>
       <li class='activity_list_item'>
 
         <div class='activity_description'>

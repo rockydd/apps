@@ -3,23 +3,7 @@
 color: red;
 }
 
-#navigation{
-  margin-top: 40px;
-}
 
-#tiny_dashboard{
-margin-top: 10px;
-margin-left: 20px;
-margin-right: 20px;
-
-}
-#tiny_dashboard ul{
-padding-left: 5px;
-}
-#tiny_dashboard li{
-list-style: none;
-font-weight: bold;
-}
 
 #payment_detail {
 width: 400px;
@@ -88,19 +72,17 @@ color: black;
 display: inline-block;
 padding-left: 20px;
 }
-.activity_list_icon{
-list-style-image: url(images/food_small.png);
-float: left;
-margin-left: 30px;
-clear: left;
-
+#activity_list {
+  padding-left: 10px;
 }
 .activity_list_item{
 list-style: none;
-min-height: 60px;
-margin-left: 40px;
+background: url(images/bowl.png) no-repeat left center;
+padding-left: 30px;
 margin-right: 20px;
+margin-bottom: 20px;
 border-bottom: 1px solid #EEE;
+
 }
 .activity_list_item a{
 font-size: 16px;
@@ -174,8 +156,7 @@ margin: 20px;
 }
 
 .div-action-button{
-  width: 80%;
-  max-width: 630px;
+  width: 650px;
   height: 30px;
 
 }

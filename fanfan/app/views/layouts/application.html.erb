@@ -40,21 +40,26 @@
 
         <div id="navigation">
 
-        <div id="tiny_dashboard">
-          <ul>
-            <% if current_user %>
-            <li><%= link_to current_user.username.capitalize, balances_path %>: <%= raw current_user.balance ? format_money(current_user.balance.amount) : ""  %> </li>
-            <% end %>
-          </ul>
-        </div>
+          <% if current_user %>
+            <div id="tiny_dashboard">
+              <ul>
+                <li><%= link_to "Account", balances_path %>: <%= raw current_user.balance ? format_money(current_user.balance.amount) : ""  %> </li>
+              </ul>
+            </div>
+            <hr width="90%"/>
 
-          <ul id="navigation_menu">
-            <li><%= link_to "My Activities",activities_path %></li>
-            <li><%= link_to "Messages", messages_path %></li>
-            <li><%= link_to "Balance Sheet", balances_path%></li>
-          </ul>
-        </div>
-        <div id="content">
+              <ul id="navigation_menu">
+                <li class="activities"><%= link_to "My Activities",activities_path %></li>
+                <li class="messages"><%= link_to "Messages", messages_path %></li>
+                <li class="balances"><%= link_to "Balance Sheet", balances_path%></li>
+              </ul>
+              <% else %>
+              <div id="advertise">
+                <%= image_tag "eat_life2.png" %>
+              </div>
+            <% end %>
+      </div>
+      <div id="content">
           <% flash.each do |name, msg| %>
           <%= content_tag :div, msg, :id => "flash_#{name}" %>
           <% end %>
@@ -63,8 +68,17 @@
           <%= yield %>
 
         </div>
-      </div>
       <div id="footer">
+        <span style="float: right; font-weight: bold">
+          <% if rand(3) == 0 %>
+            Simple, the Best.
+          <% else %>
+            Life, is for eating.
+          <% end %>
+
+        </span>
+        <span style="float: right; clear: both">-- Fanfan</span>
+      </div>
       </div>
 
     </div>
