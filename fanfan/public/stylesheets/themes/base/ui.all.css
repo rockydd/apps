@@ -168,3 +168,8 @@ margin: 20px;
 #message_list td.title{
   text-align: left;
 }
+
+/* balance sheet */
+.balance_hr{
+  width: 70%;
+}

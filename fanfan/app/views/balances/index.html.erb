@@ -4,7 +4,7 @@
 <p>Your balance: <%= raw format_money @bal %></p>
 
 <% if @bal != 0 %>
-<hr/>
+<hr align="left" class="balance_hr"/>
   <p>
   <% if @bal > 0 %>
     Following people owe you money:
@@ -31,7 +31,7 @@
 <% end%>
 <br/>
   
-<hr/>
+<hr class="balance_hr" align="left"/>
 <p>
   All Balances:
 </p>
