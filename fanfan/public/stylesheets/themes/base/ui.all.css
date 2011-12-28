@@ -62,13 +62,15 @@ a.add_payer:link, a.add_payer:visited, a.add_payer:hover, a.add_payer:active{
 .action_link{
 text-align: right;
 margin-right: 10px;
+float: right;
+margin-top: -30px;
 }
-a.add_activity:link, a.add_activity:visited,
-a.add_activity:hover, a.add_activity:active{
+a.new_action_link:link, a.new_action_link:visited,
+a.new_action_link:hover, a.new_action_link:active{
 background: transparent url(images/add_16.png) no-repeat 0px 0px;
 color: black;
 }
-.add_activity{
+.new_action_link{
 display: inline-block;
 padding-left: 20px;
 }

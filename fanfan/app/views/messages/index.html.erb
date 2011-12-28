@@ -14,11 +14,12 @@
 </script>
 
 
-<h1>Listing messages</h1>
+<h1>Inbox</h1>
+<div class='action_link'>
+  <%= link_to 'Compose', new_message_path, :class=>"new_action_link"%>
+</div>
 
-<%= link_to 'New Message', new_message_path %>
-
- <div id="messages_header" class="message_header">
+ <div id="messages_header" class="message_header" style="margin-top: 40px">
      <span class="select_all_nonei_label"> Select: 
          <a href="#" onclick="checkall()">All</a>,
          <a href="#" onclick="checknone()">None</a>,
