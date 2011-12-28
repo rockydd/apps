@@ -12,7 +12,14 @@
             <%= activity.payers.map{|u|u.username == current_user.username ? "You" : u.username}.join(",") %>
           </span> attended the activity <%=link_to activity.subject, activity %> 
           <span class='activity_time'><%= time_ago_in_words(activity.occur_at) + ' ago' if activity.occur_at %>
-          </span>. It costed $<span class='money'><%= activity.cost%></span>.[<%= activity.status %>]
+          </span>. It costed <%= raw format_money activity.cost%>. 
+          <% if activity.status == Activity::STATUS_CLOSED %>
+            <span class="closed status" title="this activity is closed">Closed</span>
+          <% elsif activity.confirmed_by_user?(current_user) %>
+            <span class="confirmed status" title="you have confirmed this activity">Confirmed</span>
+          <% else %>
+            <span class="new status" title="need your confirmation">new</span>
+          <% end %>
         </div> 
       </li>
   <% end %>

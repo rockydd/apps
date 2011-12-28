@@ -96,7 +96,7 @@ class ActivitiesController < ApplicationController
 
     if activity.confirmed_by_all?
       calculate_balance(activity)
-      activity.status = "confirmed"
+      activity.status = Activity::STATUS_CLOSED
       activity.save!
     end
 

@@ -1,4 +1,7 @@
 class Activity < ActiveRecord::Base
+  STATUS_NEW = "new"
+  STATUS_CLOSED = "closed"
+  
   has_many :payers, :through => :payments, :source => :user
   has_many :payments
   belongs_to :creator, :class_name => "User"
@@ -24,6 +27,15 @@ class Activity < ActiveRecord::Base
 
   def confirmed_by_all?
     payments.reject{ |p| p.confirmed }.length.zero?
+  end
+  
+  def payment_of_user(user)
+    payments.find{|p| p.user == user}
+  end
+
+  def confirmed_by_user?(user)
+    payment = payment_of_user(user)
+    return payment && payment.confirmed
   end
 
   def self.paginate_by_user(user_id, page)
