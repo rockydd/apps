@@ -22,12 +22,12 @@ function validate_activity()
   $('.payername').each(function(index){
     if (users_names.indexOf(this.value) == -1) {
       alert("Invalid participant: " + this.value);
-      return false;
+      validate = false;
     }
     
     if (submitted_users.indexOf(this.value) != -1) {
       alert("Duplicate user: " + this.value);
-      return false;
+      validate = false;
     }
     submitted_users.push(this.value);
   });
