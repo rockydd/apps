@@ -19,7 +19,7 @@ module ApplicationHelper
     str += " negative-number" if money < 0
     str += " positive-number" if money >= 0
     str += "'>"
-    str += "$ " + "%.2f" % money
+    str += "$" + "%.2f" % money
     str += "</span>"
   end
 end
