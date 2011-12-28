@@ -135,6 +135,9 @@ border-width: 1px;
 border-right-style: dashed;
 border-color: #98BF21;
 }
+#navigation a{
+  color: #369;
+}
 #tiny_dashboard{
 margin-top: 10px;
 margin-left: 20px;
@@ -159,7 +162,8 @@ font-weight: bold;
 }
 #navigation_menu li a{
   vertical-align: middle;
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: bold;
 }
 li.activities {
   background: url(images/bowl.png) no-repeat left center;
