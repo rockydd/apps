@@ -2,6 +2,13 @@ zh:
   activity: 活动
   message: 消息
   balance: 收支
+  misc:  
+    you: 你
+    and: 和
+    ago: 以前
+  activities:
+    you_attended: 你和%{users}参加了活动[%{activity}].
+  
   mail:
     subject:
       new_activity: 有新饭局需要你的确认
