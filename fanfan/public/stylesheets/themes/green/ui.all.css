@@ -88,7 +88,7 @@ border-bottom: 1px solid #EEE;
 font-size: 14px;
 font-weight: bold;
 text-decoration: underline;
-color: #FF8C00;
+color: #369;
 }
 .activity_list_item .user_name{
 font-weight: bold;
@@ -189,6 +189,3 @@ margin: 20px;
 .balance_hr{
   width: 70%;
 }
-
-
-
