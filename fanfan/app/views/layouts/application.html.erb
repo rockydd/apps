@@ -51,9 +51,9 @@
             <hr width="90%"/>
 
               <ul id="navigation_menu">
-                <li class="activities"><%= link_to "My Activities",activities_path %></li>
-                <li class="messages"><%= link_to "Messages", messages_path %></li>
-                <li class="balances"><%= link_to "Balance Sheet", balances_path%></li>
+                <li class="activities"><%= link_to t(:activity),activities_path %></li>
+                <li class="messages"><%= link_to t(:message), messages_path %></li>
+                <li class="balances"><%= link_to t(:balance), balances_path%></li>
               </ul>
               <% else %>
               <div id="advertise">
