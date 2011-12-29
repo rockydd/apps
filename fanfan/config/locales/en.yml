@@ -3,3 +3,8 @@
 
 en:
   hello: "Hello world"
+  activities:
+    no_activity: "You have no activities yet."
+  mail:
+    subject:
+      new_activity: "Need your confirmation for a payment"
