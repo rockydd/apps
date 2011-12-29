@@ -7,7 +7,7 @@ zh:
     and: 和
     ago: 以前
   activities:
-    you_attended: 你和%{users}参加了活动[%{activity}].
+    attended: 参加了活动
   
   mail:
     subject:
