@@ -24,8 +24,10 @@
   <body>
     <div id="container">
       <div id="header">
-        <%= image_tag "logo.png"%>
+        <%= image_tag "logo.png", :class=>'logo'%>
         <span id='sitetitle'> FanFan</span>
+        <span id='beta'>
+        <span id='beta_tag'>beta</span></span>
         <div id="welcome">
           <% if logged_in? %>
           Welcome <%= current_user.username %>! Not you?
