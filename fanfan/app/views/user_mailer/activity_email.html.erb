@@ -6,7 +6,7 @@
   <body>
     <h1>hi, <%= @user.name %></h1>
     <p>
-      You have a new activity to confirm <%= url_for(@activity, :host => $host) %>
+      You have a new activity waiting for your confirmation: <a href="http://fanfan.bz<%= url_for(@activity) %>"> <%=@activity.subject%> </a>
     </p>
   </body>
 </html>
