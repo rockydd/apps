@@ -9,11 +9,14 @@ zh:
   activities:
     attended: 参加了活动
     costed: 花费
+    mine: 我的活动
+    new: 添加
   
   mail:
     subject:
       new_activity: 有新饭局需要你的确认
-
+  previous: '前一页'
+  next: '下一页'
 # Chinese (China) translations for Ruby on Rails
 # by tsechingho (http://github.com/tsechingho)
 
