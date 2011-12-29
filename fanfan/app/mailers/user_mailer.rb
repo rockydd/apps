@@ -5,7 +5,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @activity = activity
 
-    mail(:to => user.email, :subject => "New activity need your confirmation")
+    mail(:to => user.email, :subject => t("mail.subject.new_activity"))
 
   end
 end
