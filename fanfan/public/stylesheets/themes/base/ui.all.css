@@ -106,7 +106,6 @@ margin-top: 10px;
   padding-right: 5px;
   font-weight: bold;
   float: right;
-  border-radius: 5px;
   font-size: 12px;
 }
 .activity_list_item .closed{
@@ -120,6 +119,10 @@ margin-top: 10px;
 }
 .activity_list_item *{
 vertical-align: top;
+}
+.activity_time{
+  color: #999;
+  font-size: 11px;
 }
 
 /*icons*/
@@ -187,7 +190,6 @@ margin: 20px;
 
 /* balance sheet */
 .balance_hr{
-  width: 70%;
 }
 
 

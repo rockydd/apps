@@ -37,7 +37,7 @@
         <%= image_tag "logo.png", :class=>'logo'%>
         <span id='sitetitle'> FanFan</span>
         <span id='beta'>
-          <span id='beta_tag'>beta</span>
+          <span id='beta_tag' class='roundbox'>beta</span>
         </span>
         </div>
       </div>
@@ -45,18 +45,21 @@
         <div id="navigation">
 
           <% if current_user %>
+            <div class="shadowbox">
               <ul id="navigation_menu">
                 <li class="activities"><%= link_to t(:activity),activities_path %></li>
                 <li class="messages"><%= link_to t(:message), messages_path %></li>
                 <li class="balances"><%= link_to t(:balance), balances_path%></li>
               </ul>
-              <% else %>
-            <% end %>
+            </div>
+          <% end %>
       </div>
 
       <div id="info_panel">
-        <div id="advertise">
-          <%= image_tag "eat_life2.png" %>
+        <div class="shadowbox">
+          <div id="advertise">
+            <%= image_tag "eat_life_orange.png" %>
+          </div>
         </div>
       </div>
       <div id="content">

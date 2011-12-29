@@ -99,7 +99,7 @@ border-color: #98BF21;
 
 }
 #sitetitle {
-font-size: 50px;
+font-size: 25px;
 color: #FF8C00;
 }
 #beta{
@@ -128,9 +128,13 @@ float: right;
 }
 
 #info_panel{
-padding-top: 30px;
 float: right;
 clear: right;
+margin-right: 10px;
+}
+#info_panel .shadowbox{
+  background-color: #FF8000;
+padding: 5px;
 }
 
 #content {
@@ -138,16 +142,36 @@ clear: left;
 min-width: 350px;
 min-height:500px; /* for modern browsers */
 height:auto !important; /* for modern browsers */
-margin-top:30px;
+margin-top:40px;
 margin-left: 10px;
 margin-right: 200px;
 /*margin-left: 220px;*/
 }
 #navigation {
-background-color: #FF6600;
 border-width: 1px;
 border-style: none;
 border-color: #98BF21;
+height: 30px;
+margin-top: -10px;
+}
+.shadowbox{
+box-shadow: 10px 10px 5px #888;
+-moz-box-shadow:    10px 10px 5px #888;
+-webkit-box-shadow: 10px 10px 5px #888;
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+-khtml-border-radius: 5px;
+}
+.roundbox{
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+}
+#navigation .shadowbox{
+float: left;
+background-color: #FF6600;
 }
 #navigation a{
   color: white;
@@ -171,21 +195,24 @@ font-weight: bold;
 
 #navigation_menu {
   list-style: none;
-  padding-left: 10px;
-  margin: 2px;
+  padding-left: 5px;
+  margin: 5px 5px 8px 5px;
 }
 #navigation_menu li{
   display: inline;
-  margin-right: 20px;
+  margin-right: 10px;
   padding: 0px;
+  font-size: 22px;
 }
 #navigation_menu li a{
   vertical-align: middle;
-  font-size: 12px;
   font-weight: bold;
   text-decoration: none;
 }
-
+#navigation_menu li a:hover{
+  background: transparent;
+  color: #A7C941;
+}
 /*
 li.activities {
   background: url(images/bowl.png) no-repeat left center;
@@ -225,7 +252,7 @@ width: 250px;
 
 table {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  width: 70%;
+  width: 100%;
   border-collapse: collapse;
 }
 
