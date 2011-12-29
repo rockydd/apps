@@ -29,9 +29,6 @@ class ActivitiesController < ApplicationController
   end
 
   def create
-    #usernames = params[:activity].delete(:user_names).split(",")
-    #users = usernames.map{|n| User.find_by_name(n)}
-    #params[:activity][:users] = users
     params[:activity][:payments] = get_payments
 
     @activity = Activity.new(params[:activity])
@@ -106,17 +103,14 @@ class ActivitiesController < ApplicationController
   private
   def get_payments
     payments = []
-    begin
-      pay_hash = Hash[*params[:activity][:payments]]
-      pay_hash.keys.each do |username|
-        user = User.find_by_username(username)
-        payment = Payment.new(:user_id => user.id.to_i, :amount => pay_hash[username])
-        payments << payment
-      end
-      return payments
-    rescue Exception => e
-      return nil
+
+    pay_hash = Hash[*params[:activity][:payments]]
+    pay_hash.keys.each do |username|
+      user = User.find_by_username(username)
+      payment = Payment.new(:user_id => user.id.to_i, :amount => pay_hash[username])
+      payments << payment
     end
+    return payments
 
     payments = params[:activity][:payments].inject([]){|r,i| r[-1].is_a?(String) ?  r<<(Payment.new(:user_id => r.pop().to_i, :amount => i, :confirmed => false)) : r<<i}
     return payments if payments.size <= 1
