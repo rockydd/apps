@@ -7,7 +7,6 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:login], params[:password])
     if user
       session[:user_id] = user.id
-      flash[:notice] = "Logged in successfully."
       redirect_to :controller => :activities, :action => :index
     else
       flash.now[:error] = "Invalid login or password."
