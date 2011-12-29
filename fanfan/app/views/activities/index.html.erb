@@ -8,11 +8,6 @@
       <li class='activity_list_item'>
 
         <div class='activity_description'>
-          <span class='user_name'>
-            <%= activity.payers.map{|u|u.username == current_user.username ? t("misc.you") : u.username}.join(",") %>
-          </span> <%= t("activities.attended")%> <%=link_to activity.subject, activity %>.
-          <%= t("activities.costed") %> <%= raw format_money activity.cost%>. 
-          <span class='activity_time'>[<%= time_ago_in_words(activity.occur_at) + t("misc.ago") if activity.occur_at %>]</span>
           <% if activity.status == Activity::STATUS_CLOSED %>
             <span class="closed status roundbox" title="this activity is closed">Closed</span>
           <% elsif activity.confirmed_by_user?(current_user) %>
@@ -20,6 +15,15 @@
           <% else %>
             <span class="new status roundbox" title="need your confirmation">new</span>
           <% end %>
+          <span class='activity_summary'>
+            <span class='user_name'>
+              <%= activity.payers.map{|u|u.username == current_user.username ? t("misc.you") : u.username}.join(",") %>
+            </span> <%= t("activities.attended")%> <%=link_to activity.subject, activity %>.
+            <%= t("activities.costed") %> <%= raw format_money activity.cost%>. 
+          </span>
+
+          <span class='activity_time'>[<%= time_ago_in_words(activity.occur_at) + t("misc.ago") if activity.occur_at %>]</span>
+
         </div> 
       </li>
   <% end %>

@@ -120,9 +120,17 @@ margin-top: 10px;
 .activity_list_item *{
 vertical-align: top;
 }
+.activity_description{
+ /* min-height: 40px;*/
+}
 .activity_time{
+  /*float: left;
+  clear: left;*/
   color: #999;
   font-size: 11px;
+}
+.activity_summary{
+  /*float: left;*/
 }
 
 /*icons*/
