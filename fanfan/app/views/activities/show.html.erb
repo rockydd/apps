@@ -42,13 +42,13 @@
          <td class="number" ><%= raw format_money(balance) %></td>
      <td>
          <% if payment.confirmed %>
-              Confirmed
+              <span class="confirmed status roundbox">Confirmed</span>
              <% elsif payment.user == current_user%>
         <div id='<%= "confirm_span#{payment.id}" %>'>
             <%= link_to_function 'Confirm', 
                 remote_function(:update => "confirm_span#{payment.id}", :url => { :action => :confirm_payment, :method => 'POST' }, :confirm => "Are you sure?") %> </div>
          <% else %>
-         Not confirmed
+            <span class="new status roundbox">Not confirmed</span>
              <% end %>
 
       </td>

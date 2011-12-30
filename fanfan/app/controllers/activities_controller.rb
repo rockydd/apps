@@ -3,6 +3,7 @@ require 'balance_lib'
 class ActivitiesController < ApplicationController
   before_filter :login_required
   before_filter :merge_occur_time, :only => [:create, :update]
+  before_filter :get_payments, :only => [:create, :update]
   include MessageSender
   include BalanceLib
 
@@ -29,14 +30,23 @@ class ActivitiesController < ApplicationController
   end
 
   def create
-    params[:activity][:payments] = get_payments
 
     @activity = Activity.new(params[:activity])
+    if @payments_invalid
+      @users = User.find(:all)
+      render :action => 'new'
+      return
+    end
     @activity.creator = current_user
 
     @activity.status='new'
     if @activity.save
       flash[:notice] = "Successfully created activity."
+      my_payment = @activity.payments.find{|p| p.user == current_user}
+      if my_payment
+        my_payment.confirmed = true 
+        my_payment.save 
+      end
       send_confirmation_message(@activity)
       redirect_to @activity
     else
@@ -47,15 +57,31 @@ class ActivitiesController < ApplicationController
 
   def edit
     @activity = Activity.find(params[:id])
+    if @activity.payments.find{|p| p.user == current_user}.nil?
+      flash[:error] = "You are not in that activity"
+      redirect_to :action => 'index'
+    end
     @users = User.find(:all)
   end
 
   def update
-    @activity = Activity.find(params[:id])
 
-    params[:activity][:payments] = get_payments
+    @activity = Activity.find(params[:id])
+    if @payments_invalid
+      @users = User.find(:all)
+      render :action => 'edit'
+      return
+    end
+    debugger
+    #delete the old payments first
+    @activity.payments.each {|p| p.destroy}
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "Successfully updated activity."
+      my_payment = @activity.payments.find{|p| p.user == current_user}
+      if my_payment
+        my_payment.confirmed = true 
+        my_payment.save 
+      end
       redirect_to @activity
     else
       render :action => 'edit'
@@ -102,15 +128,26 @@ class ActivitiesController < ApplicationController
 
   private
   def get_payments
-    payments = []
+    @payments = []
+    @payments_invalid = false
 
     pay_hash = Hash[*params[:activity][:payments]]
     pay_hash.keys.each do |username|
       user = User.find_by_username(username)
+      if(user.nil?)
+        flash.now[:error] = "user #{username} not found"
+        @payments_invalid = true
+        next
+      end
       payment = Payment.new(:user_id => user.id.to_i, :amount => pay_hash[username])
-      payments << payment
+      @payments << payment
     end
-    return payments
+    if @payments.size <= 0
+      flash.now[:error] = "Need at least one participant."
+      @payments_invalid = false
+    end
+    params[:activity][:payments] = @payments 
+    return true
 
     payments = params[:activity][:payments].inject([]){|r,i| r[-1].is_a?(String) ?  r<<(Payment.new(:user_id => r.pop().to_i, :amount => i, :confirmed => false)) : r<<i}
     return payments if payments.size <= 1
@@ -125,6 +162,7 @@ class ActivitiesController < ApplicationController
   end
 
   CONFIRMATION_MESSAGE="There is a new activity need your confirmation, please click following link to get there:\n\n <a href='/activities/__ID__'>ACTIVITY_NAME</a>"
+
   def send_confirmation_message(activity)
     body = CONFIRMATION_MESSAGE.sub('__ID__', activity.id.to_s)
     body.sub!('ACTIVITY_NAME',activity.subject)
