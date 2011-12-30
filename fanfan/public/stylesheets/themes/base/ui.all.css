@@ -13,8 +13,6 @@ background: #999;
 }
 
 #payers {
-  width: 80%;
-  max-width: 630px;
 }
 .payername {
   width: 100px;
@@ -122,6 +120,10 @@ margin-top: 10px;
 vertical-align: top;
 }
 
+#activity_form{
+  max-width: 600px;
+}
+
 /*icons*/
 .icon {
   width: 16px;
@@ -144,7 +146,7 @@ vertical-align: top;
 .create_button{
   background: transparent url(images/save.gif) no-repeat 5px 5px;
   width: 120px;
-  height: 38px;
+  height: 35px;
   font-size: 14px;
   margin-right: 0px;
   
@@ -167,6 +169,7 @@ margin: 20px;
   font-size: 16px;
   color: #A7C942;
   font-weight: bold;
+  width: 100%;
 }
 
 .navigation-link {
@@ -174,9 +177,15 @@ margin: 20px;
 }
 
 .div-action-button{
-  width: 650px;
   height: 30px;
 
+}
+
+#payer_list th#th1{
+  width: 150px;
+}
+#payer_list th#th2{
+  width: 100px;
 }
 
 
@@ -187,5 +196,4 @@ margin: 20px;
 
 /* balance sheet */
 .balance_hr{
-  width: 70%;
 }

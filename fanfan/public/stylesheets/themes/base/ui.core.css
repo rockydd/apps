@@ -131,7 +131,6 @@ float: right;
 
 #content {
 
-min-width: 750px;
 min-height:500px; /* for modern browsers */
 height:auto !important; /* for modern browsers */
 height:500px; /* for IE5.x and IE6 */
@@ -213,3 +212,11 @@ font-weight: bold;
 font-weight: bold;
 width: 250px;
 }
+
+.roundbox{
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+-khtml-border-radius: 5px;
+border-radius: 5px;
+}
+

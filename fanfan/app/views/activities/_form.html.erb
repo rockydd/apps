@@ -99,12 +99,13 @@ jQuery(function (){
 });
 </script>
 <!--  -->
+<div id="activity_form">
 <%= form_for @activity do |f| %>
   <%= f.error_messages %>
   <p>
     <div class="meta-inner">
       <div class="meta-default-text" style="display: <%= @activity.new_record? ? 'block' : 'none'; %> ">Enter your activity summary...</div>
-      <%= f.text_field :subject, :class => "meta-input subject", :size=> 67, :maxlength => 200, :spellcheck => true %>
+      <%= f.text_field :subject, :class => "meta-input subject", :spellcheck => true %>
     </div>
   </p>
   <p>
@@ -137,3 +138,4 @@ jQuery(function (){
   </div>
 
 <% end %>
+</div>

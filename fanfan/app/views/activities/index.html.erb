@@ -15,11 +15,11 @@
           <span class='activity_time'><%= time_ago_in_words(activity.occur_at) + ' ago' if activity.occur_at %>
           </span>. It costed <%= raw format_money activity.cost%>. 
           <% if activity.status == Activity::STATUS_CLOSED %>
-            <span class="closed status" title="this activity is closed">Closed</span>
+            <span class="closed status roundbox" title="this activity is closed">Closed</span>
           <% elsif activity.confirmed_by_user?(current_user) %>
-            <span class="confirmed status" title="you have confirmed this activity">Confirmed</span>
+            <span class="confirmed status roundbox" title="you have confirmed this activity">Confirmed</span>
           <% else %>
-            <span class="new status" title="need your confirmation">new</span>
+            <span class="new status roundbox" title="need your confirmation">new</span>
           <% end %>
         </div> 
       </li>

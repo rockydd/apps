@@ -6,8 +6,7 @@
 
   jQuery(function() {
     jQuery( ".payername" ).autocomplete({
-      source: users_names,
-      minLength: 1
+      source: users_names
     })
   });
 
@@ -22,6 +21,7 @@
     var newdivid='payer'+(++payercount);
     newpayer.attr('id',newdivid);
     newpayer.find('.payername').attr('value', '');
+    newpayer.find('.payername').attr('readonly', '');
     newpayer.find('td').eq(1).find('span').nextAll().remove();
     newpayer.find('td').eq(1).append($('<input type="number" class="payamount" name="activity[payments][]"></input>'));
     newpayer.find('td').eq(2).append($('<a href="javascript:void(0)" class="remove_payer">Remove</a>'));
@@ -36,8 +36,7 @@
     newpayer.css('display', '');
   
     newpayer.find('.payername').autocomplete({
-      source: users_names,
-      minLength: 2
+      source: users_names
     });
 
     var payers=$('.payername:not(#payername'+payercount+')')
@@ -54,11 +53,12 @@
 </script>
 
 <div id='payers'>
-  <table style="width: 650px;">
+  <table >
     <tbody id="payer_list">
       <tr>
-        <th width="200px">Participant</th>
-        <th width="200px">Payed</th>
+        <th id="th1"> Participant</th>
+        <th id="th2">Payed</th>
+        <th>Action</th>
         <th></th>
       </tr>
       <% payments = @activity.payments %>
@@ -75,7 +75,7 @@
         <% id = i+1 %>
         <tr  class='newPayer' id='payer<%= id.to_s %>' <%= "style='display: none'" if i == -1 %> >
           <td> 
-	    <input id="test" class="payername" name="activity[payments][]" value="<%= payment.user.username %>"/>
+	          <input id="test" class="payername" name="activity[payments][]" value="<%= payment.user.username %>" <%= "readonly='readonly'" if readonly %>/>
           </td>
           <td style="text-align: right">
             <span style="font-family: Arial">&yen;</span>
@@ -92,6 +92,7 @@
               <a href="javascript:void(0)" class='remove_payer'>Remove</a>
             <% end %>
           </td>
+          <td> </td>
         </tr>
         <% readonly = false %>
       <% end %>
