@@ -60,6 +60,10 @@ class ActivitiesController < ApplicationController
 
   def edit
     @activity = Activity.find(params[:id])
+    if @activity.closed? 
+      flash[:error] = "You can not edit closed activity"
+      redirect_to :action => 'index'
+    end
     if @activity.payments.find{|p| p.user == current_user}.nil?
       flash[:error] = "You are not in that activity"
       redirect_to :action => 'index'

@@ -59,7 +59,7 @@
 
 </div>
 <div class="navigation-link" >
-  <% if @activity.status != "confirmed" %>
+  <% if ! @activity.closed? %>
     <%= link_to "Edit", edit_activity_path(@activity) %> |
   <% end %>
   <%= link_to "Back to List", activities_path %>
