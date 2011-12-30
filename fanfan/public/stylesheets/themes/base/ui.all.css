@@ -116,10 +116,10 @@ float: right;
   font-size: 12px;
 }
 .closed{
-  background-color: #A7C941;/**/
+  background-color: #369;
 }
 .confirmed{
-  background-color: #369;
+  background-color: #A7C941;/**/
 }
 .new{
   background-color: #FF8C00;/*darkorange;/*#BC0823;/*#ECB800; yellow*/
