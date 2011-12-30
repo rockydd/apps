@@ -58,9 +58,9 @@ function debug()
   }
   function updateFinalRemaining()
   {
-    jQuery("#final_payer_amount").text(getRemainingAmount());
-    jQuery("#payamount1").attr('value',getRemainingAmount());
-
+    var remain = getRemainingAmount();
+    jQuery(".amount_field input.creator ").attr('value', remain);
+    jQuery(".amount_field span.creator ").text(remain);
   }
 
 jQuery(function (){
@@ -84,12 +84,12 @@ jQuery(function (){
   function toggle_place_holder(ele){
                       if (jQuery(ele).val().length == 0)
                       {
-                        jQuery(ele).prev().css("display","block");
+                        jQuery(ele).prev().css("display","");
                       }
                       else
                       {
                         jQuery(ele).prev().css("display","none");
-                        $(ele).css("border-color", "#A7C942");
+                        jQuery(ele).css("border-color", "#A7C942");
                       }
   }
 
@@ -110,7 +110,7 @@ jQuery(function (){
   <%= f.error_messages %>
   <p>
     <div class="meta-inner">
-      <div class="meta-default-text" style="display: <%= @activity.new_record? ? 'block' : 'none'; %> ">Enter your activity summary...</div>
+      <div class="meta-default-text"  style="display: <%= @activity.new_record? ? 'block' : 'none';%>" >Enter your activity summary...</div>
       <%= f.text_field :subject, :class => "meta-input subject", :spellcheck => true %>
     </div>
   </p>
@@ -137,7 +137,6 @@ jQuery(function (){
 
 
   <div class="div-action-button" >
-    <div style="float: left; width: 100%"></div>
     <div style="float: right">
       <%= f.submit "Save", :class => "create_button"%>
     </div>

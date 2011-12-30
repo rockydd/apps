@@ -25,6 +25,13 @@ font-weight: bold;
 .payamount {
   width: 60px;
 }
+.name_field input.readonly{
+  border: none;
+}
+.name_field input.creator{
+color:#A7C942;
+font-weight: bold;
+}
 .total-cost {
   width: 90px;
 }
@@ -124,6 +131,21 @@ vertical-align: top;
 #activity_form{
   max-width: 600px;
 }
+.meta-inner {
+  margin-left: 0px;
+  position: relative;
+  padding-left: 0px;
+}
+.meta-default-text {
+  color: #AAA;
+  position: absolute;
+  padding: 5px;
+  width: 100%;
+}
+.meta-input {
+  border: solid 1px;
+  font-size: 14pt;
+}
 
 /*icons*/
 .icon {
@@ -161,12 +183,16 @@ margin: 20px;
 .pagination{
   text-align: right;
 }
-.subject{
+span.subject{
   border-bottom: 1px;
   border-style: solid;
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
+}
+input.subject{
+  border-style:solid;
+  border-width: 1px;
   font-size: 16px;
   color: #A7C942;
   font-weight: bold;
@@ -179,7 +205,7 @@ margin: 20px;
 
 .div-action-button{
   height: 30px;
-
+  margin-top: 30px;
 }
 
 
@@ -187,7 +213,7 @@ margin: 20px;
   width: 150px;
 }
 #payer_list th#th2{
-  width: 100px;
+  width: 200px;
 }
 
 

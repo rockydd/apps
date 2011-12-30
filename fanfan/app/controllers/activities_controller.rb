@@ -1,11 +1,13 @@
 require 'message_sender'
 require 'balance_lib'
+require 'tools'
 class ActivitiesController < ApplicationController
   before_filter :login_required
   before_filter :merge_occur_time, :only => [:create, :update]
   before_filter :get_payments, :only => [:create, :update]
   include MessageSender
   include BalanceLib
+  include Tools
 
   def index
     @activities = Activity.paginate_by_user(current_user.id, params[:page])
@@ -26,6 +28,7 @@ class ActivitiesController < ApplicationController
 
   def new
     @activity = Activity.new
+    @activity.creator = current_user
     @users = User.find(:all)
   end
 
@@ -72,7 +75,7 @@ class ActivitiesController < ApplicationController
       render :action => 'edit'
       return
     end
-    debugger
+    
     #delete the old payments first
     @activity.payments.each {|p| p.destroy}
     if @activity.update_attributes(params[:activity])
