@@ -115,13 +115,13 @@ float: right;
   border-radius: 5px;
   font-size: 12px;
 }
-.closed{
+.status.closed{
   background-color: #369;
 }
-.confirmed{
+.status.confirmed{
   background-color: #A7C941;/**/
 }
-.new{
+.status.new{
   background-color: #FF8C00;/*darkorange;/*#BC0823;/*#ECB800; yellow*/
 }
 .activity_list_item *{
