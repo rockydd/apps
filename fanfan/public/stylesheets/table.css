@@ -1,6 +1,6 @@
 table {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  width: 70%;
+  width: 100%;
   border-collapse: collapse;
 }
 
@@ -18,7 +18,7 @@ tr {
 }
 
 th {
-  font-size: 1.4em;
+  font-size: 16px;
   text-align: center;
   padding-top: 5px;
   padding-bottom: 4px;

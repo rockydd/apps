@@ -1,6 +1,6 @@
 
-<% title t("activities.mine") %>
-<div class='action_link'><%= link_to t("activities.new"), new_activity_path, :class=>'new_action_link' %></div>
+<% title "My Activities" %>
+<div class='action_link'><%= link_to "New Activity", new_activity_path, :class=>'new_action_link' %></div>
 
 <div style="margin-top: 40px">
   <% if @activities.size > 0 %>
@@ -9,6 +9,11 @@
       <li class='activity_list_item'>
 
         <div class='activity_description'>
+          <span class='user_name'>
+            <%= activity.payers.map{|u|u.username == current_user.username ? "You" : u.username}.join(",") %>
+          </span> attended the activity <%=link_to activity.subject, activity %> 
+          <span class='activity_time'><%= time_ago_in_words(activity.occur_at) + ' ago' if activity.occur_at %>
+          </span>. It costed <%= raw format_money activity.cost%>. 
           <% if activity.status == Activity::STATUS_CLOSED %>
             <span class="closed status roundbox" title="this activity is closed">Closed</span>
           <% elsif activity.confirmed_by_user?(current_user) %>
@@ -16,15 +21,6 @@
           <% else %>
             <span class="new status roundbox" title="need your confirmation">new</span>
           <% end %>
-          <span class='activity_summary'>
-            <span class='user_name'>
-              <%= activity.payers.map{|u|u.username == current_user.username ? t("misc.you") : u.username}.join(",") %>
-            </span> <%= t("activities.attended")%> <%=link_to activity.subject, activity %>.
-            <%= t("activities.costed") %> <%= raw format_money activity.cost%>. 
-          </span>
-
-          <span class='activity_time'>[<%= time_ago_in_words(activity.occur_at) + t("misc.ago") if activity.occur_at %>]</span>
-
         </div> 
       </li>
   <% end %>
@@ -32,7 +28,7 @@
      <%= will_paginate @activities%>
   <%else %>
     <div id="empty_activity">
-      <p> <%= t("mail.subject.no_activity") %> </p>
+      <p> <%= t("activities.no_activity") %> </p>
     </div>
   <%end %>
 </div>

@@ -58,9 +58,9 @@ function debug()
   }
   function updateFinalRemaining()
   {
-    jQuery("#final_payer_amount").text(getRemainingAmount());
-    jQuery("#payamount1").attr('value',getRemainingAmount());
-
+    var remain = getRemainingAmount();
+    jQuery(".amount_field input.creator ").attr('value', remain);
+    jQuery(".amount_field span.creator ").text(remain);
   }
 
 jQuery(function (){
@@ -81,30 +81,37 @@ jQuery(function (){
   jQuery(".meta-default-text").click(function(){ 
                       jQuery(this).css("display", "none");
                       jQuery(this).next().focus();});
-  jQuery(".meta-input").focusout(function(){
-                      if (jQuery(this).val().length == 0)
+  function toggle_place_holder(ele){
+                      if (jQuery(ele).val().length == 0)
                       {
-                        jQuery(this).prev().css("display","block");
+                        jQuery(ele).prev().css("display","");
                       }
                       else
                       {
-                        $(this).css("border-color", "#A7C942");
+                        jQuery(ele).prev().css("display","none");
+                        jQuery(ele).css("border-color", "#A7C942");
                       }
-                      });
+  }
 
-  $("#new_activity").submit(function(){
+  jQuery(".meta-input").keyup(function(){toggle_place_holder(this)});
+
+  jQuery(".meta-input").focusout(function(){toggle_place_holder(this)});
+
+  $("form").submit(function(){
         return (validate_activity());
       });
+  $("#activity_subject").focus();
   
 });
 </script>
 <!--  -->
+<div id="activity_form">
 <%= form_for @activity do |f| %>
   <%= f.error_messages %>
   <p>
     <div class="meta-inner">
-      <div class="meta-default-text" style="display: <%= @activity.new_record? ? 'block' : 'none'; %> ">Enter your activity summary...</div>
-      <%= f.text_field :subject, :class => "meta-input subject", :size=> 67, :maxlength => 200, :spellcheck => true %>
+      <div class="meta-default-text"  style="display: <%= @activity.new_record? ? 'block' : 'none';%>" >Enter your activity summary...</div>
+      <%= f.text_field :subject, :class => "meta-input subject", :spellcheck => true %>
     </div>
   </p>
   <p>
@@ -130,10 +137,10 @@ jQuery(function (){
 
 
   <div class="div-action-button" >
-    <div style="float: left; width: 100%"></div>
     <div style="float: right">
       <%= f.submit "Save", :class => "create_button"%>
     </div>
   </div>
 
 <% end %>
+</div>

@@ -6,8 +6,7 @@
 
   jQuery(function() {
     jQuery( ".payername" ).autocomplete({
-      source: users_names,
-      minLength: 1
+      source: users_names
     })
   });
 
@@ -22,6 +21,9 @@
     var newdivid='payer'+(++payercount);
     newpayer.attr('id',newdivid);
     newpayer.find('.payername').attr('value', '');
+    newpayer.find('.payername').attr('readonly', '');
+    newpayer.find('.payername').removeClass('readonly');
+    newpayer.find('.payername').removeClass('creator');
     newpayer.find('td').eq(1).find('span').nextAll().remove();
     newpayer.find('td').eq(1).append($('<input type="number" class="payamount" name="activity[payments][]"></input>'));
     newpayer.find('td').eq(2).append($('<a href="javascript:void(0)" class="remove_payer">Remove</a>'));
@@ -36,8 +38,7 @@
     newpayer.css('display', '');
   
     newpayer.find('.payername').autocomplete({
-      source: users_names,
-      minLength: 2
+      source: users_names
     });
 
     var payers=$('.payername:not(#payername'+payercount+')')
@@ -52,50 +53,56 @@
     return;
   }
 </script>
-
-<div id='payers'>
-  <table style="width: 650px;">
+  <table >
     <tbody id="payer_list">
       <tr>
-        <th width="200px">Participant</th>
-        <th width="200px">Payed</th>
+        <th id="th1"> Participant</th>
+        <th id="th2">Payed</th>
+        <th>Action</th>
         <th></th>
       </tr>
       <% payments = @activity.payments %>
       <%if payments.empty? 
           p = Payment.new()
           p.user = current_user
+          p.activity = @activity
           payments << p 
         end
       %>
 
       <% payments[0].amount = @activity.cost %>
-      <% readonly = true %>
+      <% i_am_creator = current_user.is_creator_of?(@activity) %>
       <% payments.each_with_index do |payment,i|  %>
+        <% readonly = ! payment.editable_by_user?(current_user)%>
+        <% he_is_creator = payment.user.is_creator_of?(@activity) %>
         <% id = i+1 %>
-        <tr  class='newPayer' id='payer<%= id.to_s %>' <%= "style='display: none'" if i == -1 %> >
-          <td> 
-	    <input id="test" class="payername" name="activity[payments][]" value="<%= payment.user.username %>"/>
+        <tr  class='newPayer' id='payer<%= id.to_s %>' >
+          <td class="name_field"> 
+	          <input id="test" class="payername <%= "creator" if he_is_creator %> <%= "readonly" if !i_am_creator || he_is_creator%>" 
+                name="activity[payments][]" value="<%= payment.user.username %>" <%= "readonly='readonly'" unless i_am_creator && !he_is_creator%>/>
           </td>
-          <td style="text-align: right">
+          <td style="text-align: right" class="amount_field">
             <span style="font-family: Arial">&yen;</span>
-            <% if i.zero? %>
-              <span id='final_payer_amount'></span>
-              <input type='hidden' name="activity[payments][]", id="payamount1"></input>
-            <% else%>
-              <%= number_field_tag :amount, payment.amount || 0,
-                  {:step=>1, :max => 1000000,:class => "payamount",:name=>"activity[payments][]",:id=>"payamount#{id}", :readonly=>readonly}%>
-            <% end %>
+              <% if readonly %>
+                <span class='readonly payer_amount <%= "creator" if he_is_creator %>'><%= payment.amount || 0 %></span>
+                <input type='hidden' class='<%= "creator" if he_is_creator %>' name="activity[payments][]" value="<%= payment.amount || 0 %>" id="payamount<%= id %>"></input>
+
+              <% else %>
+                <%= number_field_tag :amount, payment.amount || 0,
+                  {:step=>1, :max => 1000000,:class => "payamount ",:name=>"activity[payments][]",:id=>"payamount#{id}"}%>
+              <% end %>
           </td>
           <td>
-            <% if ! i.zero? %>
+            <% if ! readonly %>
               <a href="javascript:void(0)" class='remove_payer'>Remove</a>
             <% end %>
           </td>
+          <td> </td>
         </tr>
         <% readonly = false %>
       <% end %>
     </tbody>
   </table>
-<span id="add_payer" ><%= link_to_function "add participant", "addNewPayer()", :class => "add_payer"%></span>
-</div>
+  <% if i_am_creator %>
+    <span id="add_payer" ><%= link_to_function "add participant", "addNewPayer()", :class => "add_payer"%></span>
+  <% end %>

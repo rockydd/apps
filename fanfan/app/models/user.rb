@@ -37,6 +37,10 @@ class User < ActiveRecord::Base
     self.password_hash == encrypt_password(pass)
   end
 
+  def is_creator_of?(activity)
+    activity.creator == self
+  end
+
   private
 
   def prepare_password

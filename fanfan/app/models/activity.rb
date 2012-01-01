@@ -38,6 +38,10 @@ class Activity < ActiveRecord::Base
     return payment && payment.confirmed
   end
 
+  def closed?
+    status == STATUS_CLOSED
+  end
+
   def self.paginate_by_user(user_id, page)
     paginate :conditions => ['payments.user_id = ?', user_id],
               :joins     => 'INNER JOIN payments ON payments.activity_id = activities.id',
