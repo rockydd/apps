@@ -22,12 +22,12 @@ th {
   text-align: center;
   padding-top: 5px;
   padding-bottom: 4px;
-  background-color: #FF8C00;
+  background-color: #A7C942;
   color: white;
 }
 
 td, th {
-  border: 1px solid #FF8C00;
+  border: 1px solid #A7C942;
   padding: 3px 7px 2px 7px;
   border-image: initial;
 }
