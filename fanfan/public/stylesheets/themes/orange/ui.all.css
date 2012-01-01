@@ -1,0 +1,204 @@
+@import "ui.core.css";
+.money {
+color: red;
+}
+
+
+
+#payment_detail {
+width: 400px;
+}
+#payment_detail th {
+background: #999;
+}
+
+#payers {
+  width: 80%;
+  max-width: 630px;
+}
+.payername {
+  width: 100px;
+}
+
+#payment_detail td.number{
+text-align: right;
+font-weight: bold;
+}
+.payamount {
+  width: 60px;
+}
+.total-cost {
+  width: 90px;
+}
+.negative-number{
+color: red;
+}
+.positive-number{
+color: green;
+}
+a.remove_payer:link, a.remove_payer:visited,
+a.remove_payer:hover, a.remove_payer:active{
+  background: transparent url(images/cancel_16.png) no-repeat 0px 0px;
+  color: black;
+}
+.remove_payer{
+display: inline-block;
+padding-left: 20px;
+font-size: 14px;
+}
+a{
+  text-decoration: underline;
+}
+a.add_payer:link, a.add_payer:visited, a.add_payer:hover, a.add_payer:active{
+  background: transparent url(images/add_16.png) no-repeat 0px 0px;
+  color: black;
+}
+.add_payer {
+  color: #A7C942;
+  display: inline-block;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+.action_link{
+text-align: right;
+float: right;
+margin-top: -30px;
+}
+a.new_action_link:link, a.new_action_link:visited,
+a.new_action_link:hover, a.new_action_link:active{
+background: transparent url(images/add_16.png) no-repeat 0px 0px;
+color: black;
+}
+.new_action_link{
+display: inline-block;
+padding-left: 20px;
+}
+#activity_list {
+  padding-left: 10px;
+}
+.activity_list_item{
+list-style: none;
+background: url(images/bowl.png) no-repeat left center;
+padding-left: 30px;
+margin-bottom: 20px;
+border-bottom: 1px solid #EEE;
+
+}
+.activity_list_item a{
+font-size: 14px;
+font-weight: bold;
+text-decoration: underline;
+color: #FF8C00;
+}
+.activity_list_item .user_name{
+font-weight: bold;
+}
+.activity_list_item .activity_time{
+}
+
+.activity_list_item div{
+margin-top: 10px;
+}
+
+.activity_list_item .status{
+  color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-weight: bold;
+  float: right;
+  font-size: 12px;
+}
+.activity_list_item .closed{
+  background-color: #A7C941;/**/
+}
+.activity_list_item .confirmed{
+  background-color: #369;
+}
+.activity_list_item .new{
+  background-color: #FF8C00;/*darkorange;/*#BC0823;/*#ECB800; yellow*/
+}
+.activity_list_item *{
+vertical-align: top;
+}
+.activity_description{
+ /* min-height: 40px;*/
+}
+.activity_time{
+  /*float: left;
+  clear: left;*/
+  color: #999;
+  font-size: 11px;
+}
+.activity_summary{
+  /*float: left;*/
+}
+
+/*icons*/
+.icon {
+  width: 16px;
+  height: 16px;
+  margin: 8px;
+  float: left;
+}
+.icon_coin {
+  background: transparent url(images/coins.png) no-repeat 0px 0px;
+}
+.icon_date {
+  background: transparent url(images/date.png) no-repeat 0px 0px;
+}
+.icon_people {
+  background: transparent url(images/people.png) no-repeat 0px 0px;
+}
+.icon_detail{
+  background: transparent url(images/detail.png) no-repeat 0px 0px;
+}
+.create_button{
+  background: transparent url(images/save.gif) no-repeat 5px 5px;
+  width: 120px;
+  height: 38px;
+  font-size: 14px;
+  margin-right: 0px;
+  
+}
+  
+#activity_calendar {
+float: right;
+margin: 20px;
+}
+
+.pagination{
+  text-align: right;
+}
+.subject{
+  border-bottom: 1px;
+  border-style: solid;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  font-size: 16px;
+  color: #A7C942;
+  font-weight: bold;
+}
+
+.navigation-link {
+  margin-top: 10px;
+}
+
+.div-action-button{
+  width: 650px;
+  height: 30px;
+
+}
+
+
+/* inbox */
+#message_list td.title{
+  text-align: left;
+}
+
+/* balance sheet */
+.balance_hr{
+}
+
+
+
