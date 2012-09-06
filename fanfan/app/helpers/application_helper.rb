@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module ApplicationHelper
   def remote_function(options)
     method = options[:url][:method] || "GET"
@@ -20,7 +21,7 @@ module ApplicationHelper
     str += " negative-number" if money < 0
     str += " positive-number" if money >= 0
     str += "'>"
-    str += "$" + "%.2f" % money
+    str += "￥" + "%.2f" % money
     str += "</span>"
   end
 end
