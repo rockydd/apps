@@ -11,8 +11,8 @@
         <div class='activity_description'>
           <span class='user_name'>
             <%= activity.payers.map{|u|u.username == current_user.username ? "You" : u.username}.join(",") %>
-          </span> attended the activity <%=link_to activity.subject, activity %> 
-          <span class='activity_time'><%= time_ago_in_words(activity.occur_at) + ' ago' if activity.occur_at %>
+          </span> attended the activity <%=link_to activity.subject , activity %> 
+          <span class='activity_time'><%= "on " + activity.occur_at.to_s.split(" ")[0] if activity.occur_at %>
           </span>. It costed <%= raw format_money activity.cost%>. 
           <% if activity.status == Activity::STATUS_CLOSED %>
             <span class="closed status roundbox" title="this activity is closed">Closed</span>

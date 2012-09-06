@@ -50,7 +50,8 @@ class ActivitiesController < ApplicationController
         my_payment.confirmed = true 
         my_payment.save 
       end
-      send_confirmation_message(@activity)
+      # fixme, temperory comment before configure mail correctly
+      # send_confirmation_message(@activity)
       redirect_to @activity
     else
       @users=User.find(:all)
@@ -156,7 +157,7 @@ class ActivitiesController < ApplicationController
     params[:activity][:payments] = @payments 
     return true
 
-    payments = params[:activity][:payments].inject([]){|r,i| r[-1].is_a?(String) ?  r<<(Payment.new(:user_id => r.pop().to_i, :amount => i, :confirmed => false)) : r<<i}
+    payments = params[:activity][:payments].inject([]){|r,i| r[-1].is_a?(String) ?  r<<(Payment.new(:user_id => r.pop().to_i, :amount => i, :confirmed => false)) : r << i}
     return payments if payments.size <= 1
     total = payments[0].amount
     average = payments[0].amount/payments.size
@@ -177,7 +178,6 @@ class ActivitiesController < ApplicationController
     @activity.payers.each do |user|
       UserMailer.activity_email(user, @activity).deliver
     end
-    
   end
 
   def merge_occur_time

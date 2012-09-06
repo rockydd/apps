@@ -6,6 +6,5 @@ class UserMailer < ActionMailer::Base
     @activity = activity
 
     mail(:to => user.email, :subject => t("mail.subject.new_activity"))
-
   end
 end
