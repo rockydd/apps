@@ -117,7 +117,7 @@ jQuery(function (){
   <p>
     <s class="icon icon_date"></s>
     <span style="display:inline-block; width:100px"><%= f.label :occur_at %></span>
-    <%= f.text_field :occur_at, :value => DateTime.now.rfc3339[0..9], :size => 10 %>
+    <%= f.text_field :occur_at, :value => @activity.occur_date || DateTime.now.rfc3339[0..9], :size => 10 %>
     <%= select_tag "activity[occur_at_time]", options_from_collection_for_select((1..24).to_a.map{|i| "%02d:00" % i},'to_s','to_s','12:00')%>
   </p>
   <p>

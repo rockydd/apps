@@ -42,6 +42,10 @@ class Activity < ActiveRecord::Base
     status == STATUS_CLOSED
   end
 
+  def occur_date
+    occur_at.to_s.split[0]
+  end
+
   def self.paginate_by_user(user_id, page, all=true)
     if all
       paginate :conditions => ['payments.user_id = ?', user_id],
