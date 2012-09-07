@@ -10,7 +10,8 @@ class ActivitiesController < ApplicationController
   include Tools
 
   def index
-    @activities = Activity.paginate_by_user(current_user.id, params[:page])
+
+    @activities = Activity.paginate_by_user(current_user.id, params[:page], params[:all])
 
     respond_to do |format|
       format.html

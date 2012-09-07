@@ -42,10 +42,19 @@ class Activity < ActiveRecord::Base
     status == STATUS_CLOSED
   end
 
-  def self.paginate_by_user(user_id, page)
-    paginate :conditions => ['payments.user_id = ?', user_id],
-              :joins     => 'INNER JOIN payments ON payments.activity_id = activities.id',
-              :order     => 'created_at DESC',
-              :page      => page
+  def self.paginate_by_user(user_id, page, all=true)
+    if all
+      paginate :conditions => ['payments.user_id = ?', user_id],
+      :joins     => 'INNER JOIN payments ON payments.activity_id = activities.id',
+      :order     => 'created_at DESC',
+      :page      => page
+    else
+      paginate :conditions => ['payments.user_id = ? and status != ?', user_id, STATUS_CLOSED],
+      :joins     => 'INNER JOIN payments ON payments.activity_id = activities.id',
+      :order     => 'created_at DESC',
+      :page      => page
+    end
   end
+
+
 end

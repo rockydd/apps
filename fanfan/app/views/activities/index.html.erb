@@ -3,70 +3,11 @@
 <div class='action_link'><%= link_to "New Activity", new_activity_path, :class=>'new_action_link' %></div>
 
 <div style="margin-top: 40px">
-  <% if @activities.size > 0 %>
-  <ul id="activity_list">
-  <% for activity in @activities %>
-      <li class='activity_list_item'>
-
-        <div class='activity_description'>
-          <span class='user_name'>
-            <%= activity.payers.map{|u|u.username == current_user.username ? "You" : u.username}.join(",") %>
-          </span> attended the activity <%=link_to activity.subject , activity %> 
-          <span class='activity_time'><%= "on " + activity.occur_at.to_s.split(" ")[0] if activity.occur_at %>
-          </span>. It costed <%= raw format_money activity.cost%>. 
-          <% if activity.status == Activity::STATUS_CLOSED %>
-            <span class="closed status roundbox" title="this activity is closed">Closed</span>
-          <% elsif activity.confirmed_by_user?(current_user) %>
-            <span class="confirmed status roundbox" title="you have confirmed this activity">Confirmed</span>
-          <% else %>
-            <span class="new status roundbox" title="need your confirmation">new</span>
-          <% end %>
-        </div> 
-      </li>
-  <% end %>
-  </ul>
-     <%= will_paginate @activities%>
-  <%else %>
-    <div id="empty_activity">
-      <p> <%= t("activities.no_activity") %> </p>
-    </div>
-  <%end %>
+  <%= render :partial => "activities", :locals => {:activities => @activities} %>
 </div>
-<script type="text/javascript">
-$(function(){
-  return;
-  $("#list").jqGrid({
-    url:'activities.xml?from=jqgrid',
-    datatype: 'xml',
-    mtype: 'GET',
-    colNames:['Subject', 'Status','Cost','Date'],
-    colModel :[
-      {name:'subject',search:true, index:'subject', width:190},
-      {name:'status', index:'status', width:80, align:'right'},
-      {name:'cost', index:'cost', width:80, align:'right'},
-      {name:'created_at', index:'created_at', width:200, align:'right'},
-    ],
-    pager: '#pager',
-    rowNum:10,
-    rowList:[10,20,30],
-    sortname: 'id',
-    sortorder: 'desc',
-    viewrecords: true,
-    caption: 'Our Activities',
-  }).navGrid('#pager',{search:true, edit:false, add:false, del:false});
-/*jQuery("#list").jqGrid('searchGrid', {multipleSearch:true} );*/
-/*jQuery("#list").jqGrid('filterToolbar',{});*/
 
-});
+<%= link_to "Show all activities", activities_path(:all => true), {:class => "fr"}%>
 
-
-
-
-
-
-</script>
-<table id="list" width="100%"></table>
-<div id="pager"></div>
 
 
 
