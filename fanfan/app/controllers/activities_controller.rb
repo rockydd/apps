@@ -52,7 +52,7 @@ class ActivitiesController < ApplicationController
         my_payment.save 
       end
       # fixme, temperory comment before configure mail correctly
-      # send_confirmation_message(@activity)
+      send_confirmation_message(@activity)
       redirect_to @activity
     else
       @users=User.find(:all)
