@@ -1,0 +1,6 @@
+development:
+  site: "http://127.0.0.1:3000"
+test:
+  site: "http://127.0.0.1:3000"
+production:
+  site: "http://10.32.119.61"
