@@ -91,6 +91,7 @@ class ActivitiesController < ApplicationController
         my_payment.confirmed = true 
         my_payment.save 
       end
+      send_confirmation_edited_message(@activity)
       redirect_to @activity
     else
       render :action => 'edit'
@@ -172,13 +173,32 @@ class ActivitiesController < ApplicationController
 
   CONFIRMATION_MESSAGE="There is a new activity need your confirmation, please click following link to get there:\n\n <a href='/activities/__ID__'>ACTIVITY_NAME</a>"
 
+  CONFIRMATION_EDIT_MESSAGE="There is a changed activity need your confirmation, please click following link to get there:\n\n <a href='/activities/__ID__'>ACTIVITY_NAME</a>"
+
   def send_confirmation_message(activity)
     body = CONFIRMATION_MESSAGE.sub('__ID__', activity.id.to_s)
     body.sub!('ACTIVITY_NAME',activity.subject)
     send_message(activity.creator,@activity.payers, "Need your confirmation for #{activity.subject}", body)
-    @activity.payers.each do |user|
-      UserMailer.activity_email(user, @activity).deliver
-    end
+    fork {
+      @activity.payers.each do |user|
+        if user != current_user
+          UserMailer.activity_email(user, @activity).deliver
+        end
+      end
+    }
+  end
+
+  def send_confirmation_edited_message(activity)
+    body = CONFIRMATION_EDIT_MESSAGE.sub('__ID__', activity.id.to_s)
+    body.sub!('ACTIVITY_NAME',activity.subject)
+    send_message(activity.creator,@activity.payers, "Need your confirmation for #{activity.subject}", body)
+    fork {
+      @activity.payers.each do |user|
+        if user != current_user
+          UserMailer.edit_activity_email(user, @activity).deliver
+        end
+      end
+    }
   end
 
   def merge_occur_time

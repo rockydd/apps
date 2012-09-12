@@ -22,5 +22,16 @@ Fanfan::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+  :address              => "mailhub.lss.emc.com",
+  :port                 => 25,
+  :domain               => 'emc.com',
+#  :user_name            => '',
+#  :password             => '',
+#  :authentication       => '',
+#  :enable_starttls_auto => true  
+  }
 end
 

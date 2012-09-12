@@ -8,6 +8,7 @@ en:
   mail:
     subject:
       new_activity: "Need your confirmation for a payment"
+      edit_activity: "Need your confirmation for a payment"
   activity: "Activities"
   message: "Messages"
   balance: "Balance Sheet"

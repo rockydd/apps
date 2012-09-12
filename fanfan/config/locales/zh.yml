@@ -16,6 +16,7 @@ zh:
     subject:
       new_activity: 有活动支付信息需要你的确认
       no_activity: 你还没有添加任何活动
+      edit_activity: 有活动修改信息需要你的确认
   will_paginate:
     previous_label: '前一页'
     next_label: '下一页'

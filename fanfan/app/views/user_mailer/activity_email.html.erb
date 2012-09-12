@@ -4,9 +4,9 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>hi, <%= @user.username %></h1>
+    <h1>Hi, <%= @user.username %></h1>
     <p>
-      You have a new activity waiting for your confirmation: <a href="http://fanfan.bz<%= url_for(@activity) %>"> <%=@activity.subject%> </a>
+      You have a new activity waiting for your confirmation: <a href="<%= APP_CONFIG['site']+url_for(@activity) %>"> <%=@activity.subject%> </a>
     </p>
   </body>
 </html>
