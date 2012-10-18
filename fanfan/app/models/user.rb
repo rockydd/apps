@@ -41,6 +41,15 @@ class User < ActiveRecord::Base
     activity.creator == self
   end
 
+  def change_password(old_pass, new_pass)
+    if matching_password?(old_pass)
+      self.password = new_pass
+      prepare_password
+      return true
+    end
+    return false
+  end
+
   private
 
   def prepare_password

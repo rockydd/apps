@@ -11,6 +11,10 @@ Fanfan::Application.routes.draw do
   match 'logout' => 'sessions#destroy', :as => :logout
 
   match 'login' => 'sessions#new', :as => :login
+  
+  match 'home' => 'users#home', :as => :home
+  
+  match 'update_password' => 'users#update_password', :as => :update_password
 
   match 'change_theme' => 'sessions#change_theme'
 

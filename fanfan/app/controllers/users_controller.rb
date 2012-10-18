@@ -13,4 +13,20 @@ class UsersController < ApplicationController
       render :action => 'new'
     end
   end
+  
+  def home
+    
+  end
+
+  def update_password
+    password_old = params[:change_passwd]['password']
+    password_new = params[:change_passwd]['pass2']
+    
+    unless current_user.blank?
+      @ok = current_user.change_password(password_old, password_new)
+      if @ok 
+        current_user.save!
+      end
+    end
+  end
 end
