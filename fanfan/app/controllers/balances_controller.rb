@@ -2,9 +2,9 @@ class BalancesController < ApplicationController
   before_filter :login_required
   def index
     @bal = current_user.balance.nil? ? 0 : current_user.balance.amount
-    @total = current_user.payments.inject(0){|t, i| t = t + i.amount}
+    @total = current_user.total_payment
     @unconfirmed = current_user.payments.find_all{|p| ! p.confirmed}.inject(0){|t, i| t = t + i.amount }
-
+    @all_user_total = User.total_payment
     @balances = Balance.find(:all, :order => "amount desc")
     @due = find_pay_people(current_user.id, @bal, @balances)
     respond_to do |format|

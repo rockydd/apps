@@ -2,7 +2,7 @@
 
 <p>Your total payment: <%= raw format_money @total %>, unconfirmed: <%= raw format_money(@unconfirmed) %></p>
 <p>Your balance: <%= raw format_money @bal %></p>
-
+<p>All user payment: <%= raw format_money @all_user_total %></p>
 <% if @bal != 0 %>
 <hr align="left" class="balance_hr"/>
   <p>
