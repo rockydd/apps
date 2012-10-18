@@ -6,10 +6,10 @@ Fanfan::Application.initialize!
 #config.action_mailer.delivery_method = :smtp  #default
 #config.action_mailer.perform_deliveries = true
 #config.action_mailer.raise_delivery_errors = true
-#onfig.action_mailer.smtp_settings = {
-#  :address              => "smtp.gmail.com",
-#  :port                 => 587,
-#  :domain               => 'baci.lindsaar.net',
+#config.action_mailer.smtp_settings = {
+#  :address              => "mailhub.lss.emc.com",
+#  :port                 => 25 ,
+#  :domain               => 'lss.emc.com',
 #  :user_name            => '<username>',
 #  :password             => '<password>',
 #  :authentication       => 'plain',
