@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<% title "Home" %>
+
+<script type="text/javascript">
+function check_password()
+{
+    var pass1 = $('#change_passwd_pass').val();
+    var pass2 = $('#change_passwd_pass2').val();
+
+    if (pass1 != '' && pass2 != '' && pass1 === pass2)
+    {
+	$('form').submit();
+	return true;
+    }
+    else
+    {
+	$('#warning_message').html('Inputed password not valid');
+	return false;
+    }
+}
+</script>
+
+
+<% unless current_user.blank? %>
+<p>User Name: <%= current_user.username %></p>
+<% end %>
+<div class="notice field_with_errors" id="warning_message"></div>
+<div id="change_password">
+  <%= form_tag({ :controller => 'users', :action => 'update_password' }, :method => 'post', :id => 'change_password_form') do %>
+  <p>
+    <div>
+      <div>
+	Old password:
+      </div>
+      <%= password_field(:change_passwd,:password, :class => "meta-input", :size => 30) %>
+    </div>
+  </p>
+  <p>
+    <div>
+      <div>
+	New password:
+      </div>
+      <%= password_field(:change_passwd, :pass, :size => 30, :class => "meta-input") %>
+    </div>
+  </p>
+  <p>
+    <div>
+      <div>
+	Validate password:
+      </div>
+      <%= password_field(:change_passwd, :pass2, :size => 30, :class => "meta-input") %>
+    </div>
+  </p>
+  <p>
+    <div class="div-action-button">
+      <div style="float:right">
+	<%= button_tag "Update password", :onclick => 'return check_password();' %>
+      </div>
+    </div>
+  </p>
+  <% end %>
+</div>

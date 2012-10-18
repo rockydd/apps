@@ -17,8 +17,6 @@
     <%= javascript_include_tag 'date' %>
     <%= javascript_include_tag 'datePicker'%>
     <%= javascript_include_tag 'application'%>
-
-
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
   </head>
@@ -31,7 +29,7 @@
         <span id='beta_tag' class="roundbox">beta</span></span>
         <div id="welcome">
           <% if logged_in? %>
-          Welcome <%= current_user.username %>! Not you?
+          Welcome <%= link_to current_user.username, :controller => 'users', :action => 'home', :id => current_user %>!
           <%= link_to "Log out", logout_path %>
           <% else %>
           <%= link_to "Sign up", signup_path %> or
