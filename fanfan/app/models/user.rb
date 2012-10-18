@@ -48,6 +48,8 @@ class User < ActiveRecord::Base
       return true
     end
     return false
+  end	
+
   def total_payment
     payments.inject(0){|t, i| t = t + i.amount}
   end
