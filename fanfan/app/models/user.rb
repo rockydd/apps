@@ -41,6 +41,14 @@ class User < ActiveRecord::Base
     activity.creator == self
   end
 
+  def total_payment
+    payments.inject(0){|t, i| t = t + i.amount}
+  end
+
+  def User.total_payment
+    User.all.inject(0){|t, u| t += u.total_payment}
+  end
+
   private
 
   def prepare_password
