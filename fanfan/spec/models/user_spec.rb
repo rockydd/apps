@@ -9,11 +9,10 @@ describe User do
     FactoryGirl.build(:user, username:nil).should_not be_valid
   end
 
-  it "is invalid without username2" do
-    FactoryGirl.build(:user, username:nil).should_not be_valid    
-  end
-
   it "is invalid without username3" do
-    FactoryGirl.build(:user, username:nil).should_not be_valid    
+    FactoryGirl.build(:user, username:nil).should_not be_valid
+  end
+  it "is invalid without username3" do
+    FactoryGirl.build(:user, username:nil).should_not be_valid
   end
 end
