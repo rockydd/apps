@@ -28,14 +28,15 @@ group :development,:test do
   gem 'guard-test'         ,'0.5.0'
   gem 'test-unit'          ,'2.5.2'
   gem 'spork-testunit'     ,'0.0.8'
-  gem 'growl'
-  gem 'guard-pow'
-  gem 'rb-fsevent'         ,'0.9.1'
   gem 'listen'             ,'0.5.3'
 
+#  gem 'guard-pow'
+
+  gem 'growl',                      :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'rb-fsevent'         ,'0.9.1',:require => false if RUBY_PLATFORM =~ /darwin/i
+
+  gem 'rb-inotify'         ,'0.8.8' if RUBY_PLATFORM =~ /linux/i
   #  gem 'ruby-debug19'
-
-
 end
 
 
