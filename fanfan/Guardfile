@@ -1,7 +1,7 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' }, :test_unit_env => {'RAILS_ENV' => 'test'},:test_unit => false do
+guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' }, :test_unit_env => {'RAILS_ENV' => 'test'},:test_unit => false,:cucumber => false do
   watch('config/application.rb')
   watch('config/environment.rb')
   watch('config/environments/test.rb')
@@ -45,3 +45,18 @@ end
 #   watch(%r{^app/views/.+\.rb$})                      { "test/integration" }
 #   watch('app/controllers/application_controller.rb') { ["test/functional", "test/integration"] }
 # end
+
+# guard 'cucumber', :cli => '-drb' do
+#   watch(%r{^features/.+\.feature$})
+#   watch(%r{^features/support/.+$})          { 'features' }
+#   watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
+# end
+
+guard 'livereload' do
+  watch(%r{app/views/.+\.(erb|haml|slim)$})
+  watch(%r{app/helpers/.+\.rb})
+  watch(%r{public/.+\.(css|js|html)})
+  watch(%r{config/locales/.+\.yml})
+  # Rails Assets Pipeline
+  watch(%r{(app|vendor)/assets/\w+/(.+\.(css|js|html)).*})  { |m| "/assets/#{m[2]}" }
+end
