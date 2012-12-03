@@ -1,6 +1,0 @@
-.bundle
-db/*
-log/*
-tmp/**/*
-tmp
-tags
