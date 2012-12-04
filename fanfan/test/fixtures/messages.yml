@@ -5,7 +5,6 @@ one:
   sent_date: 2010-09-28 17:33:19
   sender_id: 1
   receiver_id: 1
-  status: MyString
   body: MyText
 
 two:
@@ -13,5 +12,4 @@ two:
   sent_date: 2010-09-28 17:33:19
   sender_id: 1
   receiver_id: 1
-  status: MyString
   body: MyText
