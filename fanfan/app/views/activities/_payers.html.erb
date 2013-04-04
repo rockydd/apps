@@ -20,17 +20,19 @@
 
     var newdivid='payer'+(++payercount);
     newpayer.attr('id',newdivid);
+    newpayer.find('.payername').attr('id','payername'+(payercount));
+    newpayer.find('.payername').attr('name', 'payments_'+payercount+'[name]');
     newpayer.find('.payername').attr('value', '');
     newpayer.find('.payername').attr('readonly', '');
     newpayer.find('.payername').removeClass('readonly');
     newpayer.find('.payername').removeClass('creator');
-    newpayer.find('td').eq(1).find('span').nextAll().remove();
-    newpayer.find('td').eq(1).append($('<input type="number" class="payamount" name="activity[payments][]"></input>'));
-    newpayer.find('td').eq(2).append($('<a href="javascript:void(0)" class="remove_payer">Remove</a>'));
-    newpayer.find('.payername').attr('id','payername'+(payercount));
+    newpayer.find('.td_amount span.currency_mark').nextAll().remove();
+    newpayer.find('.td_amount').append($('<input type="number" step="1" max="100000" class="payamount" name="payments_'+payercount+'[amount]"></input>'));
     newpayer.find('.payamount').attr('id','payeramount'+(payercount));
     newpayer.find('.payamount').attr('value',0);
     newpayer.find('.payamount').attr('readonly','');
+    newpayer.find('.should_pay').attr('name','payments_'+payercount+'[should_pay]');
+    newpayer.find('.td_action').append($('<a href="javascript:void(0)" class="remove_payer">Remove</a>'));
     newpayer.find('.remove_payer').click(function(){newpayer.remove();updateFinalRemaining()});
     newpayer.find('.payamount').change(updateFinalRemaining);
     newpayer.find('.payamount').keyup(updateFinalRemaining);
@@ -58,6 +60,7 @@
       <tr>
         <th id="th1"> Participant</th>
         <th id="th2">Paid</th>
+        <th id="th3">Should Pay</th>
         <th>Action</th>
         <th></th>
       </tr>
@@ -79,20 +82,25 @@
         <tr  class='newPayer' id='payer<%= id.to_s %>' >
           <td class="name_field"> 
 	          <input id="test" class="payername <%= "creator" if he_is_creator %> <%= "readonly" if !i_am_creator || he_is_creator%>" 
-                name="activity[payments][]" value="<%= payment.user.username %>" <%= "readonly='readonly'" unless i_am_creator && !he_is_creator%>/>
+            name="payments_<%=id%>[name]" value="<%= payment.user.username %>" <%= "readonly='readonly'" unless i_am_creator && !he_is_creator%>/>
           </td>
-          <td style="text-align: right" class="amount_field">
-            <span style="font-family: Arial">&yen;</span>
+          <td style="text-align: right" class="td_amount amount_field">
+            <span class='currency_mark' style="font-family: Arial">&yen;</span>
               <% if readonly %>
                 <span class='readonly payer_amount <%= "creator" if he_is_creator %>'><%= payment.amount || 0 %></span>
-                <input type='hidden' class='<%= "creator" if he_is_creator %>' name="activity[payments][]" value="<%= payment.amount || 0 %>" id="payamount<%= id %>"></input>
+                <input type='hidden' class='<%= "creator" if he_is_creator %>' name="payments_<%=id%>[amount]" value="<%= payment.amount || 0 %>" id="payamount<%= id %>"></input>
 
               <% else %>
                 <%= number_field_tag :amount, payment.amount || 0,
-                  {:step=>1, :max => 1000000,:class => "payamount ",:name=>"activity[payments][]",:id=>"payamount#{id}"}%>
+                  {:step=>1, :max => 1000000,:class => "payamount ",:name=>"payments_#{id}[amount]",:id=>"payamount#{id}"}%>
               <% end %>
           </td>
-          <td>
+          <td class='td_should_pay'>
+            <span style="font-family: Arial">&yen;</span>
+            <%= number_field_tag :should_pay, payment.should_pay|| 0,
+              {:step=>1, :max => 1000000,:class => "should_pay",:name=>"payments_#{id}[should_pay]",:id=>"shouldpay#{id}"}%>
+          </td>
+          <td class='td_action'>
             <% if ! readonly %>
               <a href="javascript:void(0)" class='remove_payer'>Remove</a>
             <% end %>

@@ -22,7 +22,7 @@ background: #999;
 text-align: right;
 font-weight: bold;
 }
-.payamount {
+.payamount, .should_pay{
   width: 60px;
 }
 .name_field input.readonly{
@@ -213,7 +213,7 @@ input.subject{
   width: 150px;
 }
 #payer_list th#th2{
-  width: 200px;
+  width: 150px;
 }
 
 
