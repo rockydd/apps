@@ -26,16 +26,21 @@
     newpayer.find('.payername').attr('readonly', '');
     newpayer.find('.payername').removeClass('readonly');
     newpayer.find('.payername').removeClass('creator');
+
     newpayer.find('.td_amount span.currency_mark').nextAll().remove();
-    newpayer.find('.td_amount').append($('<input type="number" step="1" max="100000" class="payamount" name="payments_'+payercount+'[amount]"></input>'));
+    newpayer.find('.td_amount').append($('<input type="number" step="any" max="100000" class="payamount" name="payments_'+payercount+'[amount]"></input>'));
     newpayer.find('.payamount').attr('id','payeramount'+(payercount));
     newpayer.find('.payamount').attr('value',0);
     newpayer.find('.payamount').attr('readonly','');
-    newpayer.find('.should_pay').attr('name','payments_'+payercount+'[should_pay]');
-    newpayer.find('.td_action').append($('<a href="javascript:void(0)" class="remove_payer">Remove</a>'));
-    newpayer.find('.remove_payer').click(function(){newpayer.remove();updateFinalRemaining()});
     newpayer.find('.payamount').change(updateFinalRemaining);
     newpayer.find('.payamount').keyup(updateFinalRemaining);
+
+    newpayer.find('.should_pay').attr('name','payments_'+payercount+'[should_pay]');
+    newpayer.find('.should_pay').change(function(){$(this).addClass('edited');updateShouldPay();});
+    newpayer.find('.should_pay').keyup(function(){$(this).addClass('edited');updateShouldPay();});
+
+    newpayer.find('.td_action').append($('<a href="javascript:void(0)" class="remove_payer">Remove</a>'));
+    newpayer.find('.remove_payer').click(function(){newpayer.remove();updateFinalRemaining();updateShouldPay();});
 
     newpayer.css('display', '');
   
@@ -51,8 +56,23 @@
   
     newpayer.click(updateFinalRemaining);
     updateFinalRemaining();
+    updateShouldPay();
 
     return;
+  }
+
+  function updateShouldPay()
+  {
+    //calculate edited should_pay
+    var num_payers=$('tr.newPayer').size();
+    var total_edited_should_pay = 0;
+    var edited_count = 0;
+    $(".should_pay.edited").each(function(){
+      total_edited_should_pay += parseFloat(this.value);
+      edited_count ++;
+      });
+    var left_avg = (total_cost - total_edited_should_pay)/(num_payers-edited_count);
+    $("input.should_pay.:not(.edited)").attr("value", left_avg);
   }
 </script>
   <table >
@@ -60,7 +80,7 @@
       <tr>
         <th id="th1"> Participant</th>
         <th id="th2">Paid</th>
-        <th id="th3">Should Pay</th>
+        <th id="th3">Should Pay <%= image_tag "calculator.png", :id => 'img_reset_avg', :class => 'clickable', :title => 'reset the average cost'  %></th>
         <th>Action</th>
         <th></th>
       </tr>
@@ -92,13 +112,13 @@
 
               <% else %>
                 <%= number_field_tag :amount, payment.amount || 0,
-                  {:step=>1, :max => 1000000,:class => "payamount ",:name=>"payments_#{id}[amount]",:id=>"payamount#{id}"}%>
+                  {:step=>'any', :max => 1000000,:class => "payamount ",:name=>"payments_#{id}[amount]",:id=>"payamount#{id}"}%>
               <% end %>
           </td>
           <td class='td_should_pay'>
             <span style="font-family: Arial">&yen;</span>
             <%= number_field_tag :should_pay, payment.should_pay|| 0,
-              {:step=>1, :max => 1000000,:class => "should_pay",:name=>"payments_#{id}[should_pay]",:id=>"shouldpay#{id}"}%>
+              {:step=>'any', :max => 1000000,:class => "should_pay",:name=>"payments_#{id}[should_pay]",:id=>"shouldpay#{id}"}%>
           </td>
           <td class='td_action'>
             <% if ! readonly %>

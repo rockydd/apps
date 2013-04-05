@@ -1,6 +1,6 @@
 <script type="text/javascript" language="javascript">
 
-
+var total_cost=0;
 function validate_activity()
 {
   var validate=true;
@@ -32,6 +32,17 @@ function validate_activity()
     submitted_users.push(this.value);
   });
 
+  var should_pay_total=0;
+  $('.should_pay').each(function(){
+      should_pay_total += parseFloat(this.value);
+      });
+
+  if(should_pay_total != total_cost)
+  {
+    alert("Sum of should_pay does not equal to total cost!");
+    validate = false;
+  }
+
   return validate;
 }
 function debug()
@@ -46,15 +57,15 @@ function debug()
 
   function getRemainingAmount()
   {
+    total_cost=parseFloat(jQuery("#activity_cost").val());
     var amount=0;
     jQuery(".payamount").each(function(index){
        if(index != 0)
          amount+=parseFloat(this.value);
     })
-    var total=parseFloat(jQuery("#activity_cost").val());
-    if (isNaN(total) )
+    if (isNaN(total_cost) )
       return 0;
-    return total - amount;
+    return total_cost - amount;
   }
   function updateFinalRemaining()
   {
@@ -63,13 +74,28 @@ function debug()
     jQuery(".amount_field span.creator ").text(remain);
   }
 
+  function reset_avg()
+  {
+    var num_payers=$('tr.newPayer').size();
+    var avg = total_cost/num_payers;
+    $('.should_pay').attr("value", avg).removeClass("edited");
+  }
+
+function cost_change()
+{
+  updateFinalRemaining();
+  reset_avg();
+}
+
+
 jQuery(function (){
 
   updateFinalRemaining();
   jQuery(".payamount").click(updateFinalRemaining);
   jQuery(".payamount").keyup(updateFinalRemaining);
-  jQuery("#activity_cost").change(updateFinalRemaining);
-  jQuery("#activity_cost").keyup(updateFinalRemaining);
+  jQuery("#activity_cost").change(cost_change);
+  jQuery("#activity_cost").keyup(cost_change);
+  jQuery("#img_reset_avg").click(reset_avg);
 
   $( "#activity_occur_at" ).datepicker({dateFormat: 'yy-mm-dd'});
 
@@ -101,6 +127,9 @@ jQuery(function (){
         return (validate_activity());
       });
   $("#activity_subject").focus();
+
+  $('.should_pay').change(function(){$(this).addClass('edited');updateShouldPay();});
+  $('.should_pay').keyup(function(){$(this).addClass('edited');updateShouldPay();});
   
 });
 </script>

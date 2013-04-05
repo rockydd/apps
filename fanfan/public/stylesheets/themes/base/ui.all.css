@@ -3,6 +3,9 @@
 color: red;
 }
 
+.clickable {
+  cursor: pointer;
+}
 
 
 #payment_detail {
