@@ -35,7 +35,7 @@
     newpayer.find('.payamount').change(updateFinalRemaining);
     newpayer.find('.payamount').keyup(updateFinalRemaining);
 
-    newpayer.find('.should_pay').attr('name','payments_'+payercount+'[should_pay]');
+    newpayer.find('.should_pay').attr('name','payments_'+payercount+'[should_pay]').removeClass('edited').attr('value',0);
     newpayer.find('.should_pay').change(function(){$(this).addClass('edited');updateShouldPay();});
     newpayer.find('.should_pay').keyup(function(){$(this).addClass('edited');updateShouldPay();});
 
