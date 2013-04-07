@@ -28,6 +28,10 @@ font-weight: bold;
 .payamount, .should_pay{
   width: 60px;
 }
+.should_pay.edited{
+  color: blue;
+  font-weight: bold;
+}
 .name_field input.readonly{
   border: none;
 }

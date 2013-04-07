@@ -19,10 +19,9 @@ class Activity < ActiveRecord::Base
   end
 
   def balance_of_user(user)
-    payment = payments.reject{ |p| p.user != user}[0]
+    payment = payments.select{ |p| p.user == user}[0]
     return 0 if payment.nil?
-    average = cost/payments.size
-    payment.amount - average
+    payment.amount - payment.should_pay
   end
 
   def confirmed_by_all?

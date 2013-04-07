@@ -32,10 +32,8 @@
       <th>Status</th>
     </tr>
     <tbody>
-    <% payers_count = @activity.payers.size %>
-    <% average = @activity.cost / payers_count %>
     <% for payment in @activity.payments %>
-    <% balance = (payment.amount - average).round(2) %>
+    <% balance = (payment.amount - payment.should_pay).round(2) %>
       <tr>
          <td><%=payment.user.username%></td>
          <td class="number"><%= raw format_money(payment.amount)%></td>

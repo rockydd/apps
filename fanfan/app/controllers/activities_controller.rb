@@ -4,7 +4,7 @@ require 'tools'
 class ActivitiesController < ApplicationController
   before_filter :login_required
   before_filter :merge_occur_time, :only => [:create, :update]
-  before_filter :get_payments, :only => [:create, :update]
+  before_filter :process_payments, :only => [:create, :update]
   include MessageSender
   include BalanceLib
   include Tools
@@ -137,38 +137,27 @@ class ActivitiesController < ApplicationController
   end
 
   private
-  def get_payments
+  def process_payments
     @payments = []
     @payments_invalid = false
-
-    pay_hash = Hash[*params[:activity][:payments]]
-    pay_hash.keys.each do |username|
+    payments = params.select{|p| p =~ /payments_[0-9]+/}
+    payments.each_value do |p|
+      username = p[:name]
       user = User.find_by_username(username)
       if(user.nil?)
         flash.now[:error] = "user #{username} not found"
         @payments_invalid = true
         next
       end
-      payment = Payment.new(:user_id => user.id.to_i, :amount => pay_hash[username])
+      payment = Payment.new(:user_id => user.id.to_i, :amount => p[:amount], :should_pay => p[:should_pay])
       @payments << payment
     end
+
     if @payments.size <= 0
       flash.now[:error] = "Need at least one participant."
-      @payments_invalid = false
+      @payments_invalid = true
     end
     params[:activity][:payments] = @payments 
-    return true
-
-    payments = params[:activity][:payments].inject([]){|r,i| r[-1].is_a?(String) ?  r<<(Payment.new(:user_id => r.pop().to_i, :amount => i, :confirmed => false)) : r << i}
-    return payments if payments.size <= 1
-    total = payments[0].amount
-    average = payments[0].amount/payments.size
-
-    #other payed
-    other_total = payments[1..-1].inject(0){ |sum,i| sum += i.amount}
-    payments[0].amount = total - other_total
-
-    payments
   end
 
   CONFIRMATION_MESSAGE="There is a new activity need your confirmation, please click following link to get there:\n\n <a href='/activities/__ID__'>ACTIVITY_NAME</a>"
