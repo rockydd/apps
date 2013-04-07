@@ -28,6 +28,7 @@
     <tr>
       <th>Participant</th>
       <th>Paid</th>
+      <th>Should Pay</th>
       <th>Balance</th>
       <th>Status</th>
     </tr>
@@ -37,6 +38,7 @@
       <tr>
          <td><%=payment.user.username%></td>
          <td class="number"><%= raw format_money(payment.amount)%></td>
+         <td class="number"><%= raw format_money(payment.should_pay)%></td>
          <td class="number" ><%= raw format_money(balance) %></td>
      <td>
          <% if payment.confirmed %>
