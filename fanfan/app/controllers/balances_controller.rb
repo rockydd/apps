@@ -7,6 +7,7 @@ class BalancesController < ApplicationController
     @all_user_total = User.total_payment
     @balances = Balance.find(:all, :order => "amount desc")
     @due = find_pay_people(current_user.id, @bal, @balances)
+    @activity = Activity.new #this is for payback page.
     respond_to do |format|
       format.html
       format.xml { render :xml => @bal }

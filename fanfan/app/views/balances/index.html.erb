@@ -1,5 +1,6 @@
 <% title "Balance Sheet" %>
 
+<input type='hidden' id='my_name' value='<%=@current_user.username%>'/>
 <p>Your total payment: <%= raw format_money @total %>, unconfirmed: <%= raw format_money(@unconfirmed) %></p>
 <p>Your balance: <%= raw format_money @bal %></p>
 <p>All user payment: <%= raw format_money @all_user_total %></p>
@@ -46,10 +47,28 @@
   <tbody>
     <% @balances.each do |balance|%>
     <tr>
-      <td><%= balance.user.username%></td>
+      <td class='td_username'>
+        <span class='sp_username'><%= balance.user.username%></span>
+        <span class='icon_coin sp_payback' style='visibility:hidden'>Payback</span></td>
       <td><%= raw (format_money balance.amount) %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
+
+<div id='div_repay' style='display:none'>
+  <%= render :partial => 'activities/payback' %>
+</div>
+<script type="text/javascript" language="javascript">
+  $(function(){
+      $(".td_username").mouseover(function(){$(this).find(".sp_payback").css("visibility","visible");});
+      $(".td_username").mouseout(function(){$(this).find(".sp_payback").css("visibility", "hidden");});
+      var my_name = $("#my_name").val();
+      $(".sp_payback").click(function(){
+        receiver_name = $(this).prev(".sp_username").text();
+        payback_page.show_payback_dialog(my_name, receiver_name);
+      });
+  });
+
+</script>
 

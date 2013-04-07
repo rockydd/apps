@@ -232,3 +232,11 @@ input.subject{
 /* balance sheet */
 .balance_hr{
 }
+
+.sp_payback{
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+  padding-left: 20px;
+  margin-left: 10px;
+}

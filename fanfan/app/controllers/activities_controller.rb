@@ -191,7 +191,11 @@ class ActivitiesController < ApplicationController
   end
 
   def merge_occur_time
-    params[:activity][:occur_at] = params[:activity][:occur_at] + " " + params[:activity][:occur_at_time]
+    if params[:activity][:occur_at].nil? || params[:activity][:occur_at_time].nil?
+      params[:activity][:occur_at] = Time.now.to_s
+    else
+      params[:activity][:occur_at] = params[:activity][:occur_at] + " " + params[:activity][:occur_at_time]
+    end
   end
 
 end

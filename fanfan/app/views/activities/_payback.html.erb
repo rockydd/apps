@@ -1,0 +1,31 @@
+<%= form_for @activity do |f| %>
+  <span>Payback </span><span id='sp_receiver_name'></span><span>:</span>
+  <%= f.number_field :cost, :class => "payamount total-cost",:min => 1, :max => 1000000%>
+  <%= f.hidden_field :subject, :id=>"subject" %>
+  <input type="hidden" id="sender_name" name="payments_1[name]" />
+  <input type="hidden" id="sender_amount" name="payments_1[amount]" />
+  <input type="hidden" id="sender_should_pay" name="payments_1[should_pay]" value='0'/>
+  <input type="hidden" id="receiver_name" name="payments_2[name]" />
+  <input type="hidden" id="receiver_amount" name="payments_2[amount]" value='0'/>
+  <input type="hidden" id="receiver_should_pay" name="payments_2[should_pay]" />
+  <%= f.submit "Pay", :class => "create_button"%>
+<% end %>
+<script type='text/javascript' language='javascript'>
+  var payback_page={
+    show_payback_dialog: function(sender,receiver){
+                     $("#subject").val(sender + ' payback ' + receiver);
+                     $("#sp_receiver_name").text(receiver);
+                     $("#receiver_name").val(receiver);
+                     $("#sp_sender_name").text(sender);
+                     $("#sender_name").val(sender);
+                     $("#div_repay").dialog({title:"Payback"});
+
+                       },
+    update_payback_data: function(){
+                     var cost = parseFloat($(".total-cost").val());
+                     $("#sender_amount").val(cost);
+                     $("#receiver_should_pay").val(cost);
+                   }
+  };
+  $(".total-cost").change(payback_page.update_payback_data).keyup(payback_page.update_payback_data);
+</script>
