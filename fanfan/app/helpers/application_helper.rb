@@ -15,6 +15,10 @@ module ApplicationHelper
 
   end
 
+  def currency_symbol
+    '<span style="font-family: Arial">&yen;</span>'.html_safe
+  end
+
   def format_money(money)
     money ||= 0
     str="<span class='number"
@@ -23,5 +27,8 @@ module ApplicationHelper
     str += "'>"
     str += "￥" + "%.2f" % money
     str += "</span>"
+
+    str.html_safe
+
   end
 end

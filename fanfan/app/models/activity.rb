@@ -1,6 +1,8 @@
 class Activity < ActiveRecord::Base
   STATUS_NEW = "new"
   STATUS_CLOSED = "closed"
+  TYPE_NOMAL = 0 #normal status
+  TYPE_PAYBACK = 1 #type of payback, this will not be calculated as the total payment amount.
   
   has_many :payers, :through => :payments, :source => :user
   has_many :payments
@@ -9,7 +11,7 @@ class Activity < ActiveRecord::Base
   validates_presence_of :status
   validates_presence_of :cost
   validates_presence_of :occur_at
-  attr_accessible :subject, :status, :detail, :cost, :payers, :payments, :creator, :occur_at
+  attr_accessible :subject, :status, :detail, :cost, :payers, :payments, :creator, :occur_at, :atype
   cattr_reader :per_page
   @@per_page = 10
 
@@ -25,7 +27,7 @@ class Activity < ActiveRecord::Base
   end
 
   def confirmed_by_all?
-    payments.reject{ |p| p.confirmed }.length.zero?
+    payments.reject{ |p| p.confirmed }.empty?
   end
   
   def payment_of_user(user)
@@ -37,12 +39,24 @@ class Activity < ActiveRecord::Base
     return payment && payment.confirmed
   end
 
+  def max_payer
+    payments.max_by{|p|p.amount}.user
+  end
+
   def closed?
     status == STATUS_CLOSED
   end
 
   def occur_date
     occur_at.to_s.split[0]
+  end
+
+  def is_normal?
+    atype == TYPE_NOMAL
+  end
+  
+  def is_payback?
+    atype == TYPE_PAYBACK
   end
 
   def self.paginate_by_user(user_id, page, all=true)

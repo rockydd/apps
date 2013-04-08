@@ -34,7 +34,7 @@ class ActivitiesController < ApplicationController
   end
 
   def create
-
+    params[:activity][:atype] ||= 0
     @activity = Activity.new(params[:activity])
     if @payments_invalid
       @users = User.find(:all)

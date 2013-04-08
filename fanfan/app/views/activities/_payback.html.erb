@@ -1,24 +1,29 @@
 <%= form_for @activity do |f| %>
-  <span>Payback </span><span id='sp_receiver_name'></span><span>:</span>
+  <p>
+  <span class='notes'>Please pay the money to <span class='sp_receiver_name'></span> first and then fill this form.</span>
+  </p>
+  <span>I have paid </span><span class='sp_receiver_name'> </span>
+  <%= currency_symbol%>
   <%= f.number_field :cost, :class => "payamount total-cost",:min => 1, :max => 1000000%>
   <%= f.hidden_field :subject, :id=>"subject" %>
+  <%= f.hidden_field :atype, :value => '1' %>
   <input type="hidden" id="sender_name" name="payments_1[name]" />
   <input type="hidden" id="sender_amount" name="payments_1[amount]" />
   <input type="hidden" id="sender_should_pay" name="payments_1[should_pay]" value='0'/>
   <input type="hidden" id="receiver_name" name="payments_2[name]" />
   <input type="hidden" id="receiver_amount" name="payments_2[amount]" value='0'/>
   <input type="hidden" id="receiver_should_pay" name="payments_2[should_pay]" />
-  <%= f.submit "Pay", :class => "create_button"%>
+  <%= f.submit "Save", :class => "create_button"%>
 <% end %>
 <script type='text/javascript' language='javascript'>
   var payback_page={
     show_payback_dialog: function(sender,receiver){
                      $("#subject").val(sender + ' payback ' + receiver);
-                     $("#sp_receiver_name").text(receiver);
+                     $(".sp_receiver_name").text(receiver);
                      $("#receiver_name").val(receiver);
                      $("#sp_sender_name").text(sender);
                      $("#sender_name").val(sender);
-                     $("#div_repay").dialog({title:"Payback"});
+                     $("#div_repay").dialog({title:"Payback",modal:true,width:'450px',resizable: false});
 
                        },
     update_payback_data: function(){

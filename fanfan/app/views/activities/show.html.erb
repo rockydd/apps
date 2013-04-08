@@ -1,16 +1,8 @@
 <% occur_at = @activity.occur_at || @activity.created_at %>
-<script type="text/javascript">
-   jQuery(function(){
-      return;
-      jQuery("#activity_calendar").renderCalendar({month:<%= occur_at.month-1%>,date:<%= occur_at.day %>, year:<%= occur_at.year %>});
-      tableToGrid("#payment_detail_d",{autoWidth:true, caption:'Payment Details'});
-   })
-</script>
-
+<% if @activity.is_normal? %>
    <div id='activity_subject'>
        <span class='subject'><%= @activity.subject %></span>
    </div>
-   <div id='activity_calendar'> </div>
    <p>
    <div><%= @activity.occur_at || @activity.created_at %></div>
    </p>
@@ -19,7 +11,7 @@
    <span class='label'>Average Cost:</span><span class='money'> <%= (@activity.cost/@activity.payers.size).round(2) unless @activity.payers.empty? %></span></div>
    </p>
    <p>
-   <div><span class='label'>Status: </span><%= @activity.status %></div>
+   <div><span class='label'>Status: </span><%= readable_activity_status(@activity) %></div>
    </p>
 <hr/>
 <div>
@@ -42,8 +34,8 @@
          <td class="number" ><%= raw format_money(balance) %></td>
      <td>
          <% if payment.confirmed %>
-              <span class="confirmed status roundbox">Confirmed</span>
-             <% elsif payment.user == current_user%>
+           <span class="confirmed status roundbox">Confirmed</span>
+         <% elsif payment.user == current_user%>
         <div id='<%= "confirm_span#{payment.id}" %>'>
             <%= link_to_function 'Confirm', 
                 remote_function(:update => "confirm_span#{payment.id}", :url => { :action => :confirm_payment, :method => 'POST' }, :confirm => "Are you sure?") %> </div>
@@ -58,10 +50,16 @@
   </table>
 
 </div>
+<% elsif @activity.is_payback? %>
+  <div><%= @activity.occur_at || @activity.created_at %></div>
+  <%= render :partial => 'payback_description', :locals => {:activity => @activity, :show_status => true} %>
+
+<% end %>
+
 <div class="navigation-link" >
-  <% if ! @activity.closed? %>
+  <% if ! @activity.closed? && @activity.is_normal? %>
     <%= link_to "Edit", edit_activity_path(@activity) %> |
   <% end %>
-  <%= link_to "Back to List", activities_path %>
+  <%= link_to "Back", activities_path %>
 </div>
 

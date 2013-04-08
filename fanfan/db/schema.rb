@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130407142600) do
+ActiveRecord::Schema.define(:version => 20130407174228) do
 
   create_table "activities", :force => true do |t|
     t.string   "subject"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20130407142600) do
     t.decimal  "cost"
     t.datetime "occur_at"
     t.integer  "creator_id"
+    t.integer  "atype",      :default => 0
   end
 
   create_table "balances", :force => true do |t|

@@ -4,11 +4,16 @@
   <li class='activity_list_item'>
 
     <div class='activity_description'>
-      <span class='user_name'>
-        <%= activity.payers.map{|u|u.username == current_user.username ? "You" : u.username}.join(",") %>
-      </span> attended the activity <%=link_to activity.subject , activity %> 
-      <span class='activity_time'><%= "on " + activity.occur_at.to_s.split(" ")[0] if activity.occur_at %>
-      </span>. It costed <span class="bd"> <%= raw format_money activity.cost%> </span>. 
+      <% if activity.is_normal? %>
+        <span class='user_name'>
+          <%= activity.payers.map{|u|u.username == current_user.username ? "You" : u.username}.join(",") %>
+        </span> attended the activity <%=link_to activity.subject , activity %> 
+        <span class='activity_time'><%= "on " + activity.occur_at.to_s.split(" ")[0] if activity.occur_at %>
+        </span>. It costed <span class="bd"> <%= format_money activity.cost%> </span>. 
+      <% elsif activity.is_payback? %>
+        <%= render :partial => 'payback_description', :locals => {:activity => activity, :show_status => false} %>
+      <% end%>
+
       <% if activity.closed? %>
       <span class="closed status roundbox" title="this activity is closed">Closed</span>
       <% elsif activity.confirmed_by_user?(current_user) %>

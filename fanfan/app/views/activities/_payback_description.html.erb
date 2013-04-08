@@ -1,0 +1,22 @@
+
+<% partner = activity.payers.select{|p| p!= current_user}[0] %>
+<% payer = activity.max_payer %>
+<% if partner.nil? || activity.payers.size > 2 %>
+  <span> (this <%= link_to 'activity', activity %> is corrupt. )</span>
+<% elsif payer == current_user %>
+  <span class='user_name'>You have </span> <%= link_to 'paid', activity%> <span class='user_name'><%= partner.username%></span>
+<% else %>
+  <span class='user_name'><%= partner.username%> has </span> <%= link_to 'paid', activity%> <span class='user_name'>you </span>
+<% end %>
+<span class="bd"> <%= format_money activity.cost%> </span>. 
+<% if show_status %>
+
+<% if !activity.confirmed_by_user?(current_user) %>
+  <% payment = activity.payment_of_user(current_user) %>
+  <span id='confirm_span<%=payment.id%>' >
+    <%= link_to_function 'Confirm', remote_function(:update => "confirm_span#{payment.id}", :url => { :action => :confirm_payment, :method => 'POST', :controller => :activities}, :confirm => "Are you sure?") %> 
+  </span>
+<% elsif partner && !activity.confirmed_by_user?(partner) %>
+  <span class='notes'>Waiting for <%=partner.username%> to confirm.</span>
+<% end %>
+<% end %>

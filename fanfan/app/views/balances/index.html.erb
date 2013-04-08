@@ -23,8 +23,9 @@
       <tbody>
       <% @due.each do |due| %>
         <tr>
-          <td><%= due[:user].username %></td>
-          <td><%= raw format_money(due[:amount])%></td>
+          <td class='td_username'>
+            <span class='sp_username'><%= due[:user].username %></span><span class='icon_coin sp_payback' style='visibility:hidden'>Payback</span></td>
+          <td><%= format_money(due[:amount])%></td>
         </tr>
       <% end %>
       </tbody>
@@ -46,8 +47,8 @@
   </thead>
   <tbody>
     <% @balances.each do |balance|%>
-    <tr>
-      <td class='td_username'>
+    <tr class='<%= balance.user == current_user ? 'hl_row current_user' : '' %>'>
+      <td class='td_username '>
         <span class='sp_username'><%= balance.user.username%></span>
         <span class='icon_coin sp_payback' style='visibility:hidden'>Payback</span></td>
       <td><%= raw (format_money balance.amount) %></td>
@@ -61,8 +62,8 @@
 </div>
 <script type="text/javascript" language="javascript">
   $(function(){
-      $(".td_username").mouseover(function(){$(this).find(".sp_payback").css("visibility","visible");});
-      $(".td_username").mouseout(function(){$(this).find(".sp_payback").css("visibility", "hidden");});
+      $("tr:not(.current_user) .td_username").mouseover(function(){$(this).find(".sp_payback").css("visibility","visible");});
+      $("tr:not(.current_user) .td_username").mouseout(function(){$(this).find(".sp_payback").css("visibility", "hidden");});
       var my_name = $("#my_name").val();
       $(".sp_payback").click(function(){
         receiver_name = $(this).prev(".sp_username").text();

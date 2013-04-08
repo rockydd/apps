@@ -1,4 +1,8 @@
 @import "ui.core.css";
+
+.notes {
+  font-style: italic;
+}
 .money {
 color: red;
 }
@@ -179,6 +183,7 @@ vertical-align: top;
   height: 35px;
   font-size: 14px;
   margin-right: 0px;
+  margin-left: 20px;
   
 }
   
@@ -231,6 +236,10 @@ input.subject{
 
 /* balance sheet */
 .balance_hr{
+}
+
+.hl_row{
+  background-color: yellow;
 }
 
 .sp_payback{
