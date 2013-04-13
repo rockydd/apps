@@ -24,6 +24,9 @@ Fanfan::Application.routes.draw do
     member do
       post 'confirm_payment'
     end
+    collection do
+      get  'check_activities'
+    end
   end
 
   resources :users

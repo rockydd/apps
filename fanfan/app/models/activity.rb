@@ -1,7 +1,24 @@
+class PaymentsValidator < ActiveModel::Validator
+
+  def validate(activity)
+    if activity.payments.size <= 0
+      activity.errors[:payments] << 'payments cannot be empty'
+    end
+    paid = activity.payments.inject(0.0) {|t,p| t += (p.amount || 0.0)}
+    if (activity.cost - paid).abs > 0.000001
+      activity.errors[:payments] << 'the total payment should be equal to the total cost.'
+    end
+    should_pay = activity.payments.inject(0.0) {|t,p| t += (p.should_pay || 0.0)}
+    if (activity.cost - should_pay).abs > 0.000001
+      activity.errors[:payments] << 'total should_pay should be equal to the total cost.'
+    end
+  end
+end
+    
 class Activity < ActiveRecord::Base
   STATUS_NEW = "new"
   STATUS_CLOSED = "closed"
-  TYPE_NOMAL = 0 #normal status
+  TYPE_NORMAL = 0 #normal status
   TYPE_PAYBACK = 1 #type of payback, this will not be calculated as the total payment amount.
   
   has_many :payers, :through => :payments, :source => :user
@@ -11,6 +28,11 @@ class Activity < ActiveRecord::Base
   validates_presence_of :status
   validates_presence_of :cost
   validates_presence_of :occur_at
+  validates_associated  :payments
+  validates :subject, :length => {:in => 3..300}
+  validates :atype, :inclusion => {:in => [Activity::TYPE_NORMAL, Activity::TYPE_PAYBACK]}
+  validates_with PaymentsValidator
+
   attr_accessible :subject, :status, :detail, :cost, :payers, :payments, :creator, :occur_at, :atype
   cattr_reader :per_page
   @@per_page = 10
@@ -52,7 +74,7 @@ class Activity < ActiveRecord::Base
   end
 
   def is_normal?
-    atype == TYPE_NOMAL
+    atype == TYPE_NORMAL
   end
   
   def is_payback?

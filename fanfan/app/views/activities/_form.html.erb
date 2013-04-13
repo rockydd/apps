@@ -37,7 +37,7 @@ function validate_activity()
       should_pay_total += parseFloat(this.value);
       });
 
-  if(should_pay_total != total_cost)
+  if(Math.abs(should_pay_total - total_cost)>0.000001)
   {
     alert("Sum of should_pay does not equal to total cost!");
     validate = false;

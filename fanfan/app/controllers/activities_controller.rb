@@ -2,7 +2,8 @@ require 'message_sender'
 require 'balance_lib'
 require 'tools'
 class ActivitiesController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required, :except => [:check_activities]
+  #around_filter :activity_validation_exception, :only => [:create, :update]
   before_filter :merge_occur_time, :only => [:create, :update]
   before_filter :process_payments, :only => [:create, :update]
   include MessageSender
@@ -136,6 +137,19 @@ class ActivitiesController < ApplicationController
     render :layout => false
   end
 
+  #this action is for cron job. it will check the confirmation status. will send email
+  #to who didn't concfirm the trasactions.
+  def check_activities
+    unconfirmed_activities = Activity.where(["status != 'closed'"])
+    unconfirmed_activities.each do |activity|
+      activity.payments.select{|p| !p.confirmed}.each do|payment|
+        UserMailer.activity_email(payment.user, activity).deliver
+        logger.info("sent mail to #{payment.user.username}")
+      end
+    end
+    head :ok
+  end
+
   private
   def process_payments
     @payments = []
@@ -195,6 +209,18 @@ class ActivitiesController < ApplicationController
       params[:activity][:occur_at] = Time.now.to_s
     else
       params[:activity][:occur_at] = params[:activity][:occur_at] + " " + params[:activity][:occur_at_time]
+    end
+  end
+
+  def activity_validation_exception
+    begin
+      yield
+    rescue Exception => e
+      debugger
+      @activity = Activity.new(params[:activity])
+      logger.info(e.message)
+      flash[:error] = e.message
+      render :action => :new
     end
   end
 
