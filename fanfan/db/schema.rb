@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130407174228) do
+ActiveRecord::Schema.define(:version => 20130416153921) do
 
   create_table "activities", :force => true do |t|
     t.string   "subject"
@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(:version => 20130407174228) do
     t.integer "activity_id"
     t.integer "user_id"
     t.decimal "amount"
-    t.boolean "final"
     t.boolean "confirmed"
     t.decimal "should_pay"
   end
