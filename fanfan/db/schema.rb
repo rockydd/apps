@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130416153921) do
+ActiveRecord::Schema.define(:version => 20130416155440) do
 
   create_table "activities", :force => true do |t|
     t.string   "subject"
@@ -59,6 +59,13 @@ ActiveRecord::Schema.define(:version => 20130416153921) do
     t.decimal "amount"
     t.boolean "confirmed"
     t.decimal "should_pay"
+  end
+
+  create_table "user_relations", :force => true do |t|
+    t.integer  "userid_from"
+    t.integer  "userid_to"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_thread", :id => false, :force => true do |t|
