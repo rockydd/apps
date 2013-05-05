@@ -12,4 +12,15 @@ class UserMailer < ActionMailer::Base
     @activity = activity
     mail(:to => user.email, :subject => t("mail.subject.edit_activity"))
   end
+
+  #user   to be invited
+  #fantuan  to be join
+  #inviter  user send the invitation
+  def fantuan_invitation(user, fantuan, inviter)
+    @user = user
+    @inviter = inviter
+    @fantuan = fantuan
+    mail(:to => user.email, :subject => t("mail.subject.fantuan_invitation"))
+
+  end
 end

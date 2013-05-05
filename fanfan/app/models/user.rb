@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :threads, :join_table => "inbox_threads", :foreign_key => "user_id", :association_foreign_key => "thread_id", :class_name => "MessageThread", :order => "updated_at DESC"
   has_one :balance
   has_and_belongs_to_many :friends, :join_table => "user_relations", :foreign_key => "userid_from", :association_foreign_key=> "userid_to", :class_name => "User"
+  has_and_belongs_to_many :fantuans
 
   attr_accessible :username, :email, :password, :password_confirmation
 
@@ -67,6 +68,14 @@ class User < ActiveRecord::Base
   #all people I known, including myself
   def circle
     friends + [self]
+  end
+
+  def join_fantuan(fantuan)
+    fantuan.add_user(self)
+  end
+
+  def invite_user(user, fantuan)
+    UserMailer.fantuan_invitation(user,fantuan,self)
   end
 
   private

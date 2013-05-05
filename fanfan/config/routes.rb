@@ -1,4 +1,6 @@
 Fanfan::Application.routes.draw do
+  resources :fantuans
+
   resources :balances
 
   get "thread/show"

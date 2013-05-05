@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @fantuan.name %>
+</p>
+
+<p>
+  <b>Creator:</b>
+  <%= @fantuan.creator_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_fantuan_path(@fantuan) %> |
+<%= link_to 'Back', fantuans_path %>
