@@ -34,6 +34,9 @@ class Activity < ActiveRecord::Base
   validates_with PaymentsValidator
 
   attr_accessible :subject, :status, :detail, :cost, :payers, :payments, :creator, :occur_at, :atype
+
+  after_save :update_relation
+
   cattr_reader :per_page
   @@per_page = 10
 
@@ -95,5 +98,14 @@ class Activity < ActiveRecord::Base
     end
   end
 
+  def update_relation
+    people = payers.to_a
+    return if people.size<2
+    (0..people.size-2).each do|i1|
+      (1..people.size-1).each do|i2|
+        people[i1].make_friends(people[i2])
+      end
+    end
+  end
 
 end

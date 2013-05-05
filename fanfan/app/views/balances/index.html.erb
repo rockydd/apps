@@ -4,35 +4,7 @@
 <p>Your total payment: <%= raw format_money @total %>, unconfirmed: <%= raw format_money(@unconfirmed) %></p>
 <p>Your balance: <%= raw format_money @bal %></p>
 <p>All user payment: <%= raw format_money @all_user_total %></p>
-<% if @bal != 0 %>
-<hr align="left" class="balance_hr"/>
-  <p>
-  <% if @bal > 0 %>
-    Following people owe you money:
-  <% elsif @bal < 0%>
-    You owe these people money: 
-  <% end%>
-  </p>
-    <table>
-      <thead>
-        <tr>
-          <th>User</th>
-          <th>Money</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @due.each do |due| %>
-        <tr>
-          <td class='td_username'>
-            <span class='sp_username'><%= due[:user].username %></span><span class='icon_coin sp_payback' style='visibility:hidden'>Payback</span></td>
-          <td><%= format_money(due[:amount])%></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-<% end%>
-<br/>
-  
+
 <hr class="balance_hr" align="left"/>
 <p>
   All Balances:
@@ -46,12 +18,12 @@
     </tr>
   </thead>
   <tbody>
-    <% @balances.each do |balance|%>
-    <tr class='<%= balance.user == current_user ? 'hl_row current_user' : '' %>'>
+    <% @people.each do |user|%>
+    <tr class='<%= user == current_user ? 'hl_row current_user' : '' %>'>
       <td class='td_username '>
-        <span class='sp_username'><%= balance.user.username%></span>
+        <span class='sp_username'><%= user.username%></span>
         <span class='icon_coin sp_payback' style='visibility:hidden'>Payback</span></td>
-      <td><%= raw (format_money balance.amount) %></td>
+      <td><%= raw (format_money user.balance.amount) %></td>
     </tr>
     <% end %>
   </tbody>

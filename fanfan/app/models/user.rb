@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   end
 
   def is_creator_of?(activity)
-    activity.creator == self
+    activity && activity.creator == self
   end
 
   def change_password(old_pass, new_pass)
@@ -60,8 +60,13 @@ class User < ActiveRecord::Base
   end
 
   def make_friends user
-    friends << user
-    user.friends << self
+    friends << user unless friends.include?(user)
+    user.friends << self unless user.friends.include?(self)
+  end
+
+  #all people I known, including myself
+  def circle
+    friends + [self]
   end
 
   private

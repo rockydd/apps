@@ -6,7 +6,10 @@ class BalancesController < ApplicationController
     @unconfirmed = current_user.payments.find_all{|p| ! p.confirmed}.inject(0){|t, i| t = t + i.amount }
     @all_user_total = User.total_payment
     @balances = Balance.find(:all, :order => "amount desc")
-    @due = find_pay_people(current_user.id, @bal, @balances)
+
+    @people = current_user.circle
+    @people.sort{|u| - u.balance.amount}
+
     @activity = Activity.new #this is for payback page.
     respond_to do |format|
       format.html
