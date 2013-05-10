@@ -17,4 +17,12 @@ describe User do
     FactoryGirl.build(:user, username:nil).should_not be_valid
   end
 
+  it "can join a fantuan" do
+    user = FactoryGirl.create(:user)
+    fantuan = FactoryGirl.create(:fantuan)
+    expect{
+      user.join_fantuan(fantuan)
+    }.to change(user.fantuans, :size).by(1) && change(fantuan.users, :size).by(1)
+  end
+
 end
