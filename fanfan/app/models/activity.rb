@@ -5,11 +5,11 @@ class PaymentsValidator < ActiveModel::Validator
       activity.errors[:payments] << 'payments cannot be empty'
     end
     paid = activity.payments.inject(0.0) {|t,p| t += (p.amount || 0.0)}
-    if (activity.cost - paid).abs > 0.000001
+    if ((activity.cost||0) - paid).abs > 0.000001
       activity.errors[:payments] << 'the total payment should be equal to the total cost.'
     end
     should_pay = activity.payments.inject(0.0) {|t,p| t += (p.should_pay || 0.0)}
-    if (activity.cost - should_pay).abs > 0.000001
+    if ((activity.cost||0) - should_pay).abs > 0.000001
       activity.errors[:payments] << 'total should_pay should be equal to the total cost.'
     end
   end
