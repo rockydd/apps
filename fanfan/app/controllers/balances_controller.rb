@@ -10,7 +10,7 @@ class BalancesController < ApplicationController
     #@people = current_user.circle
     #@people.sort{|u| - u.balance.amount}
     #cirle is not ready, disable now.
-    @people = User.all
+    @people = User.list_by_asset
 
     @activity = Activity.new #this is for payback page.
     respond_to do |format|
