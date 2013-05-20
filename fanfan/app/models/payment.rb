@@ -12,6 +12,7 @@ class Payment < ActiveRecord::Base
   belongs_to :user
 #  validates_uniqueness_of :user_id, :scope => :activity_id, :message => "Duplicate user found"
   def editable_by_user?(editing_user)
+    return true if activity.nil?
     if self.user == activity.creator
       return false
     end
