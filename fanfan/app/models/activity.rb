@@ -29,7 +29,7 @@ class Activity < ActiveRecord::Base
   validates_presence_of :cost
   validates_presence_of :occur_at
   validates_associated  :payments
-  validates :subject, :length => {:in => 3..300}
+  validates :subject, :length => {:in => 2..300}
   validates :atype, :inclusion => {:in => [Activity::TYPE_NORMAL, Activity::TYPE_PAYBACK]}
   validates_with PaymentsValidator
 
