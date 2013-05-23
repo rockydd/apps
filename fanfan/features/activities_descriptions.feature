@@ -5,9 +5,9 @@ Feature: Activity Creation
   I want to see the new acitvity with correct balance
 
   Scenario: Activity for average payment
-    Given an average activity
-    When I create a new activity which cost 200 with 4 members
-    Then The average payment should be 50:w
-    
-
+    Given system has 5 users
+    And a user rocky login
+    When I create a new activity familymart which cost 200 with 5 members
+    Then The average payment should be 40
+    And the total cost should be 200
 
