@@ -5,12 +5,20 @@
 # files.
 
 require 'cucumber/rails'
+require 'capybara/cucumber'
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
 Capybara.default_selector = :css
+
+Capybara.configure do |config|
+  config.match = :one
+  config.exact_options = true
+  config.ignore_hidden_elements = true
+  config.visible_text_only = true
+end
 
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how 
