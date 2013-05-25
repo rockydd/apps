@@ -7,8 +7,10 @@ class BalancesController < ApplicationController
     @all_user_total = User.total_payment
     @balances = Balance.find(:all, :order => "amount desc")
 
-    @people = current_user.circle
-    @people.sort{|u| - u.balance.amount}
+    #@people = current_user.circle
+    #@people.sort{|u| - u.balance.amount}
+    #cirle is not ready, disable now.
+    @people = User.list_by_asset
 
     @activity = Activity.new #this is for payback page.
     respond_to do |format|

@@ -35,6 +35,11 @@ class User < ActiveRecord::Base
     user = find(:first, :conditions => ["lower(email) = ?", email.downcase ])
   end
 
+  def self.list_by_asset
+    users = User.all
+    users.sort! {|x,y| y.asset <=> x.asset}
+  end
+
   def matching_password?(pass)
     self.password_hash == encrypt_password(pass)
   end
@@ -76,6 +81,9 @@ class User < ActiveRecord::Base
 
   def invite_user(user, fantuan)
     UserMailer.fantuan_invitation(user,fantuan,self)
+
+  def asset
+    self.balance.nil? ? 0:self.balance.amount
   end
 
   private
