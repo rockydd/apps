@@ -7,7 +7,7 @@ Given /a user (.*) login/ do |username|
   visit '/login/'
   fill_in 'login', :with => username
   fill_in 'password', :with => '123456'
-  click_link 'log in'
+  click_button 'Log in'
 end
 
 When /I create a new activity (.*) which cost (.*) with (.*) members/ do |act_name, cost, member_num|

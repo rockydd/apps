@@ -12,15 +12,16 @@ When /I sign up with name ([^ ]+) and password (.+)$/ do |name, password|
   #fill_in 'Confirm Password', :with => password
   fill_in 'Email Address', :with => "#{name}@fanfan.com"
 
-  click_link  'Sign up'
+  click_button  'Sign up'
+  page.should have_content ("Welcome")
 end
 
-Then /I should be able to login to the system/ do
+Then /I should be able to login to the system as ([^ ]+) with password ([^ ]+)$/ do |username, password|
   visit '/login/'
-  fill_in 'login', :with => @username
-  fill_in 'password', :with => @password
-  click_link 'log in'
-  page.should have_content("welcome #{@username}")
+  fill_in 'login', :with => username
+  fill_in 'password', :with => password
+  click_button'Log in'
+  page.should have_content("Welcome #{username}")
   #page.has_contain?("welcome #{@username}")
 
 end
