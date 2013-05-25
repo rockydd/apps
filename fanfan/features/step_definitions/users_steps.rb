@@ -68,3 +68,19 @@ end
 When /I visit login page/ do
   visit '/login/'
 end
+
+Given /logged in as (.+)$/ do |username|
+  password='123456'
+  visit '/login'
+  step "fill #{username} as the username"
+  step "fill #{password} as the password"
+  step "click button Log in"
+end
+
+Given /^the following people exist$/ do |table|
+  # table is a Cucumber::Ast::Table
+  
+  table.hashes.each do |t|
+    step "signed up a user #{t[:name]} with password 123456"
+  end
+end
