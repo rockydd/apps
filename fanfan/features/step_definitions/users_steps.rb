@@ -1,4 +1,4 @@
-Given /system is ready to register/ do
+Given /system is ready/ do
   #nothing need to do
 end
 
@@ -24,4 +24,47 @@ Then /I should be able to login to the system as ([^ ]+) with password ([^ ]+)$/
   page.should have_content("Welcome #{username}")
   #page.has_contain?("welcome #{@username}")
 
+end
+
+When /I visit singup page/ do
+  visit '/signup/'
+end
+
+And /fill (.+) as the username/ do |username|
+  fill_in 'Username', :with => username
+end
+
+And /fill (.+) as the email address/ do |email|
+  fill_in 'Email Address', :with => email
+end
+
+And /fill (.+) as the password/ do |password|
+  fill_in 'Password', :with => password
+end
+
+And /fill (.+) as the confirm password/ do |password|
+  fill_in 'Confirm Password', :with => password
+end
+
+And /click button (.+)$/ do |button|
+  click_button button
+end
+
+Then /I should see (.+)$/ do |text|
+  page.should have_content(text)
+end
+
+
+#complete step for signing up
+Given /signed up a user (.+) with password (.+)$/ do |username, password|
+  visit '/signup'
+  step "fill #{username} as the username"
+  step "fill #{username}@gmail.com as the email address"
+  step "fill #{password} as the password"
+  step "fill #{password} as the confirm password"
+  step "click button Sign up"
+end
+
+When /I visit login page/ do
+  visit '/login/'
 end
