@@ -12,6 +12,7 @@ require 'capybara/cucumber'
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
 Capybara.default_selector = :css
+Capybara.javascript_driver = :webkit
 
 #Capybara.configure do |config|
 #  config.match = :one

@@ -81,6 +81,7 @@ class User < ActiveRecord::Base
 
   def invite_user(user, fantuan)
     UserMailer.fantuan_invitation(user,fantuan,self)
+  end
 
   def asset
     self.balance.nil? ? 0:self.balance.amount

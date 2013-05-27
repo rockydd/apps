@@ -79,8 +79,9 @@ end
 
 Given /^the following people exist$/ do |table|
   # table is a Cucumber::Ast::Table
-  
+  @users=[]
   table.hashes.each do |t|
     step "signed up a user #{t[:name]} with password 123456"
+    @users << t[:name]
   end
 end
