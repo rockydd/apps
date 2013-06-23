@@ -85,3 +85,4 @@ Given /^the following people exist$/ do |table|
     @users << t[:name]
   end
 end
+

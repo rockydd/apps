@@ -25,4 +25,14 @@ Feature: User management
     And click button Log in
     Then I should see Welcome rocky
 
+  @test
+  Scenario: single step for sign in
+    Given the following people exist
+      |name|
+      |dgf|
+      |rockydd|
+    When I logged in as dgf
+    Then I should see Welcome dgf
+    When I logged in as rockydd
+    Then I should see Welcome rockydd
 

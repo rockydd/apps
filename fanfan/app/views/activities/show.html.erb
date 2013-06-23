@@ -32,7 +32,7 @@
          <td class="number"><%= raw format_money(payment.amount)%></td>
          <td class="number"><%= raw format_money(payment.should_pay)%></td>
          <td class="number" ><%= raw format_money(balance) %></td>
-     <td>
+         <td class="<%=payment.user.username%>_action">
          <% if payment.confirmed %>
            <span class="confirmed status roundbox">Confirmed</span>
          <% elsif payment.user == current_user%>
