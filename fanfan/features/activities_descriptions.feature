@@ -29,7 +29,7 @@ Feature: Activity Creation
       |dux        |￥0.00   |￥40.00        |￥-40.00    |Not confirmed|
       |edward     |￥0.00   |￥40.00        |￥-40.00    |Not confirmed|
 
-  @javascript @wip
+  @javascript
   Scenario: Create an activity which has different paid and should pay
     When logged in as rocky
     And I create an activity luosen which cost 200 and has following payment

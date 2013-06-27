@@ -53,6 +53,7 @@ Then /the payments detail should be/ do |payments|
 end
 
 When /^I visit activity (.+)$/ do |link|
+  visit activities_path
   click_link link
 end
 
@@ -67,4 +68,30 @@ end
 
 Then /(.+) should has Confirm link/ do |user|
   page.should have_selector(".#{user}_action", :text=> "Confirm")
+end
+
+##Balances##
+
+Given (/^following people confirmed activity (.+)$/) do |acts, table|
+  # table is a Cucumber::Ast::Table
+  acts.split(",").each do |act|
+    table.hashes.each do |row|
+      name=row['name']
+      step "logged in as #{name}"
+      step "I visit activity #{act}"
+      if page.has_no_selector?(".#{name}_action", :text => "Confirmed")
+        step "I click Confirm"
+      end
+    end
+  end
+end
+
+Then (/^the balance detail should be$/) do |table|
+  # table is a Cucumber::Ast::Table
+  visit balances_path
+  table.hashes.each do |row|
+    name = row['name']
+    balance = row['balance']
+    page.should have_selector(".#{name}_balance", :text => balance)
+  end
 end

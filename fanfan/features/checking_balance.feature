@@ -17,6 +17,30 @@ Feature: Checking balance
       |tony|
       |Alex|
       |ChengCheng|
-  @javascript 
+  @javascript @wip
   Scenario: Participate and confirm activities
-    Given 
+    Given logged in as rocky
+    And I create an activity luosen which cost 200 and has following payment
+      |Participant|Paid   |Should Pay|
+      |rocky      |130    |30        |
+      |shawn      |50     |70        |
+      |mario      |20     |80        |
+      |dux        |0      |20        |
+    And I create an activity familymart which cost 200 and has following payment
+      |Participant|Paid   |Should Pay|
+      |rocky      |130    |70        |
+      |shawn      |50     |30        |
+      |mario      |20     |20        |
+      |dux        |0      |80        |
+    And following people confirmed activity luosen,familymart
+      |name|
+      |rocky|
+      |shawn|
+      |mario|
+      |dux|
+    Then the balance detail should be
+      |name   |balance     |
+      |rocky  |￥160.00    |
+      |shawn  |￥0.00      |
+      |mario  |￥-60.00    |
+      |dux    |￥-100.00   |

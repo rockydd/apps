@@ -23,7 +23,7 @@
       <td class='td_username '>
         <span class='sp_username'><%= user.username%></span>
         <span class='icon_coin sp_payback' style='visibility:hidden'>Payback</span></td>
-      <td><%= raw (format_money user.balance.nil? ? 0: user.balance.amount) %></td>
+      <td class=<%=user.username+"_balance"%> ><%= raw (format_money user.balance.nil? ? 0: user.balance.amount) %></td>
     </tr>
     <% end %>
   </tbody>
