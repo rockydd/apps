@@ -95,3 +95,19 @@ Then (/^the balance detail should be$/) do |table|
     page.should have_selector(".#{name}_balance", :text => balance)
   end
 end
+
+Then /a user should only see her friend in balance page/ do |table|
+  table.hashes.each do |row|
+    login_user = row['login_user']
+    friends = row['friends']
+    non_friends = row['non friends']
+    step "logged in as #{login_user}"
+    visit balances_path
+    friends.split(",").each do |f|
+      page.should have_selector(".#{f}_balance")
+    end
+    non_friends.split(",").each do |n|
+      page.should_not have_selector(".#{n}_balance")
+    end
+  end
+end

@@ -19,7 +19,7 @@
   </thead>
   <tbody>
     <% @people.each do |user|%>
-    <tr class='<%= user == current_user ? 'hl_row current_user' : '' %>'>
+      <tr class='<%= user == current_user ? 'hl_row current_user my_friend' : '' %> <%= "my_friend" if current_user.is_friend?(user)%> '>
       <td class='td_username '>
         <span class='sp_username'><%= user.username%></span>
         <span class='icon_coin sp_payback' style='visibility:hidden'>Payback</span></td>
@@ -41,6 +41,7 @@
         receiver_name = $(this).prev(".sp_username").text();
         payback_page.show_payback_dialog(my_name, receiver_name);
       });
+      $("tr:not(.my_friend)").css("display","none");
   });
 
 </script>

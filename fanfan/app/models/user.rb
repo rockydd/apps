@@ -70,6 +70,10 @@ class User < ActiveRecord::Base
     user.friends << self unless user.friends.include?(self)
   end
 
+  def is_friend?(user)
+    self.friends.include? user
+  end
+
   #all people I known, including myself
   def circle
     friends + [self]

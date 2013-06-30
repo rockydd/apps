@@ -15,12 +15,14 @@ Feature: Checking balance
       |everett|
       |terry|
       |tony|
-      |Alex|
-      |ChengCheng|
-  @javascript @wip
+      |alex|
+      |chengcheng|
+  @javascript
   Scenario: Participate and confirm activities
+
     Given logged in as rocky
     And I create an activity luosen which cost 200 and has following payment
+
       |Participant|Paid   |Should Pay|
       |rocky      |130    |30        |
       |shawn      |50     |70        |
@@ -44,3 +46,34 @@ Feature: Checking balance
       |shawn  |￥0.00      |
       |mario  |￥-60.00    |
       |dux    |￥-100.00   |
+
+  @javascript @wip
+  Scenario: Only show my friends balance by default
+    Given logged in as rocky
+    And I create an activity luosen which cost 200 and has following payment
+      |Participant|Paid   |Should Pay|
+      |rocky      |130    |30        |
+      |shawn      |50     |70        |
+      |mario      |20     |80        |
+      |dux        |0      |20        |
+    And following people confirmed activity luosen
+      |name|
+      |rocky|
+      |shawn|
+      |mario|
+      |dux|
+    And logged in as tony
+    And I create an activity familymart which cost 90 and has following payment
+      |Participant|Paid   |Should Pay|
+      |tony       |90     |30        |
+      |alex       |0      |30        |
+      |chengcheng |0      |30        |
+    And following people confirmed activity familymart
+      |name|
+      |tony|
+      |alex|
+      |chengcheng|
+    Then a user should only see her friend in balance page
+      |login_user |friends        |non friends        |
+      |rocky      |rocky,shawn,dux|tony,alex,chengcheng|
+      |tony       |alex,chengcheng|rocky,shawn,dux     |
