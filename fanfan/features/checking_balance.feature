@@ -47,7 +47,7 @@ Feature: Checking balance
       |mario  |￥-60.00    |
       |dux    |￥-100.00   |
 
-  @javascript @wip
+  @javascript
   Scenario: Only show my friends balance by default
     Given logged in as rocky
     And I create an activity luosen which cost 200 and has following payment
@@ -77,3 +77,5 @@ Feature: Checking balance
       |login_user |friends        |non friends        |
       |rocky      |rocky,shawn,dux|tony,alex,chengcheng|
       |tony       |alex,chengcheng|rocky,shawn,dux     |
+
+    Scenario: Calculate the balance only in his fantuan.

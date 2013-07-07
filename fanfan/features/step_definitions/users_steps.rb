@@ -46,13 +46,6 @@ And /fill (.+) as the confirm password/ do |password|
   fill_in 'Confirm Password', :with => password
 end
 
-And /click button (.+)$/ do |button|
-  click_button button
-end
-
-Then /I should see (.+)$/ do |text|
-  page.should have_content(text)
-end
 
 
 #complete step for signing up

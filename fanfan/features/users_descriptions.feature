@@ -22,7 +22,7 @@ Feature: User management
     When I visit login page
     And fill rocky as the username
     And fill 123456 as the password
-    And click button Log in
+    And I click button Log in
     Then I should see Welcome rocky
 
   @test
