@@ -6,7 +6,7 @@ class AddInboxThread < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :inbox_thread
+    drop_table :inbox_threads
   end
 
 end

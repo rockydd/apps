@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130416155440) do
+ActiveRecord::Schema.define(:version => 20130710062838) do
 
   create_table "activities", :force => true do |t|
     t.string   "subject"
     t.string   "status"
     t.string   "detail"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.decimal  "cost"
     t.datetime "occur_at"
     t.integer  "creator_id"
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(:version => 20130416155440) do
 
   create_table "message_threads", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "status"
   end
 
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(:version => 20130416155440) do
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "thread_id"
   end
 
@@ -62,10 +62,8 @@ ActiveRecord::Schema.define(:version => 20130416155440) do
   end
 
   create_table "user_relations", :force => true do |t|
-    t.integer  "userid_from"
-    t.integer  "userid_to"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "userid_from"
+    t.integer "userid_to"
   end
 
   create_table "user_thread", :id => false, :force => true do |t|
@@ -78,8 +76,8 @@ ActiveRecord::Schema.define(:version => 20130416155440) do
     t.string   "email"
     t.string   "password_hash"
     t.string   "password_salt"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
 end
